@@ -55,7 +55,7 @@
       "is_active": true, 
       "is_superuser": true, 
       "is_staff": true, 
-      "last_login": "2008-04-01 16:36:27", 
+      "last_login": "2008-04-26 22:29:27", 
       "groups": [], 
       "user_permissions": [], 
       "password": "sha1$19677$57b637f9d15e2223c83f0412e01e9fd5fff3da1e", 
@@ -703,6 +703,14 @@
       "y": 0, 
       "x": 0, 
       "z": 0
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "graphics2.processimage", 
+    "fields": {
+      "process": 3, 
+      "file": "images\\question.png"
     }
   }
 ]

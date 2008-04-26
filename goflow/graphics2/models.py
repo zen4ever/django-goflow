@@ -11,6 +11,15 @@ class ProcessImage(models.Model):
     def graphic(self):
         return '<img name=image%d src=%s>' % (self.id, self.get_file_url())
     graphic.allow_tags=True
+    def graphic_input(self):
+        return '<input type=image name=process src=%s>' % self.get_file_url()
+    graphic_input.allow_tags=True
+    
+    def list_activities(self):
+        return self.process.activities.all()
+    
+    def list_activity_positions(self):
+        return ActivityPosition.objects.filter(diagram=self)
     
     class Admin:
         list_display = ('process', 'graphic', 'file')

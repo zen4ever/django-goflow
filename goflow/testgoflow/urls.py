@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     (r'^edit/(?P<id>.*)/$', 'goflow.workflow.applications.edit_model', {'form_class':DefaultAppForm}),
     #
     (r'^admin/workflow/', include('goflow.urls_admin')),
+    (r'^admin/graphics2/', include('goflow.graphics2.urls_admin')),
     (r'^admin/', include('django.contrib.admin.urls')),
     (r'^workflow/', include('goflow.urls')),
 )
