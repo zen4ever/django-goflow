@@ -1,0 +1,22 @@
+{% extends "base_site.html" %}
+{% block content %}
+<h1>Work requested by {{user.username}}</h1>
+
+<table border=1>
+<tr>
+ <th>Requested</th><th>Title</th><th>Status</th>
+</tr>
+
+{% for inst in instances %}
+<tr>
+<td>{{inst.creationTime}}</td>
+<td><a href=instancehistory?id={{inst.id}}>{{inst.title}}</a></td>
+<td>{{inst.get_status_display}}</td>
+</tr>
+{% endfor %}
+
+</table>
+<p>
+<a href="home">To frontpage</a>
+</p>
+{% endblock %}

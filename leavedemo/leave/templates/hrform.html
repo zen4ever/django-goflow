@@ -1,0 +1,27 @@
+{% extends "base_site.html" %}
+{% block content %}
+<h1>Check leave ability</h1>
+To the secretary. You are requested to do the following thing at this stage:
+<ol>
+<li>Check that the dates are meaningful</li>
+<li>Calculate the number of days this will take from vacation budget</li>
+<li>Update HR's system</li>
+</ol>
+<table> 
+<tr><td>Requester</td><td>{{ instance.user }}</td></tr>
+<tr><td>Start date</td><td>{{ object.dayStart }}</td></tr>
+<tr><td>End date</td><td>{{ object.dayEnd }}</td></tr>
+<tr><td>Reason</td><td>{{ object.reason }}</td></tr>
+<tr><td>Type</td><td>{{ object.type }}</td></tr>
+</table>
+<p>
+<form method="post">
+<input type="submit" name="{{ submit_name }}" value="{{ ok_value }}">
+<input type="submit" name="{{ submit_name }}" value="Cancel">
+</form>
+
+<p>
+<a href="home/">To frontpage</a>
+</p>
+
+{% endblock %}

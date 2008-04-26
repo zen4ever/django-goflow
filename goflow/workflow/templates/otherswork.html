@@ -1,0 +1,24 @@
+{% extends "base_site.html" %}
+{% block content %}
+<h1>Worklist for {{worker}}</h1>
+
+<table border=1>
+<tr>
+ <th>Activity</th><th>Instance</th><th>Status</th><th>Actor</th>
+</tr>
+
+{% for wi in workitems%}
+<tr>
+<td>{{wi.activity}}</td>
+<td><a href=instancehistory?id={{wi.instance.id}}>{{wi.instance}}</a></td>
+<td>{{ wi.get_status_display }}</td>
+<td>{{wi.user}}</td>
+</tr>
+{% endfor %}
+
+</table>
+<p>
+<a href="home">To frontpage</a>
+</p>
+
+{% endblock %}

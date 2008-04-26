@@ -1,0 +1,28 @@
+{% extends "base_site.html" %}
+{% block content %}
+<h1>Instance history {{instance}}</h1>
+date création: {{instance.date}}
+
+<h2>Work items</h2>
+{% for wi in instance.workitems.all %}
+<h3>{{wi}}</h3>
+<table border=1>
+
+<tr>
+ <th>Activity</th><th>Step</th><th>Status</th><th>Actor</th>
+</tr>
+<tr>
+<td>{{ wi.activity }}</td>
+<td>{{ forloop.counter }}</td>
+<td>{{ wi.get_status_display }}</td>
+<td>{{ wi.user }}</td>
+</tr>
+
+</table>
+{% endfor %}
+
+</table>
+<p>
+<a href="home">To frontpage</a>
+</p>
+{% endblock %}

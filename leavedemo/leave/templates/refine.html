@@ -1,0 +1,11 @@
+{% extends "edit_model.html" %}
+
+
+{% block content_header %}
+<h1>Refine leave request</h1>
+To the requester.
+
+<p>Reason of denial: {{object.reasonDenial}}
+<p>
+You are asked to do the following thing at this stage:
+{% endblock %}

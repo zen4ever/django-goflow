@@ -1,0 +1,49 @@
+GoFlow - A workflow engine for Django
+-------------------------------------
+
+1. Components:
+
+- goflow: workflow django contrib
+
+- leavedemo: goflow demo project
+
+- leave: fastcgi deployment (on alwaysdata.net)
+
+
+2. Requirements:
+
+- Python 2.4+
+- Django 0.97-pre (SVN)
+
+
+3. Install instructions:
+
+
+- cd leavedemo
+  > export PYTHONPATH=..
+  > create the database with command "python manage.py syncdb"
+  > don't create the admin account (answer no when asked), because
+    leave demo data and all users required for playing with it will
+    be created at this stage.
+ 
+- superuser is "admin" with password "open"
+
+
+
+4. Test instructions:
+
+- run "python manage.py runserver" (with goflow in python path)
+
+- admin interface: http://localhost:8000/leave/admin
+
+- leave demo:      http://localhost:8000/leave/
+
+
+5. deployment instruction on a factcgi server online (like www.alwaysdata.net)
+
+- copy get_svn_leavdemo.sh on the server and run
+
+- admin interface: http://localhost:8000/leave/admin
+
+- leave demo:      http://localhost:8000/leave/
+

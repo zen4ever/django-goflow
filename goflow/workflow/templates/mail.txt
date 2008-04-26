@@ -1,0 +1,19 @@
+mail sent by goflow.
+
+This mail template (mail.txt) is a default template
+You should define one template for each notification message.
+
+You can use these variables:
+- workitems
+- user
+- url_prefix (like "http://myhost.com/", with myhost.com defined in the user profile field [web_host])
+
+The "subject" parameter (urls.py) is a template string too, with these variables
+availables:
+-workitems
+-user
+
+You have {{ workitems.count }} items in your work list: {{ url_prefix }}workflow/mywork/.
+
+
+

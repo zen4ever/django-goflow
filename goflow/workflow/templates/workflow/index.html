@@ -1,0 +1,105 @@
+{% extends "base_site.html" %}
+{% block coltype %}colMS{% endblock %}
+
+{% block content %}
+<h1>Workflow dashboard</h1>
+
+<div id="content-main">
+
+<div class=module>
+<h2>Processes</h2>
+<a href=../admin/workflow/process/>Edit</a>
+<p>{{processes.count}} process(es):
+{% for p in processes %}
+ | <a href=#process_{{p.id}}>{{p.title}}</a>
+{% endfor %}
+
+<table>
+{% for p in processes %}
+  <tr><td>
+  <div class=module>
+  <a name=process_{{p.id}}><h3>Process [{{p.title}}]</h3></a>
+  <pre>
+  <a href=start_proto/{{p.title}}/>start a simulation instance</a>  (role [{{p.title}}] with perm <i>can_instantiate</i> required)
+  -----------------------------------------
+  Description:
+{{p.description}}
+  -----------------------------------------
+  
+  starting activity: [{{p.begin.title}}]    final activity: [{{p.end.title}}]
+
+  transitions:
+    {% for t in p.transitions.all %}
+    from [{{t.input.title}}] to [{{t.output.title}}] with condition [{{t.condition}}]
+    {% endfor %}
+  </pre>
+  </div>
+  </td></tr>
+{% endfor %}
+</table>
+</div>
+
+
+<div class=module>
+<h2>Instances history</h2>
+<table>
+{% for ob in obinstances %}
+  <tr><td>
+  <div class=module>
+  <h3>process {{ ob.wfinstance.process.title }}: instance [{{ob}}]</h3>
+  <pre>{{ ob.history }}</pre>
+  </div>
+  </td></tr>
+{% endfor %}
+</table>
+</div>
+
+
+<p>
+<a href="home">To frontpage</a>
+</p>
+
+</div>
+{% endblock %}
+
+
+<!-- sidebar -->
+{% block sidebar %}
+<div id="content-related">
+
+<div class=module>
+<h2>I am {{ user.username }}</h2>
+<ul>
+<li><a href=mywork/>my work list</a>
+<li>my roles:       {% for r in user.groups.all %}[{{r.name}}] {% endfor %}
+<li>my permissions: {% for p in user.get_all_permissions %}[{{p}}] {% endfor %}
+</ul>
+</div>
+
+<div class=module>
+<h2>Roles</h2>
+<a href=../admin/auth/group/>Edit</a>
+<table>
+<tr><th><i>Role</i><br>permissions</th><th>users worklists</th></tr>
+{% for r in roles %}
+  <tr>
+  <td><i>{{r.name}}</i><br>
+  {% for p in r.permissions.all %}[{{p.name}}] {% endfor %}</td>
+  <td>{% for u in r.user_set.all %}[<a href=otherswork/?worker={{u.username}}>{{u.username}}</a>] {% endfor %}
+  </td>
+  </tr>
+{% endfor %}
+</table>
+</div>
+
+
+<div class=module>
+<h2>Admin</h2>
+<ul>
+<li><a href=../admin/ target=admin>Admin console</a>
+</ul>
+</div>
+
+</div>
+{% endblock %}
+

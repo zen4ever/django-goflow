@@ -1,0 +1,55 @@
+/*
+    GoFlow process dot file
+    http://code.djangoproject.com/wiki/GoFlow
+*/
+digraph "{{ process.title }}" {
+
+    subgraph cluster0 {
+      label= "GoFlow workflow symbology";
+      init0 [shape=circle, style=filled, label="", color=black, color=black];
+      end0  [shape=doublecircle, style=bold, label="end", color=black];
+      activity [label="Activity title\n[application]"];
+	    init0 -> activity [headlabel="push_application"];
+      activity -> end0 [label="condition"];
+      
+      {% for role in roles %}
+      role{{role.id}} [label="<<role>>\n{{role.name}}", color={{role.color}}, style=filled]
+      {% endfor %}
+    }
+    
+    size="12,8";
+	rankdir=TB;
+	
+    init [shape=circle, style=filled, label="", color=black];
+    activity{{process.end.id}}  [shape=doublecircle, style=bold, label="end", color=black];
+
+    node [shape=ellipse];
+    
+    /* begin activity */
+    activity{{process.begin.id}} [label = "{{process.begin.title}}\n[{{ process.begin.application.url }}]"];
+    init -> activity{{process.begin.id}} [label="", headlabel="{{ process.begin.pushApplication.url }}"];
+
+/*
+    begin_split [shape=diamond, label=""];
+    refine [label = "Refinement\n[refine]"];
+    refine_split [shape=diamond, label=""];
+    updatehr [label = "Update HR\n[hrform]"];
+    telluser [label="Tell user\n[finalinfo]"];
+    begin -> begin_split[headport=n];
+    begin_split -> approval [taiport=w, label = "'OK: Forward to supervisor'", headlabel="route_to_supervisor"];
+    begin_split -> refine [tailport=s, label = "'Denied: Back to requester'", headlabel="route_to_customer"];
+    
+    approval [label = "Approval\n[approvalform]"];
+    approval_split [shape=diamond, label=""];
+    approval -> approval_split;
+    approval_split -> updatehr [taiport=w, label = "'OK: Forward to secretary'", headlabel="route_to_secretary"];
+    approval_split -> refine [taiport=e, label = "'Denied: Back to requester'", headlabel="route_to_customer"];
+    
+    refine -> refine_split;
+    refine_split -> end [taiport=s, label = "'Withdraw request'"];
+    refine_split -> begin [taiport=e, label = "'Re-request'", headlabel="route_to_secretary"];
+
+    updatehr -> telluser[headlabel="route_to_customer"];
+    telluser -> end;
+*/
+}

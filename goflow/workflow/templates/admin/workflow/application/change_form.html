@@ -1,0 +1,9 @@
+{% extends "admin/change_form.html" %}
+{% block form_top %}
+<p>
+The application url is relative to http://[web_host]/[settings.WF_APPS_PREFIX]/
+<p>If "auto start" mode is set in an activity, the url handler should
+have "request=None" first parameter specification. More parameters
+are allowed, and should be defined in the "parameters" field in the activity
+as a dictionary.
+{% endblock %}

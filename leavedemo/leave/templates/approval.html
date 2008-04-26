@@ -1,0 +1,17 @@
+{% extends "edit_model.html" %}
+
+
+{% block content_header %}
+<h1>Approval of leave request</h1>
+To the supervisor. You are requested to do the following thing at this stage:
+<ol>
+<li>Check that the request is reasonable and doesn't interfer with the company's work</li>
+</ol>
+<table> 
+<tr><td>Requester</td><td>{{ instance.user.username }}</td></tr>
+<tr><td>Start date</td><td>{{ object.dayStart }}</td></tr>
+<tr><td>End date</td><td>{{ object.dayEnd }}</td></tr>
+<tr><td>Reason</td><td>{{ object.reason }}</td></tr>
+<tr><td>Type</td><td>{{ object.type }}</td></tr>
+</table>
+{% endblock %}

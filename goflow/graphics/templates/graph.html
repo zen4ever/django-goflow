@@ -1,0 +1,32 @@
+{% extends "base_site.html" %}
+
+{% block content %}
+<script type="text/javascript" src="/js/wz_dragdrop.js"></script>
+
+<h1>Graph (test) [{{ graph.name }}]</h1>
+
+{% for v in graph.visual_set.all %}
+<p>
+{{ v.image.graphic|safe }}
+{% endfor %}
+
+<form method=get action=save>
+<input type=hidden name=image1_x><input type=hidden name=image1_y>
+<input type=submit name=action value=Save>
+</form>
+
+<script type="text/javascript">
+
+function my_DropFunc()
+{
+  name = dd.obj.name
+  document.forms[0][name+"_x"].value = dd.obj.x
+  document.forms[0][name+"_y"].value = dd.obj.y
+}
+
+<!--
+SET_DHTML("image1", "image2");
+//-->
+</script>
+
+{% endblock %}

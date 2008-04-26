@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ title|escape }} | {% trans 'GoFlow' %}{% endblock %}
+
+{% block branding %}
+<a href="http://code.djangoproject.com/wiki/GoFlow">
+<h1 id="site-name">{% trans 'GoFlow' %}</h1>
+</a>
+{% load debug_goflow %}{% switch_users %}
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
