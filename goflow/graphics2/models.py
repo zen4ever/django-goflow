@@ -15,11 +15,12 @@ class ProcessImage(models.Model):
     class Admin:
         list_display = ('process', 'graphic', 'file')
     def __unicode__(self):
-        return self.info
+        return self.process.title
 
 class ActivityPosition(models.Model):
+    diagram = models.ForeignKey(ProcessImage)
     activity = models.ForeignKey(Activity)
     x = models.PositiveSmallIntegerField(default=0)
     y = models.PositiveSmallIntegerField(default=0)
     class Admin:
-        list_display = ('activity', 'x', 'y')
+        list_display = ('activity', 'diagram', 'x', 'y')
