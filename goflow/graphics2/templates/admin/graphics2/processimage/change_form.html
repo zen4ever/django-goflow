@@ -71,13 +71,13 @@
 <div id="content-main" class=module>
 <h2>Positioning activities in the process graph image</h2>
 
-<form method=get>
+<form method=get action="pos_activity">
 <table>
 <tr>
 <td>
 Select an activity then click on its symbol in the image.
 <br>
-<select>
+<select name=activity>
 {% for a in original.list_activities %}
 <option value="{{ a.id }}">{{ a.title }}</option>
 {% endfor %}
