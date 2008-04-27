@@ -164,6 +164,7 @@ class WorkItem(models.Model):
     def fallOut(self):
         self.status = 'f'
         self.save()
+        Event.objects.create(name='fallout', workitem=self)
     
     def htmlAction(self):
         label = 'action'

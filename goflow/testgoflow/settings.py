@@ -94,3 +94,5 @@ WF_APPS_PREFIX = ''
 WF_PUSH_APPS_PREFIX = 'testgoflow.test1.views'
 # test users for fast switch (with DEBUG=TRUE only)
 TEST_USERS = (('admin','test'), ('userA','a'), ('any','test'))
+
+GRAPHICS_JS_URL = '/js/'
