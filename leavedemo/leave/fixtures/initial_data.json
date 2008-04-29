@@ -81,7 +81,7 @@
       "is_active": true, 
       "is_superuser": true, 
       "is_staff": true, 
-      "last_login": "2008-04-23 09:24:26", 
+      "last_login": "2008-04-29 21:31:07", 
       "groups": [], 
       "user_permissions": [], 
       "password": "sha1$c5ef3$1ffce0c6ab8bfbd1e56109cd8c32c07487eb8099", 
@@ -259,6 +259,591 @@
   }, 
   {
     "pk": 1, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "add_message", 
+      "name": "Can add message", 
+      "content_type": 1
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "change_message", 
+      "name": "Can change message", 
+      "content_type": 1
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "delete_message", 
+      "name": "Can delete message", 
+      "content_type": 1
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "add_group", 
+      "name": "Can add group", 
+      "content_type": 2
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "change_group", 
+      "name": "Can change group", 
+      "content_type": 2
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "delete_group", 
+      "name": "Can delete group", 
+      "content_type": 2
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "add_user", 
+      "name": "Can add user", 
+      "content_type": 3
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "change_user", 
+      "name": "Can change user", 
+      "content_type": 3
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "delete_user", 
+      "name": "Can delete user", 
+      "content_type": 3
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "add_permission", 
+      "name": "Can add permission", 
+      "content_type": 4
+    }
+  }, 
+  {
+    "pk": 11, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "change_permission", 
+      "name": "Can change permission", 
+      "content_type": 4
+    }
+  }, 
+  {
+    "pk": 12, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "delete_permission", 
+      "name": "Can delete permission", 
+      "content_type": 4
+    }
+  }, 
+  {
+    "pk": 13, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "add_contenttype", 
+      "name": "Can add content type", 
+      "content_type": 5
+    }
+  }, 
+  {
+    "pk": 14, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "change_contenttype", 
+      "name": "Can change content type", 
+      "content_type": 5
+    }
+  }, 
+  {
+    "pk": 15, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "delete_contenttype", 
+      "name": "Can delete content type", 
+      "content_type": 5
+    }
+  }, 
+  {
+    "pk": 16, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "add_session", 
+      "name": "Can add session", 
+      "content_type": 6
+    }
+  }, 
+  {
+    "pk": 17, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "change_session", 
+      "name": "Can change session", 
+      "content_type": 6
+    }
+  }, 
+  {
+    "pk": 18, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "delete_session", 
+      "name": "Can delete session", 
+      "content_type": 6
+    }
+  }, 
+  {
+    "pk": 19, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "add_site", 
+      "name": "Can add site", 
+      "content_type": 7
+    }
+  }, 
+  {
+    "pk": 20, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "change_site", 
+      "name": "Can change site", 
+      "content_type": 7
+    }
+  }, 
+  {
+    "pk": 21, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "delete_site", 
+      "name": "Can delete site", 
+      "content_type": 7
+    }
+  }, 
+  {
+    "pk": 22, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "add_logentry", 
+      "name": "Can add log entry", 
+      "content_type": 8
+    }
+  }, 
+  {
+    "pk": 23, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "change_logentry", 
+      "name": "Can change log entry", 
+      "content_type": 8
+    }
+  }, 
+  {
+    "pk": 24, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "delete_logentry", 
+      "name": "Can delete log entry", 
+      "content_type": 8
+    }
+  }, 
+  {
+    "pk": 25, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "add_manager", 
+      "name": "Can add manager", 
+      "content_type": 9
+    }
+  }, 
+  {
+    "pk": 26, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "change_manager", 
+      "name": "Can change manager", 
+      "content_type": 9
+    }
+  }, 
+  {
+    "pk": 27, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "delete_manager", 
+      "name": "Can delete manager", 
+      "content_type": 9
+    }
+  }, 
+  {
+    "pk": 28, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "add_leaverequest", 
+      "name": "Can add leave request", 
+      "content_type": 10
+    }
+  }, 
+  {
+    "pk": 29, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "change_leaverequest", 
+      "name": "Can change leave request", 
+      "content_type": 10
+    }
+  }, 
+  {
+    "pk": 30, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "delete_leaverequest", 
+      "name": "Can delete leave request", 
+      "content_type": 10
+    }
+  }, 
+  {
+    "pk": 31, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "add_account", 
+      "name": "Can add account", 
+      "content_type": 11
+    }
+  }, 
+  {
+    "pk": 32, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "change_account", 
+      "name": "Can change account", 
+      "content_type": 11
+    }
+  }, 
+  {
+    "pk": 33, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "delete_account", 
+      "name": "Can delete account", 
+      "content_type": 11
+    }
+  }, 
+  {
+    "pk": 34, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "add_pushapplication", 
+      "name": "Can add push application", 
+      "content_type": 12
+    }
+  }, 
+  {
+    "pk": 35, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "change_pushapplication", 
+      "name": "Can change push application", 
+      "content_type": 12
+    }
+  }, 
+  {
+    "pk": 36, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "delete_pushapplication", 
+      "name": "Can delete push application", 
+      "content_type": 12
+    }
+  }, 
+  {
+    "pk": 37, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "add_process", 
+      "name": "Can add process", 
+      "content_type": 13
+    }
+  }, 
+  {
+    "pk": 41, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "can_browse", 
+      "name": "Can browse", 
+      "content_type": 13
+    }
+  }, 
+  {
+    "pk": 40, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "can_instantiate", 
+      "name": "Can instantiate", 
+      "content_type": 13
+    }
+  }, 
+  {
+    "pk": 38, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "change_process", 
+      "name": "Can change process", 
+      "content_type": 13
+    }
+  }, 
+  {
+    "pk": 39, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "delete_process", 
+      "name": "Can delete process", 
+      "content_type": 13
+    }
+  }, 
+  {
+    "pk": 42, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "add_transition", 
+      "name": "Can add transition", 
+      "content_type": 14
+    }
+  }, 
+  {
+    "pk": 43, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "change_transition", 
+      "name": "Can change transition", 
+      "content_type": 14
+    }
+  }, 
+  {
+    "pk": 44, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "delete_transition", 
+      "name": "Can delete transition", 
+      "content_type": 14
+    }
+  }, 
+  {
+    "pk": 45, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "add_application", 
+      "name": "Can add application", 
+      "content_type": 15
+    }
+  }, 
+  {
+    "pk": 46, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "change_application", 
+      "name": "Can change application", 
+      "content_type": 15
+    }
+  }, 
+  {
+    "pk": 47, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "delete_application", 
+      "name": "Can delete application", 
+      "content_type": 15
+    }
+  }, 
+  {
+    "pk": 48, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "add_activity", 
+      "name": "Can add Activity", 
+      "content_type": 16
+    }
+  }, 
+  {
+    "pk": 49, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "change_activity", 
+      "name": "Can change Activity", 
+      "content_type": 16
+    }
+  }, 
+  {
+    "pk": 50, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "delete_activity", 
+      "name": "Can delete Activity", 
+      "content_type": 16
+    }
+  }, 
+  {
+    "pk": 51, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "add_userprofile", 
+      "name": "Can add Workflow user profile", 
+      "content_type": 17
+    }
+  }, 
+  {
+    "pk": 52, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "change_userprofile", 
+      "name": "Can change Workflow user profile", 
+      "content_type": 17
+    }
+  }, 
+  {
+    "pk": 53, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "delete_userprofile", 
+      "name": "Can delete Workflow user profile", 
+      "content_type": 17
+    }
+  }, 
+  {
+    "pk": 54, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "add_instance", 
+      "name": "Can add instance", 
+      "content_type": 18
+    }
+  }, 
+  {
+    "pk": 55, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "change_instance", 
+      "name": "Can change instance", 
+      "content_type": 18
+    }
+  }, 
+  {
+    "pk": 56, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "delete_instance", 
+      "name": "Can delete instance", 
+      "content_type": 18
+    }
+  }, 
+  {
+    "pk": 57, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "add_workitem", 
+      "name": "Can add work item", 
+      "content_type": 19
+    }
+  }, 
+  {
+    "pk": 58, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "change_workitem", 
+      "name": "Can change work item", 
+      "content_type": 19
+    }
+  }, 
+  {
+    "pk": 59, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "delete_workitem", 
+      "name": "Can delete work item", 
+      "content_type": 19
+    }
+  }, 
+  {
+    "pk": 60, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "add_defaultappmodel", 
+      "name": "Can add Simulation object", 
+      "content_type": 20
+    }
+  }, 
+  {
+    "pk": 61, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "change_defaultappmodel", 
+      "name": "Can change Simulation object", 
+      "content_type": 20
+    }
+  }, 
+  {
+    "pk": 62, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "delete_defaultappmodel", 
+      "name": "Can delete Simulation object", 
+      "content_type": 20
+    }
+  }, 
+  {
+    "pk": 63, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "add_event", 
+      "name": "Can add event", 
+      "content_type": 21
+    }
+  }, 
+  {
+    "pk": 64, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "change_event", 
+      "name": "Can change event", 
+      "content_type": 21
+    }
+  }, 
+  {
+    "pk": 65, 
+    "model": "auth.permission", 
+    "fields": {
+      "codename": "delete_event", 
+      "name": "Can delete event", 
+      "content_type": 21
+    }
+  }, 
+  {
+    "pk": 1, 
     "model": "leave.manager", 
     "fields": {
       "category": "supervisor", 
@@ -419,6 +1004,19 @@
       "enabled": true, 
       "priority": 0, 
       "date": "2007-10-08 21:49:41"
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "workflow.process", 
+    "fields": {
+      "begin": null, 
+      "end": 12, 
+      "description": "gestion des absences: r\u00f4les employ\u00e9, secr\u00e9taire, manager", 
+      "title": "Gestion des absences", 
+      "enabled": true, 
+      "priority": 0, 
+      "date": "2008-04-29 21:34:46"
     }
   }, 
   {
@@ -698,6 +1296,114 @@
       "pushApplication": null, 
       "autoStart": true, 
       "app_param": "{'username':'admin'}", 
+      "joinMode": "a", 
+      "splitMode": "a", 
+      "pushapp_param": ""
+    }
+  }, 
+  {
+    "pk": 12, 
+    "model": "workflow.activity", 
+    "fields": {
+      "kind": "s", 
+      "description": "", 
+      "roles": [], 
+      "application": 11, 
+      "process": 4, 
+      "autoFinish": true, 
+      "title": "Information", 
+      "subflow": null, 
+      "pushApplication": null, 
+      "autoStart": false, 
+      "app_param": "", 
+      "joinMode": "x", 
+      "splitMode": "a", 
+      "pushapp_param": ""
+    }
+  }, 
+  {
+    "pk": 13, 
+    "model": "workflow.activity", 
+    "fields": {
+      "kind": "s", 
+      "description": "", 
+      "roles": [
+        2
+      ], 
+      "application": 16, 
+      "process": 4, 
+      "autoFinish": true, 
+      "title": "Contr\u00f4le demande", 
+      "subflow": null, 
+      "pushApplication": 2, 
+      "autoStart": false, 
+      "app_param": "{'ok_values':('OK: pour approbation', 'Refus\u00e9: \u00e0 corriger')}", 
+      "joinMode": "a", 
+      "splitMode": "x", 
+      "pushapp_param": ""
+    }
+  }, 
+  {
+    "pk": 14, 
+    "model": "workflow.activity", 
+    "fields": {
+      "kind": "s", 
+      "description": "", 
+      "roles": [
+        1
+      ], 
+      "application": 18, 
+      "process": 4, 
+      "autoFinish": true, 
+      "title": "Approbation", 
+      "subflow": null, 
+      "pushApplication": 1, 
+      "autoStart": false, 
+      "app_param": "{'ok_values':('OK: \u00e0 enregistrer', 'Refus\u00e9: \u00e0 modifier')}", 
+      "joinMode": "a", 
+      "splitMode": "x", 
+      "pushapp_param": ""
+    }
+  }, 
+  {
+    "pk": 15, 
+    "model": "workflow.activity", 
+    "fields": {
+      "kind": "s", 
+      "description": "", 
+      "roles": [
+        3
+      ], 
+      "application": 17, 
+      "process": 4, 
+      "autoFinish": true, 
+      "title": "Correction", 
+      "subflow": null, 
+      "pushApplication": 3, 
+      "autoStart": false, 
+      "app_param": "{'ok_values':('Soumettre \u00e0 nouveau', 'Annuler')}", 
+      "joinMode": "x", 
+      "splitMode": "x", 
+      "pushapp_param": ""
+    }
+  }, 
+  {
+    "pk": 16, 
+    "model": "workflow.activity", 
+    "fields": {
+      "kind": "s", 
+      "description": "", 
+      "roles": [
+        2
+      ], 
+      "application": 9, 
+      "process": 4, 
+      "autoFinish": true, 
+      "title": "Mise \u00e0 jour base", 
+      "subflow": null, 
+      "pushApplication": 2, 
+      "autoStart": false, 
+      "app_param": "", 
       "joinMode": "a", 
       "splitMode": "a", 
       "pushapp_param": ""

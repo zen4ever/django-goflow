@@ -25,7 +25,7 @@ class Process(models.Model):
                             help_text='a default end activity will be created if blank')
     priority = models.IntegerField(default=0)
     
-    def __str__(self):
+    def __unicode__(self):
         return self.title
     
     def description_disp(self):
@@ -257,8 +257,8 @@ class Transition(models.Model):
             raise Exception("a transition and its activities must be linked to the same process")
         models.Model.save(self)
     
-    def __str__(self):
-        return self.name
+    def __unicode__(self):
+        return self.name or 't%d' % self.id
     
     class Meta:
         pass
