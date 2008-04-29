@@ -42,6 +42,8 @@ urlpatterns = patterns('',
     (r'^leave/finalinfo/$', 'goflow.workflow.applications.simple_application', {'template':'finalinfo.html'}),
     
      # administration
+    (r'^leave/admin/workflow/', include('goflow.urls_admin')),
+    (r'^leave/admin/graphics2/', include('goflow.graphics2.urls_admin')),
     (r'^leave/admin/', include('django.contrib.admin.urls')),
     
     # Goflow pages
