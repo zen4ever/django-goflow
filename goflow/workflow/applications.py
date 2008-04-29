@@ -165,7 +165,7 @@ def _cond_to_button_value(cond):
 
 @login_required
 def edit_model(request, id, form_class, cmp_attr=None,template=None, template_def='edit_model.html',
-               redirect='home', submit_name='action', ok_values=('OK',), cancel_value='Annuler'):
+               redirect='home', submit_name='action', ok_values=('OK',), save_value='Save', cancel_value='Cancel'):
     '''
     generic handler for editing a model
     '''
@@ -192,23 +192,36 @@ def edit_model(request, id, form_class, cmp_attr=None,template=None, template_de
         if submit_value == cancel_value:
             return HttpResponseRedirect(redirect)
         
-        if (submit_value in ok_values) and form.is_valid():
-            ob = form.save()
-            try:
-                ob = form.save(workitem=workitem, submit_value=submit_value)
-            except Exception, v:
-                raise Exception("the save method of the form must accept parameters workitem and submit_value")
-            instance.condition = submit_value
-            instance.save()
-            completeWorkitem(workitem, request.user)
-            return HttpResponseRedirect(redirect)
+        if form.is_valid():
+            if (submit_value == save_value):
+                # just save
+                ob = form.save()
+                try:
+                    ob = form.save(workitem=workitem, submit_value=submit_value)
+                except Exception, v:
+                    raise Exception("the save method of the form must accept parameters workitem and submit_value")
+                return HttpResponseRedirect(redirect)
+            
+            if submit_value in ok_values:
+                # save and complete activity
+                ob = form.save()
+                try:
+                    ob = form.save(workitem=workitem, submit_value=submit_value)
+                except Exception, v:
+                    raise Exception("the save method of the form must accept parameters workitem and submit_value")
+                instance.condition = submit_value
+                instance.save()
+                completeWorkitem(workitem, request.user)
+                return HttpResponseRedirect(redirect)
     else:
         form = form_class(instance=obj)
     return render_to_response((template, template_def), {'form': form,
                                                          'object':obj,
                                                          'instance':instance,
                                                          'submit_name':submit_name,
-                                                         'ok_values':ok_values, 'cancel_value':cancel_value})
+                                                         'ok_values':ok_values,
+                                                         'save_value':save_value,
+                                                         'cancel_value':cancel_value})
 
 def _override_app_params(activity, name, value):
     '''
