@@ -16,6 +16,13 @@ class BaseForm(ModelForm):
         ob = super(BaseForm, self).save(commit=commit)
         return ob
     
+    def pre_check(self, user=None):
+        """may be overriden to do some check before.
+        
+        an exception should be risen if pre-conditions are not fullfilled
+        """
+        pass
+    
     class Meta:
          exclude = ('wfinstance', 'workitem_id')
 
@@ -26,6 +33,13 @@ class StartForm(ModelForm):
     def save(self, user=None, data=None, commit=True):
         ob = super(StartForm, self).save(commit=commit)
         return ob
+    
+    def pre_check(self, user=None):
+        """may be overriden to do some check before.
+        
+        an exception should be risen if pre-conditions are not fullfilled
+        """
+        pass
     
     class Meta:
          exclude = ('wfinstance',)

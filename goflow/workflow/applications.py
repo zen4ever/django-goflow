@@ -94,6 +94,8 @@ def start_application(request, app_label=None, model_name=None, process_name=Non
             return HttpResponseRedirect(redirect)
     else:
         form = form_class()
+        # precheck
+        form.pre_check(user=user)
     context = {'form': form, 'process_name':process_name,
                'submit_name':submit_name, 'ok_value':ok_value, 'cancel_value':cancel_value}
     return render_to_response((template, template_def), context)
@@ -215,6 +217,8 @@ def edit_model(request, id, form_class, cmp_attr=None,template=None, template_de
                 return HttpResponseRedirect(redirect)
     else:
         form = form_class(instance=obj)
+        # precheck
+        form.pre_check(user=user)
     return render_to_response((template, template_def), {'form': form,
                                                          'object':obj,
                                                          'instance':instance,
