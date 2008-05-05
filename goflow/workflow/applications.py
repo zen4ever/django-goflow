@@ -218,7 +218,7 @@ def edit_model(request, id, form_class, cmp_attr=None,template=None, template_de
     else:
         form = form_class(instance=obj)
         # precheck
-        form.pre_check(user=user)
+        form.pre_check(user=request.user)
     return render_to_response((template, template_def), {'form': form,
                                                          'object':obj,
                                                          'instance':instance,
