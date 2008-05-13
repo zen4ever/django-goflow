@@ -74,7 +74,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'goflow.workflow',
     'goflow.instances',
-    'goflow.graphics',
+    #'goflow.graphics',
     'goflow.graphics2',
     'testgoflow.test1'
 )

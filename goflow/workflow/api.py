@@ -36,6 +36,17 @@ def changeObjectInstance(instance, new_object):
     instance.save()
     return
 
+def check_start_instance_perm(process_name, user):
+    if not isProcessEnabled(process_name):
+        raise Exception('process %s disabled.' % process_name)
+    if user.has_perm("workflow.can_instantiate"):
+        l = user.groups.filter(name=process_name)
+        if l.count()==0 or l[0].permissions.filter(codename='can_instantiate').count() == 0:
+            raise Exception('permission needed to instantiate process %s.' % process_name)
+    else:
+        raise Exception('permission needed.')
+    return
+
 def startInstance(processName, user, item, title=None):
     '''
     return workitem

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
-from api import startInstance, getWorkItem, completeWorkitem, activateWorkitem, isProcessEnabled
+from api import startInstance, getWorkItem, completeWorkitem, activateWorkitem, isProcessEnabled, check_start_instance_perm
 from django.db import models
 from django.contrib.auth.models import User
 from django.newforms import form_for_model, form_for_instance
@@ -48,17 +48,22 @@ def start_application(request, app_label=None, model_name=None, process_name=Non
                        form_class=None, redirect='home', submit_name='action',
                        ok_value='OK', cancel_value='Cancel'):
     '''
-    generic handler for application that enters a workflow
+    generic handler for application that enters a workflow.
+    
+    parameters:
+    
+    app_label, model_name    model linked to workflow instance
+    process_name             default: same name as app_label
+    instance_label           default: process_name + str(object)
+    template                 default: 'start_%s.html' % app_label
+    template_def             used if template not found; default: 'start_application.html'
+    form_class               default: old form_for_model
     '''
     if not process_name: process_name = app_label
-    if not isProcessEnabled(process_name):
-        return HttpResponse('process %s disabled.' % process_name)
-    if request.user.has_perm("workflow.can_instantiate"):
-        l = request.user.groups.filter(name=process_name)
-        if l.count()==0 or l[0].permissions.filter(codename='can_instantiate').count() == 0:
-            return HttpResponse('permission needed to instantiate process %s.' % process_name)
-    else:
-        return HttpResponse('permission needed.')
+    try:
+        check_start_instance_perm(process_name, request.user)
+    except Exception, v:
+        return HttpResponse(str(v))
     
     #if not instance_label: instance_label = '%s-%s' % (app_label, model_name)
     if not template: template = 'start_%s.html' % app_label
