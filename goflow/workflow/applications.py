@@ -100,7 +100,7 @@ def start_application(request, app_label=None, model_name=None, process_name=Non
     else:
         form = form_class()
         # precheck
-        form.pre_check(user=user)
+        form.pre_check(user=request.user)
     context = {'form': form, 'process_name':process_name,
                'submit_name':submit_name, 'ok_value':ok_value, 'cancel_value':cancel_value}
     return render_to_response((template, template_def), context)
