@@ -31,14 +31,14 @@ def myrequests(request, template):
     return render_to_response(template, {'user':request.user, 'instances':inst_list})
 
 @login_required
-def activate(request, template):
+def activate(request):
     id = int(request.GET['workitem_id'])
     workitem = getWorkItem(id=id, user=request.user)
     activateWorkitem(workitem, request.user)
     return _app_response(workitem)
 
 @login_required
-def complete(request, template):
+def complete(request):
     id = int(request.GET['workitem_id'])
     workitem = getWorkItem(id=id, user=request.user)
     return _app_response(workitem)

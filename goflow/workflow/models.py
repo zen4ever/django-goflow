@@ -302,7 +302,8 @@ class UserProfile(models.Model):
         self.save()
     
     class Admin:
-        pass
+        list_display = ('user', 'web_host', 'notified', 'last_notif', 'nb_wi_notif', 'delai_notif')
+        list_filter = ('web_host', 'notified')
     class Meta:
         verbose_name='Workflow user profile'
         verbose_name_plural='Workflow users profiles'

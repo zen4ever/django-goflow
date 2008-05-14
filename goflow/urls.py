@@ -9,8 +9,8 @@ urlpatterns = patterns('',
     (r'^otherswork/instancehistory/$', 'goflow.instances.views.instancehistory', {'template':'instancehistory.html'}),
     (r'^myrequests/$', 'goflow.instances.views.myrequests', {'template':'myrequests.html'}),
     (r'^myrequests/instancehistory/$', 'goflow.instances.views.instancehistory', {'template':'instancehistory.html'}),
-    (r'^mywork/activate/$', 'goflow.instances.views.activate', {'template':'activate.html'}),
-    (r'^mywork/complete/$', 'goflow.instances.views.complete', {'template':'complete.html'}),
+    (r'^mywork/activate/$', 'goflow.instances.views.activate'),
+    (r'^mywork/complete/$', 'goflow.instances.views.complete'),
     #
     (r'^process/dot/(?P<id>.*)$','goflow.workflow.views.process_dot', {'template':'process.dot'}),
     #

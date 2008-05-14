@@ -96,6 +96,7 @@ class Instance(models.Model):
         self.save()
     
     class Admin:
+        date_hierarchy = 'creationTime'
         list_display = ('title', 'process', 'user', 'creationTime', 'status')
         list_filter = ('process', 'user')
 
@@ -189,8 +190,9 @@ class WorkItem(models.Model):
         return (now > (self.date + tdelta))
         
     class Admin:
-        list_display = ('date', 'user', 'instance', 'activity', 'status', 'blocked')
-        list_filter = ('instance', 'user', 'blocked', 'activity', 'status')
+        date_hierarchy = 'date'
+        list_display = ('date', 'user', 'instance', 'activity', 'status',)
+        list_filter = ('user', 'activity', 'status')
 
 class Event(models.Model):
     """Event are changes that happens on workitems.
@@ -199,8 +201,8 @@ class Event(models.Model):
     name = models.CharField(max_length=50, core=True)
     workitem = models.ForeignKey(WorkItem, related_name='events', edit_inline=True)
     class Admin:
+        date_hierarchy = 'date'
         list_display = ('date', 'name', 'workitem')
-        list_filter = ('workitem',)
 
 
 class DefaultAppModel(models.Model):
