@@ -55,7 +55,7 @@
       "is_active": true, 
       "is_superuser": true, 
       "is_staff": true, 
-      "last_login": "2008-04-26 22:29:27", 
+      "last_login": "2008-05-15 23:41:02", 
       "groups": [], 
       "user_permissions": [], 
       "password": "sha1$19677$57b637f9d15e2223c83f0412e01e9fd5fff3da1e", 
@@ -73,8 +73,9 @@
       "is_active": true, 
       "is_superuser": false, 
       "is_staff": true, 
-      "last_login": "2008-04-01 16:23:41", 
+      "last_login": "2008-05-15 23:37:37", 
       "groups": [
+        5, 
         4
       ], 
       "user_permissions": [], 
@@ -111,7 +112,7 @@
       "is_active": true, 
       "is_superuser": false, 
       "is_staff": true, 
-      "last_login": "2008-04-01 16:35:28", 
+      "last_login": "2008-05-15 23:37:33", 
       "groups": [
         1, 
         2, 
@@ -173,7 +174,7 @@
       "title": "question_process", 
       "enabled": true, 
       "priority": 0, 
-      "date": "2008-03-20 10:43:46"
+      "date": "2008-05-15 23:32:54"
     }
   }, 
   {
@@ -256,7 +257,7 @@
       "process": 3, 
       "output": 11, 
       "input": 9, 
-      "condition": "Yes ", 
+      "condition": "Yes", 
       "name": "yes"
     }
   }, 
@@ -546,171 +547,6 @@
       "delai_notif": 1, 
       "web_host": "localhost:8000", 
       "user": 2
-    }
-  }, 
-  {
-    "pk": 1, 
-    "model": "graphics.graph", 
-    "fields": {
-      "name": "templates"
-    }
-  }, 
-  {
-    "pk": 1, 
-    "model": "graphics.image", 
-    "fields": {
-      "info": "activity-manual", 
-      "file": "images\\32px-Crystal_Clear_app_kuser.png"
-    }
-  }, 
-  {
-    "pk": 2, 
-    "model": "graphics.image", 
-    "fields": {
-      "info": "activity-auto", 
-      "file": "images\\32px-Crystal_Clear_action_run.png"
-    }
-  }, 
-  {
-    "pk": 3, 
-    "model": "graphics.image", 
-    "fields": {
-      "info": "activity-end", 
-      "file": "images\\32px-Crystal_Clear_app_shutdown.png"
-    }
-  }, 
-  {
-    "pk": 4, 
-    "model": "graphics.image", 
-    "fields": {
-      "info": "group-1", 
-      "file": "images\\32px-Crystal_Clear_app_Login_Manager.png"
-    }
-  }, 
-  {
-    "pk": 5, 
-    "model": "graphics.image", 
-    "fields": {
-      "info": "group-2", 
-      "file": "images\\32px-Crystal_Clear_app_Community_Help.png"
-    }
-  }, 
-  {
-    "pk": 6, 
-    "model": "graphics.image", 
-    "fields": {
-      "info": "activity-subflow", 
-      "file": "images\\32px-Crystal_Clear_device_blockdevice.png"
-    }
-  }, 
-  {
-    "pk": 1, 
-    "model": "graphics.visual", 
-    "fields": {
-      "model_id": null, 
-      "contenttype": 2, 
-      "h": 0, 
-      "image": 4, 
-      "needUpdate": true, 
-      "visible": true, 
-      "w": 0, 
-      "graph": 1, 
-      "y": 0, 
-      "x": 0, 
-      "z": 0
-    }
-  }, 
-  {
-    "pk": 2, 
-    "model": "graphics.visual", 
-    "fields": {
-      "model_id": null, 
-      "contenttype": 2, 
-      "h": 0, 
-      "image": 5, 
-      "needUpdate": true, 
-      "visible": true, 
-      "w": 0, 
-      "graph": 1, 
-      "y": 0, 
-      "x": 0, 
-      "z": 0
-    }
-  }, 
-  {
-    "pk": 3, 
-    "model": "graphics.visual", 
-    "fields": {
-      "model_id": null, 
-      "contenttype": 13, 
-      "h": 0, 
-      "image": 1, 
-      "needUpdate": true, 
-      "visible": true, 
-      "w": 0, 
-      "graph": 1, 
-      "y": 0, 
-      "x": 0, 
-      "z": 0
-    }
-  }, 
-  {
-    "pk": 4, 
-    "model": "graphics.visual", 
-    "fields": {
-      "model_id": null, 
-      "contenttype": 13, 
-      "h": 0, 
-      "image": 2, 
-      "needUpdate": true, 
-      "visible": true, 
-      "w": 0, 
-      "graph": 1, 
-      "y": 0, 
-      "x": 0, 
-      "z": 0
-    }
-  }, 
-  {
-    "pk": 5, 
-    "model": "graphics.visual", 
-    "fields": {
-      "model_id": null, 
-      "contenttype": 13, 
-      "h": 0, 
-      "image": 3, 
-      "needUpdate": true, 
-      "visible": true, 
-      "w": 0, 
-      "graph": 1, 
-      "y": 0, 
-      "x": 0, 
-      "z": 0
-    }
-  }, 
-  {
-    "pk": 6, 
-    "model": "graphics.visual", 
-    "fields": {
-      "model_id": null, 
-      "contenttype": 13, 
-      "h": 0, 
-      "image": 6, 
-      "needUpdate": true, 
-      "visible": true, 
-      "w": 0, 
-      "graph": 1, 
-      "y": 0, 
-      "x": 0, 
-      "z": 0
-    }
-  }, 
-  {
-    "pk": 1, 
-    "model": "graphics2.processimage", 
-    "fields": {
-      "process": 3, 
-      "file": "images\\question.png"
     }
   }
 ]
