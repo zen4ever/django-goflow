@@ -183,6 +183,7 @@ def edit_model(request, id, form_class, cmp_attr=None,template=None, template_de
     activity = workitem.activity
     
     obj = instance.wfobject()
+    obj_context = obj
     # objet composite intermédiaire
     if cmp_attr:
         obj = getattr(obj, cmp_attr)
@@ -223,9 +224,10 @@ def edit_model(request, id, form_class, cmp_attr=None,template=None, template_de
     else:
         form = form_class(instance=obj)
         # precheck
-        form.pre_check(user=request.user)
+        form.pre_check(obj_context, user=request.user)
     return render_to_response((template, template_def), {'form': form,
                                                          'object':obj,
+                                                         'object_context':obj_context,
                                                          'instance':instance,
                                                          'submit_name':submit_name,
                                                          'ok_values':ok_values,

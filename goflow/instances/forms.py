@@ -16,9 +16,10 @@ class BaseForm(ModelForm):
         ob = super(BaseForm, self).save(commit=commit)
         return ob
     
-    def pre_check(self, user=None):
+    def pre_check(self, obj_context=None, user=None):
         """may be overriden to do some check before.
         
+        obj_context    object instance (if cmp_attr is set, this is the root object)
         an exception should be risen if pre-conditions are not fullfilled
         """
         pass
