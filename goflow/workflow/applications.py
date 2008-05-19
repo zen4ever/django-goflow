@@ -189,11 +189,11 @@ def edit_model(request, id, form_class, cmp_attr=None,template=None, template_de
     if cmp_attr:
         obj = getattr(obj, cmp_attr)
     
-    template = _override_app_params(activity, 'template', template)
-    redirect = _override_app_params(activity, 'redirect', redirect)
-    submit_name = _override_app_params(activity, 'submit_name', submit_name)
-    ok_values = _override_app_params(activity, 'ok_values', ok_values)
-    cancel_value = _override_app_params(activity, 'cancel_value', cancel_value)
+    template = override_app_params(activity, 'template', template)
+    redirect = override_app_params(activity, 'redirect', redirect)
+    submit_name = override_app_params(activity, 'submit_name', submit_name)
+    ok_values = override_app_params(activity, 'ok_values', ok_values)
+    cancel_value = override_app_params(activity, 'cancel_value', cancel_value)
 
     if request.method == 'POST':
         form = form_class(request.POST, instance=obj)
@@ -250,11 +250,11 @@ def view_application(request, id, template='view_application.html', redirect='ho
     
     obj = instance.wfobject()
     
-    template = _override_app_params(activity, 'template', template)
-    redirect = _override_app_params(activity, 'redirect', redirect)
-    submit_name = _override_app_params(activity, 'submit_name', submit_name)
-    ok_values = _override_app_params(activity, 'ok_values', ok_values)
-    cancel_value = _override_app_params(activity, 'cancel_value', cancel_value)
+    template = override_app_params(activity, 'template', template)
+    redirect = override_app_params(activity, 'redirect', redirect)
+    submit_name = override_app_params(activity, 'submit_name', submit_name)
+    ok_values = override_app_params(activity, 'ok_values', ok_values)
+    cancel_value = override_app_params(activity, 'cancel_value', cancel_value)
 
     if request.method == 'POST':
         submit_value = request.POST[submit_name]
@@ -273,7 +273,7 @@ def view_application(request, id, template='view_application.html', redirect='ho
                                                          'cancel_value':cancel_value})
 
 
-def _override_app_params(activity, name, value):
+def override_app_params(activity, name, value):
     '''
     usage: param = _override_app_params(activity, 'param', param)
     '''
@@ -286,3 +286,5 @@ def _override_app_params(activity, name, value):
     except Exception, v:
         _logger.error('_override_app_params %s %s - %s', activity, name, v)
     return value
+# deprecated:
+_override_app_params = override_app_params
