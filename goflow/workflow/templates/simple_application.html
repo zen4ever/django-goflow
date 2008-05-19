@@ -1,6 +1,8 @@
 {% extends "base_site.html" %}
 {% block content %}
 <h1>Simple application</h1>
+(deprecated: see view_application)
+<p>
 This is a default page used by the generic application:
 <ul>
 <li>simple_application
@@ -12,7 +14,7 @@ You may define a suitable template (the default is <i>simple_application.html</i
 in the urls.py file as follows:
 <pre>
     (r'^my/appli/simple_appli/$',
-      'openflow.workflow.applications.simple_application',
+      'goflow.workflow.applications.simple_application',
       {'template':'mytemplate.html'}),
 </pre>
 

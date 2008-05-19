@@ -21,8 +21,9 @@ _logger = logging.getLogger('workflow.log')
 
 
 def simple_application(request, template='simple_application.html', submit_name='action', ok_value='OK', redirect='home'):
-    '''
-    generic handler for application that just display info
+    ''' generic handler for application that just display info.
+    
+    deprecated; see view_application
     '''
     id = int(request.GET['workitem_id'])
     workitem = getWorkItem(id, user=request.user)
@@ -233,6 +234,44 @@ def edit_model(request, id, form_class, cmp_attr=None,template=None, template_de
                                                          'ok_values':ok_values,
                                                          'save_value':save_value,
                                                          'cancel_value':cancel_value})
+
+
+@login_required
+def view_application(request, id, template='view_application.html', redirect='home',
+               submit_name='action', ok_values=('OK',), cancel_value='Cancel'):
+    '''
+    generic handler for a view.
+    
+    useful for a simple view or a complex object edition.
+    '''
+    workitem = getWorkItem(int(id), user=request.user)
+    instance = workitem.instance
+    activity = workitem.activity
+    
+    obj = instance.wfobject()
+    
+    template = _override_app_params(activity, 'template', template)
+    redirect = _override_app_params(activity, 'redirect', redirect)
+    submit_name = _override_app_params(activity, 'submit_name', submit_name)
+    ok_values = _override_app_params(activity, 'ok_values', ok_values)
+    cancel_value = _override_app_params(activity, 'cancel_value', cancel_value)
+
+    if request.method == 'POST':
+        submit_value = request.POST[submit_name]
+        if submit_value == cancel_value:
+            return HttpResponseRedirect(redirect)
+        
+        if submit_value in ok_values:
+            instance.condition = submit_value
+            instance.save()
+            completeWorkitem(workitem, request.user)
+            return HttpResponseRedirect(redirect)
+    return render_to_response((template, template_def), {'object':obj,
+                                                         'instance':instance,
+                                                         'submit_name':submit_name,
+                                                         'ok_values':ok_values,
+                                                         'cancel_value':cancel_value})
+
 
 def _override_app_params(activity, name, value):
     '''
