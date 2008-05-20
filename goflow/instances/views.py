@@ -8,38 +8,38 @@ from models import Instance
 from goflow.workflow.decorators import login_required
 
 @login_required
-def mywork(request, template):
+def mywork(request, template='mywork.html'):
     me = request.user
     workitems = getWorkItems(user=me, notstatus='c', noauto=True)
     return render_to_response(template, {'user':me, 'workitems':workitems})
 
 @login_required
-def otherswork(request, template):
+def otherswork(request, template='otherswork.html'):
     worker = request.GET['worker']
     workitems = getWorkItems(username=worker, notstatus='c', noauto=False)
     return render_to_response(template, {'worker':worker, 'workitems':workitems})
 
 @login_required
-def instancehistory(request, template):
+def instancehistory(request, template='instancehistory.html'):
     id = int(request.GET['id'])
     inst = getInstance(id=id)
     return render_to_response(template, {'instance':inst})
 
 @login_required
-def myrequests(request, template):
+def myrequests(request, template='myrequests.html'):
     inst_list = Instance.objects.filter(user=request.user)
     return render_to_response(template, {'user':request.user, 'instances':inst_list})
 
 @login_required
-def activate(request):
-    id = int(request.GET['workitem_id'])
+def activate(request, id):
+    id = int(id)
     workitem = getWorkItem(id=id, user=request.user)
     activateWorkitem(workitem, request.user)
     return _app_response(workitem)
 
 @login_required
-def complete(request):
-    id = int(request.GET['workitem_id'])
+def complete(request, id):
+    id = int(id)
     workitem = getWorkItem(id=id, user=request.user)
     return _app_response(workitem)
 
@@ -57,8 +57,8 @@ def _app_response(workitem):
     
     # no application: default_app
     if not activity.application:
-        url = '../../default_app'
-        return HttpResponseRedirect('%s?workitem_id=%d' % (url, id))
+        url = '../../../default_app'
+        return HttpResponseRedirect('%s/%d/' % (url, id))
     
     if activity.kind == 's':
         # standard activity

@@ -81,7 +81,7 @@
       "is_active": true, 
       "is_superuser": true, 
       "is_staff": true, 
-      "last_login": "2008-04-30 00:21:07", 
+      "last_login": "2008-05-20 17:40:27", 
       "groups": [], 
       "user_permissions": [], 
       "password": "sha1$c5ef3$1ffce0c6ab8bfbd1e56109cd8c32c07487eb8099", 
@@ -117,7 +117,7 @@
       "is_active": true, 
       "is_superuser": false, 
       "is_staff": true, 
-      "last_login": "2008-04-02 11:00:13", 
+      "last_login": "2008-05-20 17:15:50", 
       "groups": [
         3, 
         4, 
@@ -139,7 +139,7 @@
       "is_active": true, 
       "is_superuser": false, 
       "is_staff": true, 
-      "last_login": "2008-04-02 11:10:15", 
+      "last_login": "2008-05-20 17:15:33", 
       "groups": [
         3, 
         4, 
@@ -161,7 +161,7 @@
       "is_active": true, 
       "is_superuser": false, 
       "is_staff": true, 
-      "last_login": "2008-04-02 11:10:17", 
+      "last_login": "2008-05-20 17:05:31", 
       "groups": [
         3, 
         4
@@ -300,6 +300,19 @@
         7, 
         6
       ]
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "leave.leaverequest", 
+    "fields": {
+      "reasonDenial": "", 
+      "wfinstance": 1, 
+      "reason": "ty", 
+      "date": "2008-05-20 17:15:45", 
+      "dayEnd": "2007-08-03", 
+      "type": "Death of spouse", 
+      "dayStart": "2007-07-01"
     }
   }, 
   {
@@ -535,7 +548,7 @@
     "model": "workflow.application", 
     "fields": {
       "url": "hrform", 
-      "suffix": null
+      "suffix": "w"
     }
   }, 
   {
@@ -543,7 +556,7 @@
     "model": "workflow.application", 
     "fields": {
       "url": "finalinfo", 
-      "suffix": null
+      "suffix": "w"
     }
   }, 
   {
@@ -937,7 +950,7 @@
     "model": "graphics2.processimage", 
     "fields": {
       "process": 4, 
-      "file": "images/leave_workflow.png"
+      "file": "images\/leave_workflow.png"
     }
   }, 
   {

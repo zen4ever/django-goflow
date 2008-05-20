@@ -112,7 +112,8 @@ class Application(models.Model):
                 if self.suffix == 'w': path = '%s%d/' % (path, workitem.id)
                 if self.suffix == 'i': path = '%s%d/' % (path, workitem.instance.id)
                 if self.suffix == 'o': path = '%s%d/' % (path, workitem.instance.wfobject().id)
-            path = '%s?workitem_id=%d' % (path, workitem.id) 
+            else:
+                path = '%s?workitem_id=%d' % (path, workitem.id) 
         if extern_for_user:
             path = 'http://%s%s' % (extern_for_user.get_profile().web_host, path)
         return path

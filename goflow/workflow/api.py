@@ -181,7 +181,7 @@ def execAutoApplication(workitem):
 
 def default_auto_app(workitem):
     ob = workitem.instance.wfobject()
-    ob.history = '\n>>> execute auto activity: [%s]' % workitem.activity.title
+    ob.history += '\n>>> execute auto activity: [%s]' % workitem.activity.title
     ob.save()
     return True
 

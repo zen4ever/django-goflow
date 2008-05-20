@@ -171,10 +171,10 @@ class WorkItem(models.Model):
         label = 'action'
         if self.status == 'i':
             label = 'activate'
-            url='activate?workitem_id=%d' % self.id
+            url='activate/%d/' % self.id
         if self.status == 'a':
             label = 'complete'
-            url='complete?workitem_id=%d' % self.id
+            url='complete/%d/' % self.id
         if self.status == 'c':
             return 'completed'
         return '<a href=%s>%s</a>' % (url, label)

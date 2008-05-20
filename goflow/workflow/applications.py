@@ -20,29 +20,6 @@ import logger, logging
 _logger = logging.getLogger('workflow.log')
 
 
-def simple_application(request, template='simple_application.html', submit_name='action', ok_value='OK', redirect='home'):
-    ''' generic handler for application that just display info.
-    
-    deprecated; see view_application
-    '''
-    id = int(request.GET['workitem_id'])
-    workitem = getWorkItem(id, user=request.user)
-    
-    if request.method == 'POST':
-        submit_value = request.POST[submit_name]
-        if submit_value == ok_value:
-            completeWorkitem(workitem, request.user)
-            return HttpResponseRedirect(redirect)
-    
-    if not workitem.activity.process.enabled:
-        return HttpResponse('process %s disabled.' % workitem.activity.process.title)
-    inst = workitem.instance
-    activateWorkitem(workitem, request.user)
-    return render_to_response(template, {'instance':inst, 'object':inst.wfobject(),
-                                         'submit_name':submit_name,
-                                         'ok_value':ok_value})
-
-
 @login_required
 def start_application(request, app_label=None, model_name=None, process_name=None, instance_label=None,
                        template=None, template_def='start_application.html',
@@ -108,14 +85,14 @@ def start_application(request, app_label=None, model_name=None, process_name=Non
 
 
 @login_required
-def default_app(request, template='default_app.html', redirect='home', submit_name='action'):
+def default_app(request, id, template='default_app.html', redirect='home', submit_name='action'):
     '''
     default application, used for prototyping workflows.
     '''
     submit_values = ('OK', 'Cancel')
+    id = int(id)
     if request.method == 'POST':
         data = request.POST.copy()
-        id = int(request.GET['workitem_id'])
         workitem = getWorkItem(id, user=request.user)
         inst = workitem.instance
         ob = inst.wfobject()
@@ -134,7 +111,6 @@ def default_app(request, template='default_app.html', redirect='home', submit_na
             completeWorkitem(workitem, request.user)
             return HttpResponseRedirect(redirect)
     else:
-        id = int(request.GET['workitem_id'])
         workitem = getWorkItem(id, user=request.user)
         inst = workitem.instance
         ob = inst.wfobject()
@@ -286,5 +262,3 @@ def override_app_params(activity, name, value):
     except Exception, v:
         _logger.error('_override_app_params %s %s - %s', activity, name, v)
     return value
-# deprecated:
-_override_app_params = override_app_params

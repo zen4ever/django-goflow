@@ -38,8 +38,8 @@ urlpatterns = patterns('',
                                                                                 'template':'refine.html'}),
     (r'^leave/approvalform/(?P<id>.*)/$', 'goflow.workflow.applications.edit_model', {'form_class':CheckRequestForm,
                                                                                       'template':'approval.html'}),
-    (r'^leave/hrform/$', 'goflow.workflow.applications.simple_application', {'template':'hrform.html'}),
-    (r'^leave/finalinfo/$', 'goflow.workflow.applications.simple_application', {'template':'finalinfo.html'}),
+    (r'^leave/hrform/(?P<id>.*)/$', 'goflow.workflow.applications.view_application', {'template':'hrform.html'}),
+    (r'^leave/finalinfo/(?P<id>.*)/$', 'goflow.workflow.applications.view_application', {'template':'finalinfo.html'}),
     
      # administration
     (r'^leave/admin/workflow/', include('goflow.urls_admin')),

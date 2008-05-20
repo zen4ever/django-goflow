@@ -290,7 +290,7 @@
     "model": "workflow.application", 
     "fields": {
       "url": "app1", 
-      "suffix": null
+      "suffix": "w"
     }
   }, 
   {

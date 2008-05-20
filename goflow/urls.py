@@ -9,12 +9,12 @@ urlpatterns = patterns('',
     (r'^otherswork/instancehistory/$', 'goflow.instances.views.instancehistory', {'template':'instancehistory.html'}),
     (r'^myrequests/$', 'goflow.instances.views.myrequests', {'template':'myrequests.html'}),
     (r'^myrequests/instancehistory/$', 'goflow.instances.views.instancehistory', {'template':'instancehistory.html'}),
-    (r'^mywork/activate/$', 'goflow.instances.views.activate'),
-    (r'^mywork/complete/$', 'goflow.instances.views.complete'),
+    (r'^mywork/activate/(?P<id>.*)/$', 'goflow.instances.views.activate'),
+    (r'^mywork/complete/(?P<id>.*)/$', 'goflow.instances.views.complete'),
     #
     (r'^process/dot/(?P<id>.*)$','goflow.workflow.views.process_dot', {'template':'process.dot'}),
     #
-    (r'^default_app/$', 'goflow.workflow.applications.default_app', {'template':'default_app.html'}),
+    (r'^default_app/(?P<id>.*)/$', 'goflow.workflow.applications.default_app', {'template':'default_app.html'}),
     #
     (r'^.*/logout/$', 'django.contrib.auth.views.logout'),
     (r'^.*/accounts/login/$', 'django.contrib.auth.views.login', {'template_name':'login.html'}),

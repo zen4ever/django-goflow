@@ -16,7 +16,9 @@ To the secretary. You are requested to do the following thing at this stage:
 </table>
 <p>
 <form method="post">
-<input type="submit" name="{{ submit_name }}" value="{{ ok_value }}">
+{% for value in ok_values %}
+<input type="submit" name="{{ submit_name }}" value="{{ value }}">
+{% endfor %}
 <input type="submit" name="{{ submit_name }}" value="Cancel">
 </form>
 
