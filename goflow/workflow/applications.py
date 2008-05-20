@@ -266,11 +266,11 @@ def view_application(request, id, template='view_application.html', redirect='ho
             instance.save()
             completeWorkitem(workitem, request.user)
             return HttpResponseRedirect(redirect)
-    return render_to_response((template, template_def), {'object':obj,
-                                                         'instance':instance,
-                                                         'submit_name':submit_name,
-                                                         'ok_values':ok_values,
-                                                         'cancel_value':cancel_value})
+    return render_to_response(template, {'object':obj,
+                                         'instance':instance,
+                                         'submit_name':submit_name,
+                                         'ok_values':ok_values,
+                                         'cancel_value':cancel_value})
 
 
 def override_app_params(activity, name, value):
