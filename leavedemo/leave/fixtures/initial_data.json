@@ -304,19 +304,6 @@
   }, 
   {
     "pk": 1, 
-    "model": "leave.leaverequest", 
-    "fields": {
-      "reasonDenial": "", 
-      "wfinstance": 1, 
-      "reason": "ty", 
-      "date": "2008-05-20 17:15:45", 
-      "dayEnd": "2007-08-03", 
-      "type": "Death of spouse", 
-      "dayStart": "2007-07-01"
-    }
-  }, 
-  {
-    "pk": 1, 
     "model": "leave.account", 
     "fields": {
       "category": "vacations", 
