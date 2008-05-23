@@ -218,7 +218,15 @@ def execPushApplication(workitem):
         workitem.fallOut()
     return result
 
-def getWorkItems(user=None, username=None, status=None, notstatus=None, noauto=True, activity=None):
+def getWorkItems(user=None, username=None, activity=None, status=None, notstatus=('b','s','f','c'), noauto=True):
+    u""" get workitems (in order to display a task list for example).
+    
+    user or username: filter on user (default=all)
+    activity: filter on activity (default=all)
+    status: filter on status (default=all)
+    notstatus: list of status to exclude (default is a list of these: blocked, suspended, fallout, complete)
+    noauto: if True (default) auto activities are excluded.
+    """
     groups = Group.objects.all()
     if user:
         q = WorkItem.objects.filter(user=user, activity__process__enabled=True)
@@ -230,18 +238,16 @@ def getWorkItems(user=None, username=None, status=None, notstatus=None, noauto=T
         else:
             q = None
     if q:
-        if status:
-            q = q.filter(status=status)
-        else:
-            q = q.exclude(status='b').exclude(status='s').exclude(status='f').exclude(status='c')
-            
+        if status: q = q.filter(status=status)
+        
         if notstatus:
             q = q.exclude(status=notstatus)
-        if noauto:
-            q = q.exclude(activity__autoStart=True)
+        else:
+            for s in notstatus: q = q.exclude(status=s)
+        
+        if noauto: q = q.exclude(activity__autoStart=True)
     
-        if activity:
-            q = q.filter(activity__title=activity)
+        if activity: q = q.filter(activity=activity)
             
         q = list(q)
     else:
@@ -250,16 +256,14 @@ def getWorkItems(user=None, username=None, status=None, notstatus=None, noauto=T
     # search pullable workitems
     for role in groups:
         pullables = WorkItem.objects.filter(pullRoles=role, activity__process__enabled=True)
-        if status:
-            pullables = pullables.filter(status=status)
-        else:
-            pullables = pullables.exclude(status='b').exclude(status='s').exclude(status='f').exclude(status='c')
+        if status: pullables = pullables.filter(status=status)
         if notstatus:
             pullables = pullables.exclude(status=notstatus)
-        if noauto:
-            pullables = pullables.exclude(activity__autoStart=True)        
-        if activity:
-            pullables = pullables.filter(activity__title=activity)
+        else:
+            for s in notstatus: pullables = pullables.exclude(status=s)
+        
+        if noauto: pullables = pullables.exclude(activity__autoStart=True)        
+        if activity: pullables = pullables.filter(activity=activity)
             
         if user:
             pp = pullables.filter(user__isnull=True) # tricky
