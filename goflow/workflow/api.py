@@ -218,7 +218,7 @@ def execPushApplication(workitem):
         workitem.fallOut()
     return result
 
-def getWorkItems(user=None, username=None, status=None, notstatus=None, noauto=True):
+def getWorkItems(user=None, username=None, status=None, notstatus=None, noauto=True, activity=None):
     groups = Group.objects.all()
     if user:
         q = WorkItem.objects.filter(user=user, activity__process__enabled=True)
@@ -239,9 +239,14 @@ def getWorkItems(user=None, username=None, status=None, notstatus=None, noauto=T
             q = q.exclude(status=notstatus)
         if noauto:
             q = q.exclude(activity__autoStart=True)
+    
+        if activity:
+            q = q.filter(activity__title=activity)
+            
         q = list(q)
     else:
         q = []
+        
     # search pullable workitems
     for role in groups:
         pullables = WorkItem.objects.filter(pullRoles=role, activity__process__enabled=True)
@@ -252,18 +257,21 @@ def getWorkItems(user=None, username=None, status=None, notstatus=None, noauto=T
         if notstatus:
             pullables = pullables.exclude(status=notstatus)
         if noauto:
-            pullables = pullables.exclude(activity__autoStart=True)
-        
+            pullables = pullables.exclude(activity__autoStart=True)        
+        if activity:
+            pullables = pullables.filter(activity__title=activity)
+            
         if user:
             pp = pullables.filter(user__isnull=True) # tricky
             pullables = pullables.exclude(user=user)
             q.extend(list(pp))
         if username:
             pullables = pullables.exclude(user__username=username)
+            
         _logger.debug('pullables workitems role %s: %s', role, str(pullables))
-        q.extend(list(pullables))
-    
+        q.extend(list(pullables))       
     return q
+
 
 def activateWorkitem(workitem, actor):
     _checkWorkItem(workitem, actor, ('i', 'a'))
