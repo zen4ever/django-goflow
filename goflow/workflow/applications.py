@@ -128,7 +128,7 @@ def default_app(request, id, template='default_app.html', redirect='home', submi
                                          'workitem':workitem,
                                          'instance':inst,
                                          'history':inst.wfobject().history,
-                                         'submit_values':submit_values})
+                                         'submit_values':submit_values,})
 
 
 def _cond_to_button_value(cond):
@@ -148,7 +148,7 @@ def _cond_to_button_value(cond):
 
 
 @login_required
-def edit_model(request, id, form_class, cmp_attr=None,template=None, template_def='edit_model.html',
+def edit_model(request, id, form_class, cmp_attr=None,template=None, template_def='edit_model.html', title="",
                redirect='home', submit_name='action', ok_values=('OK',), save_value='Save', cancel_value='Cancel'):
     '''
     generic handler for editing a model
@@ -209,11 +209,12 @@ def edit_model(request, id, form_class, cmp_attr=None,template=None, template_de
                                                          'submit_name':submit_name,
                                                          'ok_values':ok_values,
                                                          'save_value':save_value,
-                                                         'cancel_value':cancel_value})
+                                                         'cancel_value':cancel_value,
+                                                         'title':title,})
 
 
 @login_required
-def view_application(request, id, template='view_application.html', redirect='home',
+def view_application(request, id, template='view_application.html', redirect='home', title="",
                submit_name='action', ok_values=('OK',), cancel_value='Cancel'):
     '''
     generic handler for a view.
@@ -246,7 +247,8 @@ def view_application(request, id, template='view_application.html', redirect='ho
                                          'instance':instance,
                                          'submit_name':submit_name,
                                          'ok_values':ok_values,
-                                         'cancel_value':cancel_value})
+                                         'cancel_value':cancel_value,
+                                         'title':title,})
 
 
 def override_app_params(activity, name, value):
