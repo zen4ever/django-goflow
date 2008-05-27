@@ -60,7 +60,7 @@ class DefaultAppForm(BaseForm):
         if submit_value:
             if ob.history:
                 ob.history += '\n button clicked: [%s]' % submit_value
-        ob.save(self)
+        ob.save()
         return ob
     
     class Meta:
@@ -78,7 +78,7 @@ class DefaultAppStartForm(StartForm):
             ob.history += '\n---------'
             ob.history += '\n%s' % ob.comment
             ob.comment = None
-        ob.save(self)
+        ob.save()
         return ob
     
     class Meta:
