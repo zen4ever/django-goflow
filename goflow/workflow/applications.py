@@ -180,20 +180,20 @@ def edit_model(request, id, form_class, cmp_attr=None,template=None, template_de
         if form.is_valid():
             if (submit_value == save_value):
                 # just save
-                ob = form.save()
+                #ob = form.save()
                 try:
                     ob = form.save(workitem=workitem, submit_value=submit_value)
                 except Exception, v:
-                    raise Exception("the save method of the form must accept parameters workitem and submit_value")
+                    raise Exception(str(v))
                 return HttpResponseRedirect(redirect)
             
             if submit_value in ok_values:
                 # save and complete activity
-                ob = form.save()
+                #ob = form.save()
                 try:
                     ob = form.save(workitem=workitem, submit_value=submit_value)
                 except Exception, v:
-                    raise Exception("the save method of the form must accept parameters workitem and submit_value")
+                    raise Exception(str(v))
                 instance.condition = submit_value
                 instance.save()
                 completeWorkitem(workitem, request.user)
