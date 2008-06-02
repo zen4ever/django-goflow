@@ -179,6 +179,18 @@ class WorkItem(models.Model):
             return 'completed'
         return '<a href=%s>%s</a>' % (url, label)
     
+    def htmlActionLink(self):
+        #label = 'action'
+        if self.status == 'i':
+            #label = 'activate'
+            url='activate/%d/' % self.id
+        if self.status == 'a':
+            #label = 'complete'
+            url='complete/%d/' % self.id
+        if self.status == 'c':
+            return 'completed'
+        return '<a href=%s>' % (url)
+    
     def time_out(self, delay, unit='days'):
         '''
         return True if timeout reached
