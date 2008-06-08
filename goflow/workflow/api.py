@@ -20,21 +20,10 @@ def addProcess(title, description):
     process.save()
     return process
 
-def addInstance(user, title, object_class):
-    i = Instance(user=user, title=title)
-    i.set_object_class(object_class)
+def addInstance(user, title, object_inst):
+    i = Instance(user=user, title=title, content_object=object_inst)
     i.save()
     return i
-
-def changeObjectInstance(instance, new_object):
-    ob = instance.wfobject()
-    ob.wfinstance = None
-    ob.save()
-    new_object.wfinstance = instance
-    instance.set_object_class(new_object.__class__)
-    new_object.save()
-    instance.save()
-    return
 
 def check_start_instance_perm(process_name, user):
     if not isProcessEnabled(process_name):
@@ -52,17 +41,15 @@ def startInstance(processName, user, item, title=None):
     return workitem
     '''
     p = Process.objects.get(title=processName, enabled=True)
-    if not item.wfinstance:
-        if not title or title=='instance':
-            title = '%s %s' % (processName, str(item))
-        item.wfinstance = addInstance(user, title, item.__class__)
-    item.wfinstance.process = p
+    if not title or title=='instance':
+        title = '%s %s' % (processName, str(item))
+    instance = addInstance(user, title, item)
+    instance.process = p
     # instance running
-    item.wfinstance.setStatus('r')
-    item.wfinstance.save()
-    item.save()
+    instance.setStatus('r')
+    instance.save()
 
-    wi = WorkItem.objects.create(instance=item.wfinstance, user=user, activity=p.begin)
+    wi = WorkItem.objects.create(instance=instance, user=user, activity=p.begin)
     Event.objects.create(name='creation by %s' % user.username, workitem=wi)
     
     _logger.info('startInstance process %s user %s item %s', processName, user.username, item)

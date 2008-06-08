@@ -19,7 +19,6 @@ class LeaveRequest(models.Model):
             ('Serious illness of a relative in the asc line','Serious illness of a relative in the asc line'),
             ('Serious illness of a parent-in-law','Serious illness of a parent-in-law'),
             ('Serious illness of spouse','Serious illness of spouse'))
-    wfinstance = models.ForeignKey(Instance, editable=False, unique=True, related_name='object_set', null=True, blank=True)
     date = models.DateTimeField(auto_now=True)
     dayStart = models.DateField()
     dayEnd = models.DateField()
@@ -34,7 +33,7 @@ class LeaveRequest(models.Model):
         fields = (
                   (None, {'fields':('dayStart', 'dayEnd', 'type', 'reason', 'reasonDenial')}),
                   )
-        list_display = ('wfinstance', 'type', 'dayStart', 'dayEnd')
+        list_display = ('type', 'dayStart', 'dayEnd')
         list_filter = ('type',)
 
 class Manager(models.Model):

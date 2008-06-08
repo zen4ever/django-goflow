@@ -25,7 +25,7 @@ class BaseForm(ModelForm):
         pass
     
     class Meta:
-         exclude = ('wfinstance', 'workitem_id')
+         exclude = ('workitem_id',)
 
 class StartForm(ModelForm):
     '''
@@ -41,9 +41,6 @@ class StartForm(ModelForm):
         an exception should be risen if pre-conditions are not fullfilled
         """
         pass
-    
-    class Meta:
-         exclude = ('wfinstance',)
 
 
 class DefaultAppForm(BaseForm):

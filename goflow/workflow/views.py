@@ -116,7 +116,7 @@ def test_start(request, id, template='test_start.html'):
         if submit_value == 'Create':
             ctype = ContentType.objects.get(id=int(request.POST['ctype']))
             model = ctype.model_class()
-            for inst in model.objects.filter(wfinstance__isnull=True):
+            for inst in model.objects.all():
                 inst.id = None
                 startInstance(processName='test_%s' % app.url,
                               user=request.user, item=inst, title="%s test instance for app %s" % (ctype.name, app.url))

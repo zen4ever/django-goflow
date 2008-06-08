@@ -14,9 +14,9 @@ from goflow.workflow.api import *
 class Test(unittest.TestCase):
     def test_access_object_from_instance(self):
         user = User.objects.get(username='userA')
-        instance = addInstance(user, "test_instance", DefaultAppModel)
-        model = DefaultAppModel.objects.create(wfinstance=instance, comment='test_access_object_from_instance')
-        self.assertEquals(model, instance.wfobject(), "get object with instance.wfobject()")
+        inst = DefaultAppModel.objects.create(comment='test_access_object_from_instance')
+        instance = addInstance(user, "test_instance", inst)
+        self.assertEquals(inst, instance.wfobject(), "get object with instance.wfobject()")
     
     def test_connect_admin(self):
         client = Client()

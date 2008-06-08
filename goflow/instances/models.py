@@ -5,6 +5,9 @@ from django.contrib.auth.models import Group, User
 from goflow.workflow.models import Process, Activity
 from datetime import timedelta, datetime
 
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes import generic
+
 class Instance(models.Model):
     """ This is a process instance.
     
@@ -39,14 +42,12 @@ class Instance(models.Model):
     implementation object that contains the application data. The
     specifications for the implementation class is:
     
-    The implementation class must have at least one field:
-        wfinstance = models.ForeignKey(Instance, [editable=False, ]unique=True, [related_name='anything_set', ]null=True, blank=True)
-        [in brackets: optional but recommended]
+    (nothing: now managed by generic relation)
     
     From the instance, the implementation object is reached as following:
-      obj = instance.wfobject().
+      obj = instance.content_object (or instance.wfobject()).
     In a template, a field date1 will be displayed like this:
-      {{ instance.wfobject.date1 }}
+      {{ instance.wfobject.date1 }} or {{ instance.content_object.date1 }}
 
     """
     STATUS_CHOICES = (
@@ -66,21 +67,13 @@ class Instance(models.Model):
     condition = models.CharField(max_length=50, null=True, blank=True)
     _object_related_name = models.CharField(max_length=50)
     
-    def wfobject(self):
-        related_set = getattr(self, self._object_related_name)
-        return related_set.all()[0]
+    # refactoring
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    content_object = generic.GenericForeignKey('content_type', 'object_id')
     
-    def set_object_class(self, object_class):
-        '''
-        required to acceed object from instance in templates (instance.wfobject)
-        '''
-        for f in object_class._meta.fields:
-            if f.verbose_name=='wfinstance':
-                self._object_related_name = f.rel.related_name
-                if not self._object_related_name:
-                    self._object_related_name = '%s_set' % object_class._meta.module_name
-                return
-        raise Exception("Instance.set_object_class: object must have a wfinstance field.")
+    def wfobject(self):
+        return self.content_object
         
     def __str__(self):
         return self.title
@@ -224,22 +217,18 @@ class DefaultAppModel(models.Model):
     implementation object that contains the application data. The
     specifications for the implementation class is:
     
-    The implementation class must have at least one field:
-        wfinstance = models.ForeignKey(Instance, [editable=False, ]unique=True, [related_name='anything_set', ]null=True, blank=True)
-        [in brackets: optional but recommended]
+    (nothing: now managed by generic relation)
     
     This model is used in process simulations: you don't have to define
     application in activities for this; the DefaultAppModel is used
     to keep workflow history for displaying to users.
     """
-    wfinstance = models.ForeignKey(Instance, editable=False, unique=True, related_name='proto_set', null=True, blank=True)
     history = models.TextField(editable=False, null=True, blank=True)
     comment = models.TextField(null=True, blank=True)
     
     def __unicode__(self):
         return 'simulation model %s' % str(self.id)
     class Admin:
-        list_display = ('__unicode__', 'wfinstance')
-        list_filter = ('wfinstance',)
+        list_display = ('__unicode__',)
     class Meta:
         verbose_name='Simulation object'
