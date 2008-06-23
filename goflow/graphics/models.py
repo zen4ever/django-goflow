@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes import generic
 
 
 class Image(models.Model):
@@ -33,8 +34,11 @@ class Visual(models.Model):
     visible = models.BooleanField(default=True)
     z = models.PositiveSmallIntegerField(default=0)
     image = models.ForeignKey(Image, null=True, blank=True)
-    contenttype = models.ForeignKey(ContentType)
-    model_id = models.PositiveIntegerField(null=True, blank=True, help_text='null: template')
+    
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    content_object = generic.GenericForeignKey('content_type', 'object_id')
+    
     graph = models.ForeignKey(Graph)
     
     def graphic(self):
@@ -42,4 +46,4 @@ class Visual(models.Model):
     graphic.allow_tags=True
     
     class Admin:
-        list_display = ('graphic', 'contenttype', 'model_id', 'graph')
+        list_display = ('graphic', 'content_type', 'object_id', 'graph')
