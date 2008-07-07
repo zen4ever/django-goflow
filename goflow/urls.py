@@ -3,7 +3,7 @@ from django.conf import settings
 from instances.forms import DefaultAppStartForm
 
 urlpatterns = patterns('',
-    (r'^$', 'goflow.workflow.views.index', {'template':'workflow/index.html'}),
+    (r'^$',          'goflow.workflow.views.index', {'template':'workflow/index.html'}),
     (r'^mywork/$', 'goflow.instances.views.mywork', {'template':'mywork.html'}),
     (r'^otherswork/$', 'goflow.instances.views.otherswork', {'template':'otherswork.html'}),
     (r'^otherswork/instancehistory/$', 'goflow.instances.views.instancehistory', {'template':'instancehistory.html'}),

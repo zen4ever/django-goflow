@@ -39,6 +39,7 @@ urlpatterns = patterns('',
     (r'^leave/approvalform/(?P<id>.*)/$', 'goflow.workflow.applications.edit_model', {'form_class':CheckRequestForm,
                                                                                       'template':'approval.html'}),
     (r'^leave/hrform/(?P<id>.*)/$', 'goflow.workflow.applications.view_application', {'template':'hrform.html'}),
+    (r'^leave/hr_auto/$', 'leavedemo.leave.auto.update_hr'),
     (r'^leave/finalinfo/(?P<id>.*)/$', 'goflow.workflow.applications.view_application', {'template':'finalinfo.html'}),
     
      # administration

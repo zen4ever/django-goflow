@@ -65,7 +65,6 @@ class Instance(models.Model):
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='i')
     old_status = models.CharField(max_length=1, choices=STATUS_CHOICES, null=True, blank=True)
     condition = models.CharField(max_length=50, null=True, blank=True)
-    _object_related_name = models.CharField(max_length=50)
     
     # refactoring
     content_type = models.ForeignKey(ContentType)

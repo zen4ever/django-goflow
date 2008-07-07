@@ -9,4 +9,4 @@ class ContentTypeForm(forms.Form):
     ctype = forms.ModelChoiceField(queryset=ctypes, required=True, 
                                    empty_label='(select a content-type)',
                                    label='content type',
-                                   help_text='clone all instances of the selected content type and push then in the test process of the application')
+                                   help_text='clone all instances of the selected content type and push them in the test process of the application')

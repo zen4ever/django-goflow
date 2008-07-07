@@ -159,7 +159,7 @@ def execAutoApplication(workitem):
         if params:
             params = eval('{'+params.lstrip('{').rstrip('}')+'}')
             kwargs.update(params)
-        func(request=None, workitem=workitem , **kwargs)
+        func(workitem=workitem , **kwargs)
         return True
     except Exception, v:
         _logger.error('execution wi %s:%s', workitem, v)
@@ -260,7 +260,8 @@ def getWorkItems(user=None, username=None, activity=None, status=None, notstatus
             pullables = pullables.exclude(user__username=username)
             
         _logger.debug('pullables workitems role %s: %s', role, str(pullables))
-        q.extend(list(pullables))       
+        q.extend(list(pullables))
+        
     return q
 
 

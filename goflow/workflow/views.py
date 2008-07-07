@@ -9,7 +9,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 
-from goflow.instances.models import DefaultAppModel
+from goflow.instances.models import DefaultAppModel, Instance
 from forms import ContentTypeForm
 from django.contrib.contenttypes.models import ContentType
 from api import startInstance
@@ -100,6 +100,8 @@ def app_env(request, action, id, template=None):
     if action == 'remove':
         app.remove_test_env()
         rep = 'test env removed for app %s' % app.url
+    
+    rep += '<hr><p><b><a href=../../../>return</a></b>'
     return HttpResponse(rep)
 
 def test_start(request, id, template='test_start.html'):
@@ -117,7 +119,11 @@ def test_start(request, id, template='test_start.html'):
             ctype = ContentType.objects.get(id=int(request.POST['ctype']))
             model = ctype.model_class()
             for inst in model.objects.all():
+                # just objects without link to a workflow instance
+                if Instance.objects.filter(content_type__pk=ctype.id,object_id=inst.id).count() > 0:
+                    continue
                 inst.id = None
+                inst.save()
                 startInstance(processName='test_%s' % app.url,
                               user=request.user, item=inst, title="%s test instance for app %s" % (ctype.name, app.url))
             request.user.message_set.create(message='test instances created')

@@ -25,16 +25,17 @@ class LeaveRequest(models.Model):
     type = models.CharField(max_length=50, choices=TYPE_CHOICES)
     reason = models.TextField(null=True, blank=True)
     reasonDenial = models.TextField(null=True, blank=True, verbose_name='reason of denial')
+    requester = models.ForeignKey(User, null=True, blank=True)
     
     def __str__(self):
-        return 'leaverequest-%d' % self.id
+        return 'leaverequest-%s' % str(self.pk)
 
     class Admin:
         fields = (
-                  (None, {'fields':('dayStart', 'dayEnd', 'type', 'reason', 'reasonDenial')}),
+                  (None, {'fields':(('dayStart', 'dayEnd'), 'type', 'requester', 'reason', 'reasonDenial')}),
                   )
-        list_display = ('type', 'dayStart', 'dayEnd')
-        list_filter = ('type',)
+        list_display = ('type', 'date', 'dayStart', 'dayEnd', 'requester')
+        list_filter = ('type', 'requester')
 
 class Manager(models.Model):
     user = models.ForeignKey(User, related_name='manager_set', edit_inline=True, num_in_admin=3, min_num_in_admin=1, num_extra_on_change=1)
