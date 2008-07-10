@@ -53,7 +53,7 @@ def start_application(request, app_label=None, model_name=None, process_name=Non
         is_form_used = True
     
     if request.method == 'POST':
-        form = form_class(request.POST)
+        form = form_class(request.POST, request.FILES)
         submit_value = request.POST[submit_name]
         if submit_value == cancel_value:
             return HttpResponseRedirect(redirect)

@@ -29,7 +29,12 @@ inherits from <i>goflow.instances.forms.StartForm</i>.
 <p>You may also define a suitable template (the default is <i>start_application.html</i>) with the <i>template</i> parameter.
 
 
+{% if form.is_multipart %}
+<form enctype="multipart/form-data" method="post">
+{% else %}
 <form method="post">
+{% endif %}
+
 <table>
 {{ form }}
 </table>

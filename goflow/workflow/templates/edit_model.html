@@ -38,7 +38,13 @@ This template can access the following variables:
 
 
 {% block content_form %}
+
+{% if form.is_multipart %}
+<form enctype="multipart/form-data" method="post">
+{% else %}
 <form method="post">
+{% endif %}
+
 <table>
 {{ form }}
 </table>

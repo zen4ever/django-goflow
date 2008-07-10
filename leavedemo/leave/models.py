@@ -22,7 +22,7 @@ class LeaveRequest(models.Model):
     date = models.DateTimeField(auto_now=True)
     dayStart = models.DateField()
     dayEnd = models.DateField()
-    type = models.CharField(max_length=50, choices=TYPE_CHOICES)
+    type = models.CharField(max_length=50, choices=TYPE_CHOICES, default='Vacation')
     reason = models.TextField(null=True, blank=True)
     reasonDenial = models.TextField(null=True, blank=True, verbose_name='reason of denial')
     requester = models.ForeignKey(User, null=True, blank=True)
