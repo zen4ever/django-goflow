@@ -180,7 +180,7 @@ class WorkItem(models.Model):
             #label = 'complete'
             url='complete/%d/' % self.id
         if self.status == 'c':
-            return 'completed'
+            raise Exception('no action for completed workitems')
         return '<a href=%s>' % (url)
     
     def time_out(self, delay, unit='days'):
