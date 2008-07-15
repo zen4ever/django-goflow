@@ -20,10 +20,12 @@ class Image(models.Model):
 
 class Graph(models.Model):
     name = models.CharField(max_length=100)
+    parent = models.ForeignKey('self', null=True, blank=True, related_name='children')
+    background = models.ForeignKey('Visual', null=True, blank=True, related_name='bg_graphes')
     def __unicode__(self):
         return self.name
     class Admin:
-        list_display = ('name',)
+        list_display = ('name', 'parent', 'background')
 
 class Visual(models.Model):
     x = models.PositiveSmallIntegerField(default=0)
@@ -47,3 +49,17 @@ class Visual(models.Model):
     
     class Admin:
         list_display = ('graphic', 'content_type', 'object_id', 'graph')
+
+class MetaGraph(models.Model):
+    template = models.ForeignKey(Graph)
+    parent = models.ForeignKey('self', null=True, blank=True, related_name='children')
+    content_type = models.ManyToManyField(ContentType)
+    
+    parent_attr = models.CharField(max_length=50, default='parent')
+    children_attr = models.CharField(max_length=50, default='children')
+    position_method = models.CharField(max_length=50, default='position')
+    zorder_method = models.CharField(max_length=50, default='zorder')
+    moveable_method = models.CharField(max_length=50, default='is_moveable')
+    class Admin:
+        list_display = ('template', 'parent',)
+
