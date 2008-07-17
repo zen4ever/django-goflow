@@ -205,22 +205,23 @@ def execPushApplication(workitem):
         workitem.fallOut()
     return result
 
-def getWorkItems(user=None, username=None, activity=None, status=None, notstatus=('b','s','f','c'), noauto=True):
+def getWorkItems(user=None, username=None, queryset=WorkItem.objects, activity=None, status=None, notstatus=('b','s','f','c'), noauto=True):
     u""" get workitems (in order to display a task list for example).
     
     user or username: filter on user (default=all)
-    activity: filter on activity (default=all)
+    queryset: pre-filtering (default=WorkItem.objects)
+    activity: filtering on activity (default=all)
     status: filter on status (default=all)
     notstatus: list of status to exclude (default is a list of these: blocked, suspended, fallout, complete)
     noauto: if True (default) auto activities are excluded.
     """
     groups = Group.objects.all()
     if user:
-        q = WorkItem.objects.filter(user=user, activity__process__enabled=True)
+        q = queryset.filter(user=user, activity__process__enabled=True)
         groups = user.groups.all()
     else:
         if username:
-            q = WorkItem.objects.filter(user__username=username, activity__process__enabled=True)
+            q = queryset.filter(user__username=username, activity__process__enabled=True)
             groups = User.objects.get(username=username).groups.all()
         else:
             q = None
@@ -242,7 +243,7 @@ def getWorkItems(user=None, username=None, activity=None, status=None, notstatus
         
     # search pullable workitems
     for role in groups:
-        pullables = WorkItem.objects.filter(pullRoles=role, activity__process__enabled=True)
+        pullables = queryset.filter(pullRoles=role, activity__process__enabled=True)
         if status: pullables = pullables.filter(status=status)
         if notstatus:
             pullables = pullables.exclude(status=notstatus)
