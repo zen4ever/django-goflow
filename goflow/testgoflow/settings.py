@@ -1,5 +1,12 @@
 # Django settings for testgoflow project.
 
+from os.path import dirname, join 
+_dir = dirname(__file__)
+LIB_PATH = join(_dir,'..','..')
+import sys
+sys.path.append(LIB_PATH)
+
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
