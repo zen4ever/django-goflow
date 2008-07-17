@@ -48,7 +48,11 @@ class Instance(models.Model):
       obj = instance.content_object (or instance.wfobject()).
     In a template, a field date1 will be displayed like this:
       {{ instance.wfobject.date1 }} or {{ instance.content_object.date1 }}
-
+    
+    From the object, instances may be reached with the reverse generic relation:
+    the following can be added to the model:
+      wfinstances = generic.GenericRelation(Instance)
+  
     """
     STATUS_CHOICES = (
                       ('i', 'initiated'),

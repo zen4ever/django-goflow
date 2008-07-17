@@ -2,6 +2,10 @@
 from os.path import dirname, join 
 _dir = dirname(__file__)
 
+LIB_PATH = join(_dir,'..')
+import sys
+sys.path.append(LIB_PATH)
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -84,7 +88,7 @@ INSTALLED_APPS = (
 AUTH_PROFILE_MODULE = 'workflow.userprofile'
 
 TEST_USERS = (('primus','p'),('notarius','n'),('prefectus','p'),('socius','s'),('secundus','s'),('tertius','t'),('quartus','q'),)
-WF_USER_AUTO = 'admin'
+WF_USER_AUTO = 'auto'
 WF_APPS_PREFIX = '/leave'
 WF_PUSH_APPS_PREFIX = 'leavedemo.leave.pushapplications'
 

@@ -1,63 +1,45 @@
 [
   {
-    "pk": 3, 
-    "model": "auth.group", 
-    "fields": {
-      "name": "employee", 
-      "permissions": [
-        40
-      ]
-    }
-  }, 
-  {
-    "pk": 4, 
-    "model": "auth.group", 
-    "fields": {
-      "name": "leave", 
-      "permissions": [
-        40
-      ]
-    }
-  }, 
-  {
     "pk": 1, 
     "model": "auth.group", 
     "fields": {
       "name": "manager", 
       "permissions": [
+        45, 
+        46, 
+        47, 
+        51, 
+        52, 
+        53, 
+        31, 
+        32, 
+        33, 
+        57, 
+        58, 
+        59, 
+        39, 
+        40, 
+        41, 
         25, 
         26, 
         27, 
         28, 
         29, 
         30, 
-        31, 
-        32, 
-        33, 
         34, 
+        38, 
+        37, 
         35, 
         36, 
-        37, 
-        41, 
-        40, 
-        38, 
-        39, 
-        42, 
-        43, 
-        44, 
-        45, 
-        46, 
-        47, 
-        48, 
-        49, 
-        50, 
-        51, 
-        52, 
-        53, 
         54, 
         55, 
         56, 
-        57
+        42, 
+        43, 
+        44, 
+        48, 
+        49, 
+        50
       ]
     }
   }, 
@@ -67,7 +49,25 @@
     "fields": {
       "name": "secretary", 
       "permissions": [
-        56
+        26
+      ]
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "auth.group", 
+    "fields": {
+      "name": "employee", 
+      "permissions": []
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "auth.group", 
+    "fields": {
+      "name": "leave", 
+      "permissions": [
+        37
       ]
     }
   }, 
@@ -81,52 +81,12 @@
       "is_active": true, 
       "is_superuser": true, 
       "is_staff": true, 
-      "last_login": "2008-05-20 17:40:27", 
+      "last_login": "2008-07-18 00:03:18", 
       "groups": [], 
       "user_permissions": [], 
       "password": "sha1$c5ef3$1ffce0c6ab8bfbd1e56109cd8c32c07487eb8099", 
       "email": "goflow@alwaysdata.net", 
       "date_joined": "2007-07-22 12:28:10"
-    }
-  }, 
-  {
-    "pk": 10, 
-    "model": "auth.user", 
-    "fields": {
-      "username": "auto", 
-      "first_name": "", 
-      "last_name": "runs auto applications", 
-      "is_active": true, 
-      "is_superuser": false, 
-      "is_staff": false, 
-      "last_login": "2007-10-06 22:30:01", 
-      "groups": [], 
-      "user_permissions": [], 
-      "password": "sha1$724c9$c92da4ab8185ba00b89384e234e089a0e46dcb25", 
-      "email": "", 
-      "date_joined": "2007-10-06 22:30:01"
-    }
-  }, 
-  {
-    "pk": 9, 
-    "model": "auth.user", 
-    "fields": {
-      "username": "notarius", 
-      "first_name": "", 
-      "last_name": "", 
-      "is_active": true, 
-      "is_superuser": false, 
-      "is_staff": true, 
-      "last_login": "2008-05-20 17:15:50", 
-      "groups": [
-        3, 
-        4, 
-        2
-      ], 
-      "user_permissions": [], 
-      "password": "sha1$21f27$9bf9ace1d52ad4c74d199ba76bf711bd8fe74484", 
-      "email": "", 
-      "date_joined": "2007-07-29 12:24:05"
     }
   }, 
   {
@@ -141,9 +101,9 @@
       "is_staff": true, 
       "last_login": "2008-05-20 17:15:33", 
       "groups": [
+        1, 
         3, 
-        4, 
-        1
+        4
       ], 
       "user_permissions": [], 
       "password": "sha1$42fea$803a874263ca061267131d93930793534307d4c9", 
@@ -161,7 +121,7 @@
       "is_active": true, 
       "is_superuser": false, 
       "is_staff": true, 
-      "last_login": "2008-05-20 17:05:31", 
+      "last_login": "2008-07-17 23:59:41", 
       "groups": [
         3, 
         4
@@ -170,27 +130,6 @@
       "password": "sha1$9fdf4$c44f36db2ee5a42733bc166d139b5778b08cf33e", 
       "email": "goflow@alwaysdata.net", 
       "date_joined": "2007-07-28 12:54:36"
-    }
-  }, 
-  {
-    "pk": 7, 
-    "model": "auth.user", 
-    "fields": {
-      "username": "quartus", 
-      "first_name": "", 
-      "last_name": "", 
-      "is_active": true, 
-      "is_superuser": false, 
-      "is_staff": true, 
-      "last_login": "2008-04-01 22:45:24", 
-      "groups": [
-        3, 
-        4
-      ], 
-      "user_permissions": [], 
-      "password": "sha1$15876$c4a36805344668f49614c3720acea5d4a055b0b2", 
-      "email": "", 
-      "date_joined": "2007-07-29 12:22:56"
     }
   }, 
   {
@@ -215,28 +154,6 @@
     }
   }, 
   {
-    "pk": 8, 
-    "model": "auth.user", 
-    "fields": {
-      "username": "socius", 
-      "first_name": "", 
-      "last_name": "", 
-      "is_active": true, 
-      "is_superuser": false, 
-      "is_staff": true, 
-      "last_login": "2008-04-02 11:00:07", 
-      "groups": [
-        3, 
-        4, 
-        2
-      ], 
-      "user_permissions": [], 
-      "password": "sha1$4150a$5126afea8fb33a1735de3d1afc3dd1bfb2b9f1e4", 
-      "email": "", 
-      "date_joined": "2007-07-29 12:23:20"
-    }
-  }, 
-  {
     "pk": 6, 
     "model": "auth.user", 
     "fields": {
@@ -258,19 +175,102 @@
     }
   }, 
   {
+    "pk": 7, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "quartus", 
+      "first_name": "", 
+      "last_name": "", 
+      "is_active": true, 
+      "is_superuser": false, 
+      "is_staff": true, 
+      "last_login": "2008-04-01 22:45:24", 
+      "groups": [
+        3, 
+        4
+      ], 
+      "user_permissions": [], 
+      "password": "sha1$15876$c4a36805344668f49614c3720acea5d4a055b0b2", 
+      "email": "", 
+      "date_joined": "2007-07-29 12:22:56"
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "socius", 
+      "first_name": "", 
+      "last_name": "", 
+      "is_active": true, 
+      "is_superuser": false, 
+      "is_staff": true, 
+      "last_login": "2008-04-02 11:00:07", 
+      "groups": [
+        2, 
+        3, 
+        4
+      ], 
+      "user_permissions": [], 
+      "password": "sha1$4150a$5126afea8fb33a1735de3d1afc3dd1bfb2b9f1e4", 
+      "email": "", 
+      "date_joined": "2007-07-29 12:23:20"
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "notarius", 
+      "first_name": "", 
+      "last_name": "", 
+      "is_active": true, 
+      "is_superuser": false, 
+      "is_staff": true, 
+      "last_login": "2008-07-17 23:57:11", 
+      "groups": [
+        2, 
+        3, 
+        4
+      ], 
+      "user_permissions": [], 
+      "password": "sha1$21f27$9bf9ace1d52ad4c74d199ba76bf711bd8fe74484", 
+      "email": "", 
+      "date_joined": "2007-07-29 12:24:05"
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "auto", 
+      "first_name": "", 
+      "last_name": "runs auto applications", 
+      "is_active": true, 
+      "is_superuser": false, 
+      "is_staff": false, 
+      "last_login": "2007-10-06 22:30:01", 
+      "groups": [], 
+      "user_permissions": [], 
+      "password": "sha1$724c9$c92da4ab8185ba00b89384e234e089a0e46dcb25", 
+      "email": "", 
+      "date_joined": "2007-10-06 22:30:01"
+    }
+  }, 
+  {
     "pk": 1, 
     "model": "leave.manager", 
     "fields": {
       "category": "supervisor", 
       "user": 3, 
       "users": [
-        9, 
         3, 
         4, 
-        7, 
         5, 
+        6, 
+        7, 
         8, 
-        6
+        9
       ]
     }
   }, 
@@ -296,9 +296,9 @@
       "category": "secretary", 
       "user": 8, 
       "users": [
-        9, 
+        6, 
         7, 
-        6
+        9
       ]
     }
   }, 
@@ -375,27 +375,6 @@
     }
   }, 
   {
-    "pk": 1, 
-    "model": "workflow.pushapplication", 
-    "fields": {
-      "url": "route_to_supervisor"
-    }
-  }, 
-  {
-    "pk": 2, 
-    "model": "workflow.pushapplication", 
-    "fields": {
-      "url": "route_to_secretary"
-    }
-  }, 
-  {
-    "pk": 3, 
-    "model": "workflow.pushapplication", 
-    "fields": {
-      "url": "route_to_requester"
-    }
-  }, 
-  {
     "pk": 2, 
     "model": "workflow.process", 
     "fields": {
@@ -432,102 +411,6 @@
       "enabled": true, 
       "priority": 0, 
       "date": "2008-04-29 21:34:46"
-    }
-  }, 
-  {
-    "pk": 8, 
-    "model": "workflow.transition", 
-    "fields": {
-      "description": "", 
-      "process": 2, 
-      "output": 10, 
-      "input": 7, 
-      "condition": "Re-request", 
-      "name": "re_request"
-    }
-  }, 
-  {
-    "pk": 9, 
-    "model": "workflow.transition", 
-    "fields": {
-      "description": "", 
-      "process": 2, 
-      "output": 9, 
-      "input": 7, 
-      "condition": "Withdraw request", 
-      "name": "cancel_request"
-    }
-  }, 
-  {
-    "pk": 10, 
-    "model": "workflow.transition", 
-    "fields": {
-      "description": "", 
-      "process": 2, 
-      "output": 6, 
-      "input": 8, 
-      "condition": "OK: Forward to secretary", 
-      "name": "request_approved"
-    }
-  }, 
-  {
-    "pk": 11, 
-    "model": "workflow.transition", 
-    "fields": {
-      "description": "", 
-      "process": 2, 
-      "output": 7, 
-      "input": 8, 
-      "condition": "Denied: Back to requester", 
-      "name": "not_approved"
-    }
-  }, 
-  {
-    "pk": 12, 
-    "model": "workflow.transition", 
-    "fields": {
-      "description": "", 
-      "process": 2, 
-      "output": 9, 
-      "input": 6, 
-      "condition": "", 
-      "name": "tell_employee"
-    }
-  }, 
-  {
-    "pk": 13, 
-    "model": "workflow.transition", 
-    "fields": {
-      "description": "", 
-      "process": 2, 
-      "output": 7, 
-      "input": 10, 
-      "condition": "Denied: Back to requester", 
-      "name": "send_to_refinement"
-    }
-  }, 
-  {
-    "pk": 14, 
-    "model": "workflow.transition", 
-    "fields": {
-      "description": "", 
-      "process": 2, 
-      "output": 8, 
-      "input": 10, 
-      "condition": "OK: Forward to supervisor", 
-      "name": "send_to_approval"
-    }
-  }, 
-  {
-    "pk": 15, 
-    "model": "workflow.transition", 
-    "fields": {
-      "description": "test timeout", 
-      "process": 3, 
-      "output": 11, 
-      "input": 10, 
-      "condition": "workitem.time_out(delay=1, unit='minutes')", 
-      "name": "begin_notification"
     }
   }, 
   {
@@ -584,6 +467,27 @@
     "fields": {
       "url": "approvalform", 
       "suffix": "w"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "workflow.pushapplication", 
+    "fields": {
+      "url": "route_to_supervisor"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "workflow.pushapplication", 
+    "fields": {
+      "url": "route_to_secretary"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "workflow.pushapplication", 
+    "fields": {
+      "url": "route_to_requester"
     }
   }, 
   {
@@ -822,6 +726,102 @@
       "joinMode": "a", 
       "splitMode": "a", 
       "pushapp_param": ""
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "workflow.transition", 
+    "fields": {
+      "description": "", 
+      "process": 2, 
+      "output": 10, 
+      "input": 7, 
+      "condition": "Re-request", 
+      "name": "re_request"
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "workflow.transition", 
+    "fields": {
+      "description": "", 
+      "process": 2, 
+      "output": 9, 
+      "input": 7, 
+      "condition": "Withdraw request", 
+      "name": "cancel_request"
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "workflow.transition", 
+    "fields": {
+      "description": "", 
+      "process": 2, 
+      "output": 6, 
+      "input": 8, 
+      "condition": "OK: Forward to secretary", 
+      "name": "request_approved"
+    }
+  }, 
+  {
+    "pk": 11, 
+    "model": "workflow.transition", 
+    "fields": {
+      "description": "", 
+      "process": 2, 
+      "output": 7, 
+      "input": 8, 
+      "condition": "Denied: Back to requester", 
+      "name": "not_approved"
+    }
+  }, 
+  {
+    "pk": 12, 
+    "model": "workflow.transition", 
+    "fields": {
+      "description": "", 
+      "process": 2, 
+      "output": 9, 
+      "input": 6, 
+      "condition": "", 
+      "name": "tell_employee"
+    }
+  }, 
+  {
+    "pk": 13, 
+    "model": "workflow.transition", 
+    "fields": {
+      "description": "", 
+      "process": 2, 
+      "output": 7, 
+      "input": 10, 
+      "condition": "Denied: Back to requester", 
+      "name": "send_to_refinement"
+    }
+  }, 
+  {
+    "pk": 14, 
+    "model": "workflow.transition", 
+    "fields": {
+      "description": "", 
+      "process": 2, 
+      "output": 8, 
+      "input": 10, 
+      "condition": "OK: Forward to supervisor", 
+      "name": "send_to_approval"
+    }
+  }, 
+  {
+    "pk": 15, 
+    "model": "workflow.transition", 
+    "fields": {
+      "description": "test timeout", 
+      "process": 3, 
+      "output": 11, 
+      "input": 10, 
+      "condition": "workitem.time_out(delay=1, unit='minutes')", 
+      "name": "begin_notification"
     }
   }, 
   {
