@@ -92,7 +92,7 @@ LOGIN_URL = 'accounts/login/'
 AUTH_PROFILE_MODULE = 'workflow.userprofile'
 # mail notification
 DEFAULT_FROM_EMAIL = 'goflow@alwaysdata.net'
-EMAIL_HOST = 'localhost'
+EMAIL_HOST = 'hermes8.si.c-s.fr'
 # user that executes auto processes
 WF_USER_AUTO = 'auto'
 # used to build application url like: http://[web_host]/[WF_APPS_PREFIX]/[application]

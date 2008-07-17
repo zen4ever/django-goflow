@@ -84,7 +84,7 @@ INSTALLED_APPS = (
 AUTH_PROFILE_MODULE = 'workflow.userprofile'
 
 TEST_USERS = (('primus','p'),('notarius','n'),('prefectus','p'),('socius','s'),('secundus','s'),('tertius','t'),('quartus','q'),)
-WF_USER_AUTO = 'auto'
+WF_USER_AUTO = 'admin'
 WF_APPS_PREFIX = '/leave'
 WF_PUSH_APPS_PREFIX = 'leavedemo.leave.pushapplications'
 

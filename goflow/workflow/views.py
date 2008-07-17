@@ -104,7 +104,7 @@ def app_env(request, action, id, template=None):
     rep += '<hr><p><b><a href=../../../>return</a></b>'
     return HttpResponse(rep)
 
-def test_start(request, id, template='test_start.html'):
+def test_start(request, id, template='goflow/test_start.html'):
     """starts test instances.
     
     for a given application, with its unit test environment, the user

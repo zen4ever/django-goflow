@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     (r'^.*/switch/(?P<username>.*)/(?P<password>.*)/$', 'goflow.workflow.views.debug_switch_user'),
     # user connection
     (r'^.*/logout/$', 'django.contrib.auth.views.logout'),
-    (r'^.*/accounts/login/$', 'django.contrib.auth.views.login', {'template_name':'login.html'}),
+    (r'^.*/accounts/login/$', 'django.contrib.auth.views.login', {'template_name':'goflow/login.html'}),
     (r'^.*/password_change/$', 'django.contrib.auth.views.password_change'),
     
     # static

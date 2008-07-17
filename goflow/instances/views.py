@@ -8,25 +8,25 @@ from models import Instance
 from goflow.workflow.decorators import login_required
 
 @login_required
-def mywork(request, template='mywork.html'):
+def mywork(request, template='goflow/mywork.html'):
     me = request.user
     workitems = getWorkItems(user=me, notstatus='c', noauto=True)
     return render_to_response(template, {'user':me, 'workitems':workitems})
 
 @login_required
-def otherswork(request, template='otherswork.html'):
+def otherswork(request, template='goflow/otherswork.html'):
     worker = request.GET['worker']
     workitems = getWorkItems(username=worker, notstatus='c', noauto=False)
     return render_to_response(template, {'worker':worker, 'workitems':workitems})
 
 @login_required
-def instancehistory(request, template='instancehistory.html'):
+def instancehistory(request, template='goflow/instancehistory.html'):
     id = int(request.GET['id'])
     inst = getInstance(id=id)
     return render_to_response(template, {'instance':inst})
 
 @login_required
-def myrequests(request, template='myrequests.html'):
+def myrequests(request, template='goflow/myrequests.html'):
     inst_list = Instance.objects.filter(user=request.user)
     return render_to_response(template, {'user':request.user, 'instances':inst_list})
 

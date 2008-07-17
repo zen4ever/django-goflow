@@ -22,7 +22,7 @@ _logger = logging.getLogger('workflow.log')
 
 @login_required
 def start_application(request, app_label=None, model_name=None, process_name=None, instance_label=None,
-                       template=None, template_def='start_application.html',
+                       template=None, template_def='goflow/start_application.html',
                        form_class=None, redirect='home', submit_name='action',
                        ok_value='OK', cancel_value='Cancel'):
     '''
@@ -85,7 +85,7 @@ def start_application(request, app_label=None, model_name=None, process_name=Non
 
 
 @login_required
-def default_app(request, id, template='default_app.html', redirect='home', submit_name='action'):
+def default_app(request, id, template='goflow/default_app.html', redirect='home', submit_name='action'):
     '''
     default application, used for prototyping workflows.
     '''
@@ -148,12 +148,12 @@ def _cond_to_button_value(cond):
 
 
 @login_required
-def edit_model(request, id, form_class, cmp_attr=None,template=None, template_def='edit_model.html', title="",
+def edit_model(request, id, form_class, cmp_attr=None,template=None, template_def='goflow/edit_model.html', title="",
                redirect='home', submit_name='action', ok_values=('OK',), save_value='Save', cancel_value='Cancel'):
     '''
     generic handler for editing a model
     '''
-    if not template: template = 'edit_%s.html' % form_class._meta.model._meta.object_name.lower()
+    if not template: template = 'goflow/edit_%s.html' % form_class._meta.model._meta.object_name.lower()
     model_class = form_class._meta.model
     workitem = getWorkItem(int(id), user=request.user)
     instance = workitem.instance
@@ -214,7 +214,7 @@ def edit_model(request, id, form_class, cmp_attr=None,template=None, template_de
 
 
 @login_required
-def view_application(request, id, template='view_application.html', redirect='home', title="",
+def view_application(request, id, template='goflow/view_application.html', redirect='home', title="",
                submit_name='action', ok_values=('OK',), cancel_value='Cancel'):
     '''
     generic handler for a view.
