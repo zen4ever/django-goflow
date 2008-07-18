@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import Group, User
-from goflow.instances.models import Instance
+from goflow.instances.models import ProcessInstance
 
 class LeaveRequest(models.Model):
     TYPE_CHOICES = (

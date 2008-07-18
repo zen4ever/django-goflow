@@ -1,6 +1,6 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
-from models import WorkItem, Instance
+from models import WorkItem, ProcessInstance
 
 class ActivityState:
     blocked = 0
@@ -28,7 +28,7 @@ class ProcessState:
     suspended = 0
     total = 0
     def __init__(self, process):
-        insts = Instance.objects.filter(process=process)
+        insts = ProcessInstance.objects.filter(process=process)
         self.total = insts.count()
         self.initiated = insts.filter(status='initiated').count()
         self.running = insts.filter(status='running').count()

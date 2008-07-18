@@ -4,7 +4,7 @@ from goflow.workflow.api import (get_workitems, activate_workitem, get_instance,
                                  forward_workitem, start_instance, get_workitem, start_subflow)
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
-from models import Instance
+from models import ProcessInstance
 
 from goflow.workflow.decorators import login_required
 
@@ -28,7 +28,7 @@ def instancehistory(request, template='goflow/instancehistory.html'):
 
 @login_required
 def myrequests(request, template='goflow/myrequests.html'):
-    inst_list = Instance.objects.filter(user=request.user)
+    inst_list = ProcessInstance.objects.filter(user=request.user)
     return render_to_response(template, {'user':request.user, 'instances':inst_list})
 
 @login_required

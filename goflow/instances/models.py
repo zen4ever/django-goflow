@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import Group, User
-from goflow.workflow.models import Process, Activity
+from goflow.workflow.models import Process, Activity, Transition
 from datetime import timedelta, datetime
 
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
-class Instance(models.Model):
+class ProcessInstance(models.Model):
     """ This is a process instance.
     
     A process instance is created when someone decides to do something,
@@ -23,7 +23,7 @@ class Instance(models.Model):
     of the workflow, the instance stores your usage, your history,
     your state of this process.
     
-    The Instance will collect and handle workitems (see definition)
+    The ProcessInstance will collect and handle workitems (see definition)
     to be passed from activity to activity in the process.
     
     Each instance can have more than one workitem depending on the
@@ -32,11 +32,11 @@ class Instance(models.Model):
     the instance "pieces" (workitems) that we get from splits of the
     same original process instance.
     
-    Each Instance keeps track of its history through a graph.
+    Each ProcessInstance keeps track of its history through a graph.
     Each node of the graph represents an activity the instance has
     gone through (normal graph nodes) or an activity the instance is
-    now pending on (a graph leaf node). Tracking the Instance history
-    can be very useful for the Instance monitoring.
+    now pending on (a graph leaf node). Tracking the ProcessInstance history
+    can be very useful for the ProcessInstance monitoring.
     
     When a process instance starts, the instance has to carry an
     implementation object that contains the application data. The
@@ -51,7 +51,7 @@ class Instance(models.Model):
     
     From the object, instances may be reached with the reverse generic relation:
     the following can be added to the model:
-      wfinstances = generic.GenericRelation(Instance)
+      wfinstances = generic.GenericRelation(ProcessInstance)
     
     """
     STATUS_CHOICES = (
@@ -85,7 +85,7 @@ class Instance(models.Model):
         return self.title
     
     def set_status(self, status):
-        if not status in [x for x,y in Instance.STATUS_CHOICES]:
+        if not status in [x for x,y in ProcessInstance.STATUS_CHOICES]:
             raise Exception('instance status incorrect :%s' % status)
         self.old_status = self.status
         self.status = status
@@ -113,7 +113,7 @@ class WorkItem(models.Model):
                       )
     date = models.DateTimeField(auto_now=True, core=True)
     user = models.ForeignKey(User, related_name='workitems', null=True, blank=True)
-    instance = models.ForeignKey(Instance, related_name='workitems')
+    instance = models.ForeignKey(ProcessInstance, related_name='workitems')
     activity = models.ForeignKey(Activity, related_name='workitems')
     workitem_from = models.ForeignKey('self', related_name='workitems_to', null=True, blank=True)
     push_roles = models.ManyToManyField(Group, related_name='push_workitems', null=True, blank=True)
@@ -121,7 +121,54 @@ class WorkItem(models.Model):
     blocked = models.BooleanField(default=False)
     priority = models.IntegerField(default=0)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='inactive')
+    
+    def forward(self, timeout_forwarding=False, subflow_workitem=None):
+        # forward_workitem(workitem, path=None, timeout_forwarding=False, subflow_workitem=None):
+        '''
+        Convenience procedure to forwards workitems to valid destination activities.
         
+        @param workitem: an instance of WorkItem
+        @type path: string??
+        @param path: XXX TODO: This is not used, so don't know why it's here.
+        @type timeoutForwarding: bool
+        @param timeoutForwarding:
+        @type: subflow_workitem: WorkItem
+        @param subflow_workitem: a workitem associated with a subflow ???
+        
+        '''
+        raise Exception("New API (not yet implemented)")
+    
+    def exec_push_application(self):
+        '''
+        Execute push application in workitem
+        '''
+        raise Exception("New API (not yet implemented)")
+    
+    def activate(self, actor):
+        '''
+        changes workitem status to 'active' and logs event, activator
+        
+        '''
+        raise Exception("New API (not yet implemented)")
+    
+    def complete(self, actor):
+        '''
+        changes status of workitem to 'complete' and logs event
+        '''
+        raise Exception("New API (not yet implemented)")
+    
+    def start_subflow(self, actor):
+        '''
+        starts subflow and blocks passed in workitem
+        '''
+        raise Exception("New API (not yet implemented)")
+    
+    def eval_condition(self, transition):
+        '''
+        evaluate the condition of a transition
+        '''
+        raise Exception("New API (not yet implemented)")
+    
     def __unicode__(self):
         return '%s-%s-%s' % (unicode(self.instance), self.activity, str(self.id))
     

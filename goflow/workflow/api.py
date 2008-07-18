@@ -8,7 +8,7 @@ Purpose: Provides api for accessing commonly used
 
 '''
 from models import Process, Activity, Transition
-from goflow.instances.models import Instance, WorkItem, Event
+from goflow.instances.models import ProcessInstance, WorkItem, Event
 from django.contrib.auth.models import User, Group
 from django.conf import settings
 from notification import notify_if_needed
@@ -40,21 +40,21 @@ def add_process(title, description):
 
 def add_instance(user, title, obj_instance):
     '''
-    Returns a newly saved Instance instance.
+    Returns a newly saved ProcessInstance instance.
     
     @type user: User
     @param user: an instance of django.contrib.auth.models.User, 
                  typically retrieved through a request object.
     @type title: string
-    @param title: the title of the new Instance instance.
+    @param title: the title of the new ProcessInstance instance.
     @type obj_instance: ContentType
     @param obj_instance: an instance of ContentType, which is typically
                         associated with a django Model. In this case???
-    @rtype: Instance
-    @return: a newly saved Instance instance.
+    @rtype: ProcessInstance
+    @return: a newly saved ProcessInstance instance.
     
     '''
-    instance = Instance(user=user, title=title, content_object=obj_instance)
+    instance = ProcessInstance(user=user, title=title, content_object=obj_instance)
     instance.save()
     return instance
 
@@ -98,7 +98,7 @@ def start_instance(process_name, user, item, title=None):
     @type item: ContentType
     @param item: a content_type object e.g. an instance of LeaveRequest
     @type: title: string
-    @param title: title of new Instance instance (optional)
+    @param title: title of new ProcessInstance instance (optional)
     @rtype: WorkItem
     @return: a newly configured workitem sent to auto_user, 
              a target_user, or ?? (roles).
@@ -330,12 +330,13 @@ def exec_push_application(workitem):
         workitem.fall_out()
     return result
 
-def get_workitems(user=None, username=None, activity=None, status=None,
+def get_workitems(user=None, username=None, queryset=WorkItem.objects, activity=None, status=None,
                   notstatus=('blocked','suspended','fallout','complete'), noauto=True):
     """
     get workitems (in order to display a task list for example).
     
     user or username: filter on user (default=all)
+    queryset: pre-filtering (default=WorkItem.objects)
     activity: filter on activity (default=all)
     status: filter on status (default=all)
     notstatus: list of status to exclude
@@ -344,11 +345,11 @@ def get_workitems(user=None, username=None, activity=None, status=None,
     """
     groups = Group.objects.all()
     if user:
-        query = WorkItem.objects.filter(user=user, activity__process__enabled=True)
+        query = queryset.filter(user=user, activity__process__enabled=True)
         groups = user.groups.all()
     else:
         if username:
-            query = WorkItem.objects.filter(
+            query = queryset.filter(
                     user__username=username, 
                     activity__process__enabled=True
             )
@@ -378,7 +379,7 @@ def get_workitems(user=None, username=None, activity=None, status=None,
     
     # search pullable workitems
     for role in groups:
-        pullables = WorkItem.objects.filter(pull_roles=role, activity__process__enabled=True)
+        pullables = queryset.filter(pull_roles=role, activity__process__enabled=True)
         if status:
             pullables = pullables.filter(status=status)
         
@@ -477,9 +478,9 @@ def start_subflow(workitem, actor):
 
 def get_instance(id):
     '''
-    get Instance instance by id
+    get ProcessInstance instance by id
     '''
-    instance = Instance.objects.get(id=id)
+    instance = ProcessInstance.objects.get(id=id)
     return instance
 
 def get_workitem(id, user=None, even_process_disabled=False, status=('inactive','active')):

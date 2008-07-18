@@ -9,7 +9,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 
-from goflow.instances.models import DefaultAppModel, Instance
+from goflow.instances.models import DefaultAppModel, ProcessInstance
 from forms import ContentTypeForm
 from django.contrib.contenttypes.models import ContentType
 from api import start_instance
@@ -120,7 +120,7 @@ def test_start(request, id, template='goflow/test_start.html'):
             model = ctype.model_class()
             for inst in model.objects.all():
                 # just objects without link to a workflow instance
-                if Instance.objects.filter(content_type__pk=ctype.id,object_id=inst.id).count() > 0:
+                if ProcessInstance.objects.filter(content_type__pk=ctype.id,object_id=inst.id).count() > 0:
                     continue
                 inst.id = None
                 inst.save()

@@ -78,6 +78,6 @@ class Test(unittest.TestCase):
         instance = workitem.instance
         ob = instance.wfobject()
         changeObjectInstance(instance, DefaultAppModel.objects.create(comment='test 2'))
-        instance = Instance.objects.get(id=instance.id)
+        instance = ProcessInstance.objects.get(id=instance.id)
         self.assertNotEquals(instance.wfobject(), ob, "instance object has changed")
           

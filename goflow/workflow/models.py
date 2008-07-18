@@ -26,6 +26,27 @@ class Process(models.Model):
                             help_text='a default end activity will be created if blank')
     priority = models.IntegerField(default=0)
     
+    def start_instance(self, user, item, title=None):
+        '''
+        Returns a workitem given the name of a preexisting enabled Process 
+        instance, while passing in the id of the user, the contenttype 
+        object and the title.
+        
+        @type process_name: string
+        @param process_name: a name of a process. e.g. 'leave'
+        @type user: User
+        @param user: an instance of django.contrib.auth.models.User, 
+                     typically retrieved through a request object.
+        @type item: ContentType
+        @param item: a content_type object e.g. an instance of LeaveRequest
+        @type: title: string
+        @param title: title of new ProcessInstance instance (optional)
+        @rtype: WorkItem
+        @return: a newly configured workitem sent to auto_user, 
+                 a target_user, or ?? (roles).
+        '''
+        raise Exception("New API (not yet implemented)")
+    
     def __unicode__(self):
         return self.title
     
