@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
-from api import startInstance, getWorkItem, completeWorkitem, activateWorkitem, isProcessEnabled, check_start_instance_perm
+from api import (start_instance, get_workitem, complete_workitem, activate_workitem, 
+                 is_process_enabled, check_start_instance_perm)
 from django.db import models
 from django.contrib.auth.models import User
 from django.newforms import form_for_model, form_for_instance
@@ -17,7 +18,7 @@ from django.contrib.admin.views.main import add_stage
 from django.conf import settings
 
 import logger, logging
-_logger = logging.getLogger('workflow.log')
+_log = logging.getLogger('workflow.log')
 
 
 @login_required
@@ -37,7 +38,8 @@ def start_application(request, app_label=None, model_name=None, process_name=Non
     template_def             used if template not found; default: 'start_application.html'
     form_class               default: old form_for_model
     '''
-    if not process_name: process_name = app_label
+    if not process_name:
+        process_name = app_label
     try:
         check_start_instance_perm(process_name, request.user)
     except Exception, v:
@@ -67,12 +69,12 @@ def start_application(request, app_label=None, model_name=None, process_name=Non
             except Exception, v:
                 if is_form_used:
                     raise
-                    _logger.error("the save method of the form must accept parameters user and data")
+                    _log.error("the save method of the form must accept parameters user and data")
                 else:
-                    _logger.error("forme save error: %s", str(v))
+                    _log.error("forme save error: %s", str(v))
             
             if ob:
-                startInstance(process_name, request.user, ob, instance_label)
+                start_instance(process_name, request.user, ob, instance_label)
             
             return HttpResponseRedirect(redirect)
     else:
@@ -93,7 +95,7 @@ def default_app(request, id, template='goflow/default_app.html', redirect='home'
     id = int(id)
     if request.method == 'POST':
         data = request.POST.copy()
-        workitem = getWorkItem(id, user=request.user)
+        workitem = get_workitem(id, user=request.user)
         inst = workitem.instance
         ob = inst.wfobject()
         form = DefaultAppForm(data, instance=ob)
@@ -108,15 +110,15 @@ def default_app(request, id, template='goflow/default_app.html', redirect='home'
             #ob.comment = data['comment']
             #ob.save(workitem=workitem, submit_value=submit_value)
             
-            completeWorkitem(workitem, request.user)
+            complete_workitem(workitem, request.user)
             return HttpResponseRedirect(redirect)
     else:
-        workitem = getWorkItem(id, user=request.user)
+        workitem = get_workitem(id, user=request.user)
         inst = workitem.instance
         ob = inst.wfobject()
         form = DefaultAppForm(instance=ob)
         # add header with activity description, submit buttons dynamically
-        if workitem.activity.splitMode == 'x':
+        if workitem.activity.split_mode == 'x':
             tlist = workitem.activity.transition_inputs.all()
             if tlist.count() > 0:
                 submit_values = []
@@ -155,7 +157,7 @@ def edit_model(request, id, form_class, cmp_attr=None,template=None, template_de
     '''
     if not template: template = 'goflow/edit_%s.html' % form_class._meta.model._meta.object_name.lower()
     model_class = form_class._meta.model
-    workitem = getWorkItem(int(id), user=request.user)
+    workitem = get_workitem(int(id), user=request.user)
     instance = workitem.instance
     activity = workitem.activity
     
@@ -196,7 +198,7 @@ def edit_model(request, id, form_class, cmp_attr=None,template=None, template_de
                     raise Exception(str(v))
                 instance.condition = submit_value
                 instance.save()
-                completeWorkitem(workitem, request.user)
+                complete_workitem(workitem, request.user)
                 return HttpResponseRedirect(redirect)
     else:
         form = form_class(instance=obj)
@@ -221,7 +223,7 @@ def view_application(request, id, template='goflow/view_application.html', redir
     
     useful for a simple view or a complex object edition.
     '''
-    workitem = getWorkItem(int(id), user=request.user)
+    workitem = get_workitem(int(id), user=request.user)
     instance = workitem.instance
     activity = workitem.activity
     
@@ -241,7 +243,7 @@ def view_application(request, id, template='goflow/view_application.html', redir
         if submit_value in ok_values:
             instance.condition = submit_value
             instance.save()
-            completeWorkitem(workitem, request.user)
+            complete_workitem(workitem, request.user)
             return HttpResponseRedirect(redirect)
     return render_to_response(template, {'object':obj,
                                          'instance':instance,
@@ -262,5 +264,5 @@ def override_app_params(activity, name, value):
         if dicparams.has_key(name):
             return dicparams[name]
     except Exception, v:
-        _logger.error('_override_app_params %s %s - %s', activity, name, v)
+        _log.error('_override_app_params %s %s - %s', activity, name, v)
     return value

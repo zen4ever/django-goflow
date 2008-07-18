@@ -93,7 +93,7 @@ digraph name {
         </TABLE>
         >]
     Activity -> PushApplication
-    [label="pushApplication"] ;
+    [label="push_application"] ;
     
     Application [label=<
         <TABLE BGCOLOR="palegoldenrod" BORDER="0" CELLBORDER="0" CELLSPACING="0">
@@ -365,7 +365,7 @@ digraph name {
         ></TD></TR>
         
         <TR><TD ALIGN="LEFT" BORDER="0"
-        ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">pushApplication</FONT
+        ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">push_application</FONT
         ></TD>
         <TD ALIGN="LEFT"
         ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">ForeignKey</FONT
@@ -407,28 +407,28 @@ digraph name {
         ></TD></TR>
         
         <TR><TD ALIGN="LEFT" BORDER="0"
-        ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">autoStart</FONT
+        ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">autostart</FONT
         ></TD>
         <TD ALIGN="LEFT"
         ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">BooleanField</FONT
         ></TD></TR>
         
         <TR><TD ALIGN="LEFT" BORDER="0"
-        ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">autoFinish</FONT
+        ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">autofinish</FONT
         ></TD>
         <TD ALIGN="LEFT"
         ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">BooleanField</FONT
         ></TD></TR>
         
         <TR><TD ALIGN="LEFT" BORDER="0"
-        ><FONT FACE="Helvetica Bold">joinMode</FONT
+        ><FONT FACE="Helvetica Bold">join_mode</FONT
         ></TD>
         <TD ALIGN="LEFT"
         ><FONT FACE="Helvetica Bold">CharField</FONT
         ></TD></TR>
         
         <TR><TD ALIGN="LEFT" BORDER="0"
-        ><FONT FACE="Helvetica Bold">splitMode</FONT
+        ><FONT FACE="Helvetica Bold">split_mode</FONT
         ></TD>
         <TD ALIGN="LEFT"
         ><FONT FACE="Helvetica Bold">CharField</FONT

@@ -9,9 +9,9 @@ from datetime import datetime, timedelta
 def notify_if_needed(user=None, roles=None):
     ''' notify user if conditions are fullfilled
     '''
-    from api import getWorkItems
+    from api import get_workitems
     if user:
-        workitems = getWorkItems(user=user, notstatus='c', noauto=True)
+        workitems = get_workitems(user=user, notstatus='c', noauto=True)
         UserProfile.objects.get_or_create(user=user)
         profile = user.get_profile()
         if len(workitems) >= profile.nb_wi_notif:

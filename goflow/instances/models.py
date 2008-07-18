@@ -52,22 +52,22 @@ class Instance(models.Model):
     From the object, instances may be reached with the reverse generic relation:
     the following can be added to the model:
       wfinstances = generic.GenericRelation(Instance)
-  
+    
     """
     STATUS_CHOICES = (
-                      ('i', 'initiated'),
-                      ('r', 'running'),
-                      ('a', 'active'),
-                      ('c', 'complete'),
-                      ('t', 'terminated'),
-                      ('s', 'suspended'),
+                      ('initiated', 'initiated'),
+                      ('running', 'running'),
+                      ('active', 'active'),
+                      ('complete', 'complete'),
+                      ('terminated', 'terminated'),
+                      ('suspended', 'suspended'),
                       )
     title = models.CharField(max_length=100)
     process = models.ForeignKey(Process, related_name='instances', null=True, blank=True)
     creationTime = models.DateTimeField(auto_now_add=True, core=True)
     user = models.ForeignKey(User, related_name='instances')
-    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='i')
-    old_status = models.CharField(max_length=1, choices=STATUS_CHOICES, null=True, blank=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='initiated')
+    old_status = models.CharField(max_length=10, choices=STATUS_CHOICES, null=True, blank=True)
     condition = models.CharField(max_length=50, null=True, blank=True)
     
     # refactoring
@@ -84,8 +84,8 @@ class Instance(models.Model):
     def __unicode__(self):
         return self.title
     
-    def setStatus(self, status):
-        if not status in ('i', 'r', 'a', 'c', 't', 's'):
+    def set_status(self, status):
+        if not status in [x for x,y in Instance.STATUS_CHOICES]:
             raise Exception('instance status incorrect :%s' % status)
         self.old_status = self.status
         self.status = status
@@ -104,28 +104,28 @@ class WorkItem(models.Model):
     an "instance" of the activity.
     """
     STATUS_CHOICES = (
-                      ('b', 'blocked'),
-                      ('i', 'inactive'),
-                      ('a', 'active'),
-                      ('s', 'suspended'),
-                      ('f', 'fallout'),
-                      ('c', 'complete'),
+                      ('blocked', 'blocked'),
+                      ('inactive', 'inactive'),
+                      ('active', 'active'),
+                      ('suspended', 'suspended'),
+                      ('fallout', 'fallout'),
+                      ('complete', 'complete'),
                       )
     date = models.DateTimeField(auto_now=True, core=True)
     user = models.ForeignKey(User, related_name='workitems', null=True, blank=True)
     instance = models.ForeignKey(Instance, related_name='workitems')
     activity = models.ForeignKey(Activity, related_name='workitems')
-    workitemFrom = models.ForeignKey('self', related_name='workitems_to', null=True, blank=True)
-    pushRoles = models.ManyToManyField(Group, related_name='push_workitems', null=True, blank=True)
-    pullRoles = models.ManyToManyField(Group, related_name='pull_workitems', null=True, blank=True)
+    workitem_from = models.ForeignKey('self', related_name='workitems_to', null=True, blank=True)
+    push_roles = models.ManyToManyField(Group, related_name='push_workitems', null=True, blank=True)
+    pull_roles = models.ManyToManyField(Group, related_name='pull_workitems', null=True, blank=True)
     blocked = models.BooleanField(default=False)
     priority = models.IntegerField(default=0)
-    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='i')
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='inactive')
         
     def __unicode__(self):
         return '%s-%s-%s' % (unicode(self.instance), self.activity, str(self.id))
     
-    def hasWorkItemsTo(self):
+    def has_workitems_to(self):
         b = ( self.workitems_to.count() > 0 )
         return b
     
@@ -158,32 +158,32 @@ class WorkItem(models.Model):
         self.fallOut()
         return False
     
-    def fallOut(self):
-        self.status = 'f'
+    def fall_out(self):
+        self.status = 'fallout'
         self.save()
         Event.objects.create(name='fallout', workitem=self)
     
-    def htmlAction(self):
+    def html_action(self):
         label = 'action'
-        if self.status == 'i':
+        if self.status == 'inactive':
             label = 'activate'
             url='activate/%d/' % self.id
-        if self.status == 'a':
+        if self.status == 'active':
             label = 'complete'
             url='complete/%d/' % self.id
-        if self.status == 'c':
+        if self.status == 'complete':
             return 'completed'
         return '<a href=%s>%s</a>' % (url, label)
     
-    def htmlActionLink(self):
+    def html_action_link(self):
         #label = 'action'
-        if self.status == 'i':
+        if self.status == 'inactive':
             #label = 'activate'
             url='activate/%d/' % self.id
-        if self.status == 'a':
+        if self.status == 'active':
             #label = 'complete'
             url='complete/%d/' % self.id
-        if self.status == 'c':
+        if self.status == 'complete':
             raise Exception('no action for completed workitems')
         return '<a href=%s>' % (url)
     

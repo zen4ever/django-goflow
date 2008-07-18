@@ -6,7 +6,6 @@ LIB_PATH = join(_dir,'..','..')
 import sys
 sys.path.append(LIB_PATH)
 
-
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -92,7 +91,7 @@ LOGIN_URL = 'accounts/login/'
 AUTH_PROFILE_MODULE = 'workflow.userprofile'
 # mail notification
 DEFAULT_FROM_EMAIL = 'goflow@alwaysdata.net'
-EMAIL_HOST = 'hermes8.si.c-s.fr'
+EMAIL_HOST = 'localhost'
 # user that executes auto processes
 WF_USER_AUTO = 'auto'
 # used to build application url like: http://[web_host]/[WF_APPS_PREFIX]/[application]

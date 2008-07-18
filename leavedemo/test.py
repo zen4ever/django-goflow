@@ -5,7 +5,7 @@ os.environ["DJANGO_SETTINGS_MODULE"]="leavedemo.settings"
 _dir = os.path.dirname(__file__)
 sys.path.insert(0, os.path.join(_dir, '..'))
 
-from goflow.workflow.api import execAutoApplication
+from goflow.workflow.api import exec_auto_application
 from goflow.workflow.models import WorkItem
 from goflow.workflow.views import cron
 #from django.core.urlresolvers import resolve

@@ -20,11 +20,11 @@ class LeaveRequest(models.Model):
             ('Serious illness of a parent-in-law','Serious illness of a parent-in-law'),
             ('Serious illness of spouse','Serious illness of spouse'))
     date = models.DateTimeField(auto_now=True)
-    dayStart = models.DateField()
-    dayEnd = models.DateField()
+    day_start = models.DateField()
+    day_end = models.DateField()
     type = models.CharField(max_length=50, choices=TYPE_CHOICES, default='Vacation')
     reason = models.TextField(null=True, blank=True)
-    reasonDenial = models.TextField(null=True, blank=True, verbose_name='reason of denial')
+    reason_denial = models.TextField(null=True, blank=True, verbose_name='reason of denial')
     requester = models.ForeignKey(User, null=True, blank=True)
     
     def __str__(self):
@@ -32,9 +32,9 @@ class LeaveRequest(models.Model):
 
     class Admin:
         fields = (
-                  (None, {'fields':(('dayStart', 'dayEnd'), 'type', 'requester', 'reason', 'reasonDenial')}),
+                  (None, {'fields':(('day_start', 'day_end'), 'type', 'requester', 'reason', 'reason_denial')}),
                   )
-        list_display = ('type', 'date', 'dayStart', 'dayEnd', 'requester')
+        list_display = ('type', 'date', 'day_start', 'day_end', 'requester')
         list_filter = ('type', 'requester')
 
 class Manager(models.Model):

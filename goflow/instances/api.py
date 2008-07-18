@@ -13,11 +13,11 @@ class ActivityState:
     def __init__(self, activity):
         wis = WorkItems.objects.filter(activity=activity)
         self.total = wis.count()
-        self.blocked = wis.filter(status='b').count()
-        self.inactive = wis.filter(status='i').count()
-        self.active = wis.filter(status='a').count()
-        self.fallout = wis.filter(status='f').count()
-        self.complete = wis.filter(status='c').count()
+        self.blocked = wis.filter(status='blocked').count()
+        self.inactive = wis.filter(status='inactive').count()
+        self.active = wis.filter(status='active').count()
+        self.fallout = wis.filter(status='fallout').count()
+        self.complete = wis.filter(status='complete').count()
 
 class ProcessState:
     initiated = 0
@@ -30,12 +30,12 @@ class ProcessState:
     def __init__(self, process):
         insts = Instance.objects.filter(process=process)
         self.total = insts.count()
-        self.initiated = insts.filter(status='i').count()
-        self.running = insts.filter(status='r').count()
-        self.active = insts.filter(status='a').count()
-        self.complete = insts.filter(status='c').count()
-        self.terminated = insts.filter(status='t').count()
-        self.suspended = insts.filter(status='s').count()
+        self.initiated = insts.filter(status='initiated').count()
+        self.running = insts.filter(status='running').count()
+        self.active = insts.filter(status='active').count()
+        self.complete = insts.filter(status='complete').count()
+        self.terminated = insts.filter(status='terminated').count()
+        self.suspended = insts.filter(status='suspended').count()
 
 class ActivityStats:
     number = 0

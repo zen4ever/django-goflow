@@ -3,6 +3,7 @@ from django.conf import settings
 
 register = Library()
 
+@register.simple_tag
 def switch_users():
     """
     Returns a menu to switch between users. need settings.TEST_USERS
@@ -21,4 +22,3 @@ def switch_users():
         u, p = item
         content += ' [<a href=switch/%s/%s/>%s</a>]' % (u,p,u)
     return content
-switch_users = register.simple_tag(switch_users)

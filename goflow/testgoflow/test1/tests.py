@@ -15,7 +15,7 @@ class Test(unittest.TestCase):
     def test_access_object_from_instance(self):
         user = User.objects.get(username='userA')
         inst = DefaultAppModel.objects.create(comment='test_access_object_from_instance')
-        instance = addInstance(user, "test_instance", inst)
+        instance = add_instance(user, "test_instance", inst)
         self.assertEquals(inst, instance.wfobject(), "get object with instance.wfobject()")
     
     def test_connect_admin(self):
@@ -36,7 +36,7 @@ class Test(unittest.TestCase):
         
         mail.outbox = []
         model = DefaultAppModel.objects.create(comment='test_notif')
-        workitem = startInstance('test2', user, model)
+        workitem = start_instance('test2', user, model)
         notify_if_needed(user)
         # Test that one message has been sent.
         self.assertEqual(len(mail.outbox), 0)
@@ -49,14 +49,14 @@ class Test(unittest.TestCase):
         
     def test_push_apps(self):
         user = User.objects.get(username='userA')
-        workitem = startInstance('test2', user, DefaultAppModel.objects.create(comment='test_notif'))
-        workitem.activity.pushApplication.url = 'route_to_user'
+        workitem = start_instance('test2', user, DefaultAppModel.objects.create(comment='test_notif'))
+        workitem.activity.push_application.url = 'route_to_user'
         workitem.activity.pushapp_param = "{'username':'any'}"
-        execPushApplication(workitem)
+        exec_push_application(workitem)
     
     def test_forwd_nopush(self):
         user = User.objects.get(username='any')
-        workitem = startInstance('question_process', user, DefaultAppModel.objects.create(comment='test'))
+        workitem = start_instance('question_process', user, DefaultAppModel.objects.create(comment='test'))
         
         workitem.activity = Activity.objects.get(title='answer question')
         workitem.user = None
@@ -64,7 +64,7 @@ class Test(unittest.TestCase):
         B = Group.objects.get(name='B')
         workitem.pullRoles.add(B)
         user.groups.add(B)
-        lwi = getWorkItems(user=user, notstatus='c', noauto=True)
+        lwi = get_workitems(user=user, notstatus='c', noauto=True)
         self.assertEquals(workitem, lwi[0], "user with role B has access to workitem")
         return
         
@@ -74,7 +74,7 @@ class Test(unittest.TestCase):
     
     def test_change_obinstance(self):
         user = User.objects.get(username='any')
-        workitem = startInstance('question_process', user, DefaultAppModel.objects.create(comment='test'))
+        workitem = start_instance('question_process', user, DefaultAppModel.objects.create(comment='test'))
         instance = workitem.instance
         ob = instance.wfobject()
         changeObjectInstance(instance, DefaultAppModel.objects.create(comment='test 2'))

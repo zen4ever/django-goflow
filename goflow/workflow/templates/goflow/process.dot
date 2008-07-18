@@ -27,7 +27,7 @@ digraph "{{ process.title }}" {
     
     /* begin activity */
     activity{{process.begin.id}} [label = "{{process.begin.title}}\n[{{ process.begin.application.url }}]"];
-    init -> activity{{process.begin.id}} [label="", headlabel="{{ process.begin.pushApplication.url }}"];
+    init -> activity{{process.begin.id}} [label="", headlabel="{{ process.begin.push_application.url }}"];
 
 /*
     begin_split [shape=diamond, label=""];

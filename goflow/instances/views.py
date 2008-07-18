@@ -1,6 +1,7 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
-from goflow.workflow.api import getWorkItems, activateWorkitem, getInstance, forwardWorkItem, startInstance, getWorkItem, startSubflow
+from goflow.workflow.api import (get_workitems, activate_workitem, get_instance, 
+                                 forward_workitem, start_instance, get_workitem, start_subflow)
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from models import Instance
@@ -10,19 +11,19 @@ from goflow.workflow.decorators import login_required
 @login_required
 def mywork(request, template='goflow/mywork.html'):
     me = request.user
-    workitems = getWorkItems(user=me, notstatus='c', noauto=True)
+    workitems = get_workitems(user=me, notstatus='complete', noauto=True)
     return render_to_response(template, {'user':me, 'workitems':workitems})
 
 @login_required
 def otherswork(request, template='goflow/otherswork.html'):
     worker = request.GET['worker']
-    workitems = getWorkItems(username=worker, notstatus='c', noauto=False)
+    workitems = get_workitems(username=worker, notstatus='complete', noauto=False)
     return render_to_response(template, {'worker':worker, 'workitems':workitems})
 
 @login_required
 def instancehistory(request, template='goflow/instancehistory.html'):
     id = int(request.GET['id'])
-    inst = getInstance(id=id)
+    inst = get_instance(id=id)
     return render_to_response(template, {'instance':inst})
 
 @login_required
@@ -33,14 +34,14 @@ def myrequests(request, template='goflow/myrequests.html'):
 @login_required
 def activate(request, id):
     id = int(id)
-    workitem = getWorkItem(id=id, user=request.user)
-    activateWorkitem(workitem, request.user)
+    workitem = get_workitem(id=id, user=request.user)
+    activate_workitem(workitem, request.user)
     return _app_response(workitem)
 
 @login_required
 def complete(request, id):
     id = int(id)
-    workitem = getWorkItem(id=id, user=request.user)
+    workitem = get_workitem(id=id, user=request.user)
     return _app_response(workitem)
 
 def _app_response(workitem):
@@ -50,9 +51,9 @@ def _app_response(workitem):
         return HttpResponse('process %s disabled.' % activity.process.title)
     
     
-    if activity.kind == 'f':
+    if activity.kind == 'subflow':
         # subflow
-        sub_workitem = startSubflow(workitem, workitem.user)
+        sub_workitem = start_subflow(workitem, workitem.user)
         return _app_response(sub_workitem)
     
     # no application: default_app
@@ -60,7 +61,7 @@ def _app_response(workitem):
         url = '../../../default_app'
         return HttpResponseRedirect('%s/%d/' % (url, id))
     
-    if activity.kind == 's':
+    if activity.kind == 'standard':
         # standard activity
         return HttpResponseRedirect(activity.application.get_app_url(workitem))
     return HttpResponse('completion page.')

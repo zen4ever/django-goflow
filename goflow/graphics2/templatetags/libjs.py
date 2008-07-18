@@ -3,6 +3,7 @@ from django.conf import settings
 
 register = Library()
 
+@register.simple_tag
 def graphics_url_prefix():
     """url prefix for js lib.
     
@@ -10,4 +11,3 @@ def graphics_url_prefix():
     A suitable value is "http://www.walterzorn.com/scripts/"
     """
     return settings.GRAPHICS_JS_URL
-graphics_url_prefix = register.simple_tag(graphics_url_prefix)

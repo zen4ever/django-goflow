@@ -5,6 +5,14 @@ from urllib import quote
 # modif % django.contrib.auth: LOGIN_URL from settings
 from django.conf import settings
 
+
+def allow_tags(func):
+    def _decorate(_func):
+        _func.allow_tags = True
+        return _func
+    return _decorate(func)
+
+
 def user_passes_test(test_func, login_url=settings.LOGIN_URL):
     """
     Decorator for views that checks that the user passes the given test,

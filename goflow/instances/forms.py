@@ -11,6 +11,7 @@ class BaseForm(ModelForm):
     '''
     base class for edition forms
     '''
+    
     workitem_id = forms.IntegerField(widget=forms.HiddenInput, required=False)
     def save(self, workitem=None, submit_value=None, commit=True):
         ob = super(BaseForm, self).save(commit=commit)
@@ -23,7 +24,7 @@ class BaseForm(ModelForm):
         an exception should be risen if pre-conditions are not fullfilled
         """
         pass
-    
+
     class Meta:
          exclude = ('workitem_id',)
 
@@ -31,6 +32,7 @@ class StartForm(ModelForm):
     '''
     base class for starting a workflow
     '''
+    
     def save(self, user=None, data=None, commit=True):
         ob = super(StartForm, self).save(commit=commit)
         return ob
@@ -59,7 +61,7 @@ class DefaultAppForm(BaseForm):
                 ob.history += '\n button clicked: [%s]' % submit_value
         ob.save()
         return ob
-    
+
     class Meta:
          model = DefaultAppModel
          exclude = ('reasonDenial',)
@@ -77,7 +79,8 @@ class DefaultAppStartForm(StartForm):
             ob.comment = None
         ob.save()
         return ob
-    
+
     class Meta:
          model = DefaultAppModel
          exclude = ('reasonDenial',)
+

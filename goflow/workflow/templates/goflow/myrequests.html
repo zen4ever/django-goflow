@@ -9,7 +9,7 @@
 
 {% for inst in instances %}
 <tr>
-<td>{{inst.creationTime}}</td>
+<td>{{inst.creation_time}}</td>
 <td><a href=instancehistory?id={{inst.id}}>{{inst.title}}</a></td>
 <td>{{inst.get_status_display}}</td>
 </tr>

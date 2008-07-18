@@ -8,11 +8,11 @@ def update_hr(workitem):
     '''
     instance = workitem.instance
     leaverequest = workitem.instance.wfobject()
-    if leaverequest.reasonDenial:
+    if leaverequest.reason_denial:
         raise Exception('denial reason is not empty')
-    if leaverequest.dayStart > leaverequest.dayEnd:
+    if leaverequest.dayStart > leaverequest.day_end:
         raise Exception('date error')
-    delta = leaverequest.dayEnd - leaverequest.dayStart
+    delta = leaverequest.dayEnd - leaverequest.day_start
     nbjours = delta.days + 1
     account = Account.objects.get(user=instance.user)
     if account.days < nbjours:

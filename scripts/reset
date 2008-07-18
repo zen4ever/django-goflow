@@ -1,0 +1,6 @@
+#!
+rm leavedemo/sqlite.db3
+python leavedemo/manage.py syncdb
+python scripts/leave_process_builder.py
+#python leavedemo/manage.py runserver
+

@@ -1,7 +1,7 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
-from api import forwardWorkItem
+from api import forward_workitem
 from models import Process, Activity, Transition, Application
 from django.conf import settings
 from django.contrib.auth.models import Group
@@ -12,7 +12,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from goflow.instances.models import DefaultAppModel, Instance
 from forms import ContentTypeForm
 from django.contrib.contenttypes.models import ContentType
-from api import startInstance
+from api import start_instance
 
 def index(request, template):
     """workflow dashboard handler.
@@ -63,9 +63,9 @@ def process_dot(request, id, template):
     """
     process = Process.objects.get(id=int(id))
     context = {
-               'process':process,
-               'roles':({'name':'role1', 'color':'red'},),
-               'activities':Activity.objects.filter(process=process)
+               'process': process,
+               'roles': ({'name':'role1', 'color':'red'},),
+               'activities': Activity.objects.filter(process=process)
                }
     return render_to_response(template, context)
 
@@ -73,9 +73,9 @@ def cron(request=None):
     """WIP
     """
     for t in Transition.objects.filter(condition__contains='workitem.time_out'):
-        workitems = WorkItem.objects.filter(activity=t.input).exclude(status='c')
+        workitems = WorkItem.objects.filter(activity=t.input).exclude(status='complete')
         for wi in workitems:
-            forwardWorkItem(wi, timeoutForwarding=True)
+            forward_workitem(wi, timeoutForwarding=True)
     
     if request:
         request.user.message_set.create(message="cron has run.")
@@ -124,7 +124,7 @@ def test_start(request, id, template='goflow/test_start.html'):
                     continue
                 inst.id = None
                 inst.save()
-                startInstance(processName='test_%s' % app.url,
+                start_instance(process_name='test_%s' % app.url,
                               user=request.user, item=inst, title="%s test instance for app %s" % (ctype.name, app.url))
             request.user.message_set.create(message='test instances created')
         return HttpResponseRedirect('../..')
