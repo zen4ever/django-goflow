@@ -82,6 +82,7 @@ INSTALLED_APPS = (
     'goflow.workflow',
     'goflow.graphics2',
     'goflow.instances',
+    'goflow.apptools',
 )
 
 # user profile model

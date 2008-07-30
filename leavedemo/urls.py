@@ -6,6 +6,9 @@ from leave.forms import StartRequestForm, RequesterForm, CheckRequestForm
 from os.path import join, dirname
 _dir = join(dirname(__file__))
 
+from django.contrib import admin
+admin.autodiscover()
+
 urlpatterns = patterns('',
     # FOR DEBUG AND TEST ONLY
     (r'^.*/accounts/login.*switch/(?P<username>.*)/(?P<password>.*)/$', 'goflow.workflow.views.debug_switch_user', {'redirect':'/leave/'}),
@@ -26,26 +29,26 @@ urlpatterns = patterns('',
     (r'^leave/$', 'django.views.generic.simple.direct_to_template', {'template':'leave.html'}),
     
     # starting application
-    (r'^leave/start/$', 'goflow.workflow.applications.start_application', {'process_name':'leave',
+    (r'^leave/start/$', 'goflow.apptools.views.start_application', {'process_name':'leave',
                                                                            'form_class':StartRequestForm,
                                                                            'template':'start_leave.html'}),
     
     # applications
-    (r'^leave/checkstatus/(?P<id>.*)/$', 'goflow.workflow.applications.edit_model', {'form_class':CheckRequestForm,
+    (r'^leave/checkstatus/(?P<id>.*)/$', 'goflow.apptools.views.edit_model', {'form_class':CheckRequestForm,
                                                                                      'template':'checkstatus.html'}),
     (r'^leave/checkstatus_auto/$', 'leavedemo.leave.views.checkstatus_auto', {'notif_user':True}),
-    (r'^leave/refine/(?P<id>.*)/$', 'goflow.workflow.applications.edit_model', {'form_class':RequesterForm,
+    (r'^leave/refine/(?P<id>.*)/$', 'goflow.apptools.views.edit_model', {'form_class':RequesterForm,
                                                                                 'template':'refine.html'}),
-    (r'^leave/approvalform/(?P<id>.*)/$', 'goflow.workflow.applications.edit_model', {'form_class':CheckRequestForm,
+    (r'^leave/approvalform/(?P<id>.*)/$', 'goflow.apptools.views.edit_model', {'form_class':CheckRequestForm,
                                                                                       'template':'approval.html'}),
-    (r'^leave/hrform/(?P<id>.*)/$', 'goflow.workflow.applications.view_application', {'template':'hrform.html'}),
+    (r'^leave/hrform/(?P<id>.*)/$', 'goflow.apptools.views.view_application', {'template':'hrform.html'}),
     (r'^leave/hr_auto/$', 'leavedemo.leave.auto.update_hr'),
-    (r'^leave/finalinfo/(?P<id>.*)/$', 'goflow.workflow.applications.view_application', {'template':'finalinfo.html'}),
+    (r'^leave/finalinfo/(?P<id>.*)/$', 'goflow.apptools.views.view_application', {'template':'finalinfo.html'}),
     
      # administration
     (r'^leave/admin/workflow/', include('goflow.urls_admin')),
     (r'^leave/admin/graphics2/', include('goflow.graphics2.urls_admin')),
-    (r'^leave/admin/', include('django.contrib.admin.urls')),
+    (r'^leave/admin/(.*)', admin.site.root),
     
     # Goflow pages
     (r'^leave/', include('goflow.urls')),

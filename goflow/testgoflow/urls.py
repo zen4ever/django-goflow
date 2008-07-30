@@ -1,5 +1,8 @@
 from django.conf.urls.defaults import *
-from goflow.instances.forms import DefaultAppForm
+from goflow.apptools.forms import DefaultAppForm
+
+from django.contrib import admin
+admin.autodiscover()
 
 urlpatterns = patterns('',
     (r'^js/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '../graphics/js', 'show_indexes': False}),
@@ -11,10 +14,10 @@ urlpatterns = patterns('',
     #
     (r'^.*/home/$', 'django.views.generic.simple.redirect_to', {'url':'/workflow/'}),
     # test edit_model handler
-    (r'^edit/(?P<id>.*)/$', 'goflow.workflow.applications.edit_model', {'form_class':DefaultAppForm}),
+    (r'^edit/(?P<id>.*)/$', 'goflow.apptools.views.edit_model', {'form_class':DefaultAppForm}),
     #
     (r'^admin/workflow/', include('goflow.urls_admin')),
     (r'^admin/graphics2/', include('goflow.graphics2.urls_admin')),
-    (r'^admin/', include('django.contrib.admin.urls')),
+    (r'^admin/(.*)', admin.site.root),
     (r'^workflow/', include('goflow.urls')),
 )

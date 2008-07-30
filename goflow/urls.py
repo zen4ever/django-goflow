@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
-from instances.forms import DefaultAppStartForm
+from apptools.forms import DefaultAppStartForm
 
 urlpatterns = patterns('',
     (r'^$',          'goflow.workflow.views.index', {'template':'workflow/index.html'}),
@@ -14,15 +14,16 @@ urlpatterns = patterns('',
     #
     (r'^process/dot/(?P<id>.*)$','goflow.workflow.views.process_dot', {'template':'goflow/process.dot'}),
     #
-    (r'^default_app/(?P<id>.*)/$', 'goflow.workflow.applications.default_app', {'template':'goflow/default_app.html'}),
+    (r'^default_app/(?P<id>.*)/$', 'goflow.apptools.views.default_app', {'template':'goflow/default_app.html'}),
     #
     (r'^.*/logout/$', 'django.contrib.auth.views.logout'),
     (r'^.*/accounts/login/$', 'django.contrib.auth.views.login', {'template_name':'goflow/login.html'}),
     #
-    (r'^start/(?P<app_label>.*)/(?P<model_name>.*)/$', 'goflow.workflow.applications.start_application'),
-    (r'^start_proto/(?P<process_name>.*)/$', 'goflow.workflow.applications.start_application', {'form_class':DefaultAppStartForm, 'template':'goflow/start_proto.html'}),
+    (r'^start/(?P<app_label>.*)/(?P<model_name>.*)/$', 'goflow.apptools.views.start_application'),
+    (r'^start_proto/(?P<process_name>.*)/$', 'goflow.apptools.views.start_application', {'form_class':DefaultAppStartForm, 'template':'goflow/start_proto.html'}),
     (r'^cron/$','goflow.workflow.views.cron'),
+    # app
+    (r'^apptools/', include('goflow.apptools.urls')),
     # graphics
-    (r'^graph/(?P<id>.*)/save/$', 'goflow.graphics.views.graph_save'),
-    (r'^graph/(?P<id>.*)/$', 'goflow.graphics.views.graph', {'template':'goflow/graphics/graph.html'}),
+    (r'^graph/', include('goflow.graphics.urls')),
 )
