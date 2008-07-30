@@ -1,0 +1,13 @@
+{% extends "goflow/base_site.html" %}
+
+{% block content %}
+<h1>Create test workflow instances</h1>
+<form method="post">
+<table>
+{{ form }}
+</table>
+<input type="submit" name='action' value='Create'>
+<input type="submit" name='action' value='Cancel'>
+</form>
+
+{% endblock %}

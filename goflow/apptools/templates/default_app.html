@@ -1,0 +1,29 @@
+{% extends "goflow/base_site.html" %}
+
+{% block content %}
+<h1>default application</h1>
+This default application is used when <i>application field</i> of the current
+activity is not set.<br>
+It is useful for prototyping a workflow, and playing with it without making
+any complex task like python code.<br>
+Consider this panel as a simulation for you workflo: the activity is described below,
+and a comment can be inserted.
+<h2>activity: {{ activity.title }}</h2>
+description:
+<br><pre>{{ activity.description }}
+</pre>
+<h2>Instance history</h2>
+(The instance history allows to test and debug the workflow)
+<pre>{{history}}</pre>
+<h3>Add comments in history</h3>
+<form method="post">
+<table>
+{{ form }}
+</table>
+The buttons below are automatically generated given conditions on
+outer transitions from the current activity (default: OK and Cancel):<br> 
+{% for v in submit_values %}
+<input type="submit" name='action' value='{{ v }}'>
+{% endfor %}
+</form>
+{% endblock %}

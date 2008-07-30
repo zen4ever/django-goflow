@@ -1,0 +1,30 @@
+{% extends "goflow/base_site.html" %}
+
+{% block content %}
+<h1>Default start application</h1>
+<h2>process: {{process_name}}</h2>
+This default start application is useful for testing a workflow process without any code.
+It starts a new instance of a <i>DefaultAppModel</i> object, which has only one
+TextField field (and of course an <i>Instance</i> foreign key ). This text field
+is used to log the instance history, and all the comments that the workflow users
+will add at each step.
+<p>
+Typically a process is first built with activities and transitions, but
+the application fields in activities are left blank;
+the default application (<i>default_app</i>)
+will then be executed for each manual activity: this is a simple form that displays:
+<ul>
+<li> the instance history
+<li> a description of the current activity, so you can simulate it
+<li> a text field that you should use to enter comments; these will be logged in the history.
+<li> as many submit buttons as outer transitions with conditions.
+</ul>
+<form method="post">
+<table>
+{{ form }}
+</table>
+<input type="submit" name='action' value='OK'>
+<input type="submit" name='action' value='Cancel'>
+</form>
+
+{% endblock %}
