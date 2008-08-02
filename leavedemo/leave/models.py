@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import Group, User
-from goflow.instances.models import ProcessInstance
 
 class LeaveRequest(models.Model):
     TYPE_CHOICES = (
@@ -27,31 +26,22 @@ class LeaveRequest(models.Model):
     reason_denial = models.TextField(null=True, blank=True, verbose_name='reason of denial')
     requester = models.ForeignKey(User, null=True, blank=True)
     
-    def __str__(self):
+    def __unicode__(self):
         return 'leaverequest-%s' % str(self.pk)
-
-    class Admin:
-        fields = (
-                  (None, {'fields':(('day_start', 'day_end'), 'type', 'requester', 'reason', 'reason_denial')}),
-                  )
-        list_display = ('type', 'date', 'day_start', 'day_end', 'requester')
-        list_filter = ('type', 'requester')
 
 class Manager(models.Model):
     user = models.ForeignKey(User, related_name='manager_set', edit_inline=True, num_in_admin=3, min_num_in_admin=1, num_extra_on_change=1)
     category = models.CharField(max_length=50, core=True, help_text='secretary, supervisor, ...')
     users = models.ManyToManyField(User, related_name='managers')
-    def __str__(self):
+    def __unicode__(self):
         return '%s as %s' % (self.user.username, self.category)
-    class Admin:
-        pass
     
 class Account(models.Model):
     user = models.ForeignKey(User, related_name='accounts', edit_inline=True, num_in_admin=1, min_num_in_admin=1, num_extra_on_change=1)
     category = models.CharField(max_length=50, core=True, help_text='vacations, rtt, ..')
     days = models.IntegerField(default=0)
     
-    def __str__(self):
+    def __unicode__(self):
         return '%s-%s' % (self.user.username, self.category)
-    class Admin:
-        list_display = ('user', 'category', 'days')
+
+        

@@ -4,6 +4,8 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from goflow.workflow.decorators import allow_tags
+from goflow.workflow.models import Process, Activity
+
 
 class Image(models.Model):
     file = models.ImageField(upload_to='images')
@@ -12,9 +14,7 @@ class Image(models.Model):
     @allow_tags
     def graphic(self):
         return '<img name=image%d src=%s>' % (self.id, self.get_file_url())
-    
-    class Admin:
-        list_display = ('info', 'graphic', 'file')
+
     def __unicode__(self):
         return self.info
 
@@ -24,10 +24,7 @@ class Graph(models.Model):
     background = models.ForeignKey('Visual', null=True, blank=True, related_name='bg_graphes')
     def __unicode__(self):
         return self.name
-    class Admin:
-        list_display = ('name', 'parent', 'background')
 
-        
 class MetaGraph(models.Model):
     template = models.ForeignKey(Graph)
     parent = models.ForeignKey('self', null=True, blank=True, related_name='children')
@@ -38,12 +35,6 @@ class MetaGraph(models.Model):
     position_method = models.CharField(max_length=50, default='position')
     zorder_method = models.CharField(max_length=50, default='zorder')
     moveable_method = models.CharField(max_length=50, default='is_moveable')
-    
-    class Admin:
-        list_display = ('template', 'parent',)
-        
-
-
 
 class Visual(models.Model):
     x = models.PositiveSmallIntegerField(default=0)
@@ -64,10 +55,3 @@ class Visual(models.Model):
     @allow_tags
     def graphic(self):
         return '<img src=%s>' % self.image.get_file_url()
-
-    
-    class Admin:
-        list_display = ('graphic', 'content_type', 'object_id', 'graph')
-
-
-

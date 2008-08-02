@@ -532,7 +532,7 @@
       "notified": true, 
       "last_notif": "2008-03-20 10:37:51", 
       "nb_wi_notif": 1, 
-      "delai_notif": 1, 
+      "notif_delay": 1, 
       "web_host": "localhost:8000", 
       "user": 3
     }
@@ -544,7 +544,7 @@
       "notified": true, 
       "last_notif": "2008-03-20 10:49:16", 
       "nb_wi_notif": 1, 
-      "delai_notif": 1, 
+      "notif_delay": 1, 
       "web_host": "localhost:8000", 
       "user": 2
     }

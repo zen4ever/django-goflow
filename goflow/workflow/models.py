@@ -4,8 +4,54 @@ from django.db import models
 from django.contrib.auth.models import Group, User, Permission
 from django.contrib.contenttypes.models import ContentType
 
-from django import newforms as forms
-from goflow.workflow.decorators import allow_tags
+from django import forms
+from decorators import allow_tags
+from goflow.workflow.managers import ProcessManager
+
+from datetime import datetime, timedelta
+
+class Activity(models.Model):
+    """Activities represent any kind of action an employee might want to do on an instance.
+    
+    The action might want to change the object instance, or simply
+    route the instance on a given path. Activities are the places
+    where any of these action are resolved by employees.
+    """
+    KIND_CHOICES = (
+                    ('standard', 'standard'),
+                    ('dummy', 'dummy'),
+                    ('subflow', 'subflow'),
+                    )
+    COMP_CHOICES = (
+                    ('and', 'and'),
+                    ('xor', 'xor'),
+                    )
+    title = models.CharField(max_length=100, core=True)
+    kind =  models.CharField(max_length=10, choices=KIND_CHOICES, verbose_name='type', default='standard')
+    process = models.ForeignKey('Process', related_name='activities')
+    push_application = models.ForeignKey('PushApplication', related_name='push_activities', null=True, blank=True)
+    pushapp_param = models.CharField(max_length=100, null=True, blank=True, 
+                                help_text="parameters dictionary; example: {'username':'john'}")
+    application = models.ForeignKey('Application', related_name='activities', null=True, blank=True,
+                                help_text='leave it blank for prototyping the process without coding')
+    app_param = models.CharField(max_length=100, verbose_name='parameters', 
+                                 help_text='parameters dictionary', null=True, blank=True)
+    subflow = models.ForeignKey('Process', related_name='parent_activities', null=True, blank=True)
+    roles = models.ManyToManyField(Group, related_name='activities', null=True, blank=True)
+    description = models.CharField(max_length=100, null=True, blank=True)
+    autostart = models.BooleanField(default=False)
+    autofinish = models.BooleanField(default=True)
+    join_mode =  models.CharField(max_length=3, choices=COMP_CHOICES, verbose_name='join mode', default='xor')
+    split_mode =  models.CharField(max_length=3, choices=COMP_CHOICES, verbose_name='split mode', default='and')
+    
+    def __unicode__(self):
+        return '%s (%s)' % (self.title, self.process.title)
+    
+    class Meta:
+        unique_together = (("title", "process"),)
+        verbose_name = 'Activity'
+        verbose_name_plural = 'Activities'
+        
 
 class Process(models.Model):
     """A process holds the map that describes the flow of work.
@@ -47,15 +93,25 @@ class Process(models.Model):
         '''
         raise Exception("New API (not yet implemented)")
     
+    # add new ProcessManager
+    objects = ProcessManager()
+    
+    class Meta:
+        verbose_name_plural = 'Processes'
+        permissions = (
+            ("can_instantiate", "Can instantiate"),
+            ("can_browse", "Can browse"),
+        )
+    
     def __unicode__(self):
         return self.title
     
     @allow_tags
-    def description_disp(self):
+    def summary(self):
         return '<pre>%s</pre>' % self.description
     
     @allow_tags
-    def wizzard(self):
+    def action(self):
         return 'add <a href=../activity/add/>a new activity</a> or <a href=../activity/>copy</a> an activity from another process'
 
     
@@ -68,7 +124,7 @@ class Process(models.Model):
         return a 
     
     def add_transition(self, name, activity_out, activity_in):
-        t = Transition.objects.get_or_create(name=name, process=self,
+        t, created = Transition.objects.get_or_create(name=name, process=self,
                                              output=activity_out,
                                              defaults={'input':activity_in})
         return t
@@ -97,24 +153,15 @@ class Process(models.Model):
             # admin console error ?!?
             pass
         
-    class Admin:
-        list_display = ('title', 'wizzard', 'enabled', 'description_disp')
-        
-    class Meta:
-        verbose_name_plural = 'Processes'
-        permissions = (
-            ("can_instantiate", "Can instantiate"),
-            ("can_browse", "Can browse"),
-        )
+
 
 class Application(models.Model):
     """ An application is a python view that can be called by URL.
     
-    Activities can call applications.
-    A commmon prefix may be defined: see settings.WF_APPS_PREFIX
+        Activities can call applications.
+        A commmon prefix may be defined: see settings.WF_APPS_PREFIX
     """
-    url = models.CharField(max_length=255, unique=True, help_text='relatif au préfixe settings.WF_APPS_PREFIX')
-    # TODO: translate help text
+    url = models.CharField(max_length=255, unique=True, help_text='relative to prefix in settings.WF_APPS_PREFIX')
     # TODO: drop abbreviations (perhaps here not so necessary to ??
     SUFF_CHOICES = (
                     ('w', 'workitem.id'),
@@ -133,7 +180,7 @@ class Application(models.Model):
             if self.suffix:
                 if self.suffix == 'w': path = '%s%d/' % (path, workitem.id)
                 if self.suffix == 'i': path = '%s%d/' % (path, workitem.instance.id)
-                if self.suffix == 'o': path = '%s%d/' % (path, workitem.instance.wfobject().id)
+                if self.suffix == 'o': path = '%s%d/' % (path, workitem.instance.content_object.id)
             else:
                 path = '%s?workitem_id=%d' % (path, workitem.id) 
         if extern_for_user:
@@ -146,7 +193,8 @@ class Application(models.Model):
         return False
     
     def create_test_env(self, user=None):
-        if self.has_test_env(): return
+        if self.has_test_env(): 
+            return
         
         g = Group.objects.create(name='test_%s' % self.url)
         ptype = ContentType.objects.get_for_model(Process)
@@ -182,17 +230,15 @@ class Application(models.Model):
         else:
             return '<a href=testenv/create/%d/>create unit test env</a>' % self.id
 
-    class Admin:
-        save_as = True
-        list_display = ('url','test')
+
 
 class PushApplication(models.Model):
     """A push application routes a workitem to a specific user.
     It is a python function with the same prototype as the built-in
-    one below:
+    one below::
     
-    def route_to_requester(workitem):
-        return workitem.instance.user
+        def route_to_requester(workitem):
+            return workitem.instance.user
     
     Other parameters may be added (see Activity.pushapp_param field).
     Built-in push applications are implemented in pushapps module.
@@ -207,57 +253,10 @@ class PushApplication(models.Model):
     def test(self):
         return '<a href=#>test (not yet implemented)</a>'
     
-    class Admin:
-        save_as = True
-        list_display = ('url','test')
 
 
-class Activity(models.Model):
-    """Activities represent any kind of action an employee might want to do on an instance.
-    
-    The action might want to change the object instance, or simply
-    route the instance on a given path. Activities are the places
-    where any of these action are resolved by employees.
-    """
-    KIND_CHOICES = (
-                    ('standard', 'standard'),
-                    ('dummy', 'dummy'),
-                    ('subflow', 'subflow'),
-                    )
-    COMP_CHOICES = (
-                    ('and', 'and'),
-                    ('xor', 'xor'),
-                    )
-    title = models.CharField(max_length=100, core=True)
-    kind =  models.CharField(max_length=10, choices=KIND_CHOICES, verbose_name='type', default='standard')
-    process = models.ForeignKey(Process, related_name='activities')
-    push_application = models.ForeignKey(PushApplication, related_name='push_activities', null=True, blank=True)
-    pushapp_param = models.CharField(max_length=100, null=True, blank=True, 
-                                     help_text="parameters dictionary; example: {'username':'john'}")
-    application = models.ForeignKey(Application, related_name='activities', null=True, blank=True,
-                                    help_text='leave it blank for prototyping the process without coding')
-    app_param = models.CharField(max_length=100, verbose_name='parameters', 
-                                 help_text='parameters dictionary', null=True, blank=True)
-    subflow = models.ForeignKey(Process, related_name='parent_activities', null=True, blank=True)
-    roles = models.ManyToManyField(Group, related_name='activities', null=True, blank=True)
-    description = models.CharField(max_length=100, null=True, blank=True)
-    autostart = models.BooleanField(default=False)
-    autofinish = models.BooleanField(default=True)
-    join_mode =  models.CharField(max_length=3, choices=COMP_CHOICES, verbose_name='join mode', default='xor')
-    split_mode =  models.CharField(max_length=3, choices=COMP_CHOICES, verbose_name='split mode', default='and')
-    
-    def __unicode__(self):
-        return '%s (%s)' % (self.title, self.process.title)
-    
-    class Admin:
-        save_as = True
-        list_display = ('title', 'description', 'kind', 'application', 
-                        'join_mode', 'split_mode', 'autostart', 'autofinish', 'process')
-        list_filter = ('process', 'kind')
-    class Meta:
-        unique_together = (("title", "process"),)
-        verbose_name = 'Activity'
-        verbose_name_plural = 'Activities'
+
+
    
 class Transition(models.Model):
     """ A Transition connects two Activities: a From and a To activity.
@@ -273,7 +272,7 @@ class Transition(models.Model):
     be the transition choosen for the forwarding of the instance.
     """
     name = models.CharField(max_length=50, null=True, blank=True)
-    process = models.ForeignKey(Process, related_name='transitions', edit_inline=True, num_in_admin=0)
+    process = models.ForeignKey(Process, related_name='transitions')
     input = models.ForeignKey(Activity, core=True, related_name='transition_inputs')
     condition = models.CharField(max_length=200, null=True, blank=True,
                                  help_text='ex: instance.condition=="OK" | OK')
@@ -287,17 +286,12 @@ class Transition(models.Model):
     
     def __unicode__(self):
         return self.name or 't%d' % self.id
-    
+
     class Meta:
         pass
         #unique_together = (("input", "condition"),)
-    
-    class Admin:
-        save_as = True
-        list_display = ('name', 'input', 'output', 'condition', 'description', 'process')
-        list_filter = ('process',)
 
-from datetime import datetime, timedelta
+
 class UserProfile(models.Model):
     """Contains workflow-specific user data.
     
@@ -307,15 +301,15 @@ class UserProfile(models.Model):
     If your application have its own profile module, you must
     add to it the workflow.UserProfile fields.
     """
-    user = models.ForeignKey(User, verbose_name='utilisateur', unique=True, 
-                             edit_inline=True, max_num_in_admin=1, num_in_admin=1)
+    user = models.ForeignKey(User, unique=True, edit_inline=True, 
+                                   max_num_in_admin=1, num_in_admin=1)
     web_host = models.CharField(max_length=100, default='localhost:8000')
-    notified = models.BooleanField(default=True, verbose_name='notification par mail')
+    notified = models.BooleanField(default=True, verbose_name='notification by email')
     last_notif = models.DateTimeField(default=datetime.now())
-    nb_wi_notif = models.IntegerField(default=1, core=True, verbose_name='nombre items avant notification', 
-                                      help_text='notification envoyée si le nombre d''item en attente est atteint')
-                                    # TODO: translate this 
-    delai_notif = models.IntegerField(default=1, verbose_name='Notification delay', help_text='in days')
+    nb_wi_notif = models.IntegerField(default=1, core=True, verbose_name='items before notification', 
+                                      help_text='notification if the number of items waiting is reached')
+
+    notif_delay = models.IntegerField(default=1, verbose_name='Notification delay', help_text='in days')
     
     def save(self):
         if not self.last_notif: self.last_notif = datetime.now()
@@ -323,7 +317,7 @@ class UserProfile(models.Model):
     
     def check_notif_to_send(self):
         now = datetime.now()
-        if now > self.last_notif + timedelta(days=self.delai_notif or 1):
+        if now > self.last_notif + timedelta(days=self.notif_delay or 1):
             return True
         return False
     
@@ -331,10 +325,7 @@ class UserProfile(models.Model):
         now = datetime.now()
         self.last_notif = now
         self.save()
-    
-    class Admin:
-        list_display = ('user', 'web_host', 'notified', 'last_notif', 'nb_wi_notif', 'delai_notif')
-        list_filter = ('web_host', 'notified')
+
     class Meta:
         verbose_name='Workflow user profile'
         verbose_name_plural='Workflow users profiles'

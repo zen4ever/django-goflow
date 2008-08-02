@@ -7,7 +7,7 @@ def update_hr(workitem):
     
     '''
     instance = workitem.instance
-    leaverequest = workitem.instance.wfobject()
+    leaverequest = workitem.instance.content_object
     if leaverequest.reason_denial:
         raise Exception('denial reason is not empty')
     if leaverequest.dayStart > leaverequest.day_end:

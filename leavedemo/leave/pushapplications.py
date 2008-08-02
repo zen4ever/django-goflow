@@ -1,8 +1,8 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 from models import Manager
-import logging
-_log = logging.getLogger('workflow.log')
+from goflow.workflow.logger import Log; log = Log('leavedemo.leave.pushapplications')
+
 
 def route_to_secretary(workitem):
     user = workitem.instance.user
@@ -12,6 +12,6 @@ def route_to_secretary(workitem):
 def route_to_supervisor(workitem):
     user = workitem.instance.user
     mgr_supervisor = Manager.objects.get(category='supervisor', users=user)
-    _log.debug('route_to_supervisor user %s supervisor %s',user, mgr_supervisor.user)
+    log.debug('route_to_supervisor user %s supervisor %s',user, mgr_supervisor.user)
     return mgr_supervisor.user
 

@@ -1,7 +1,7 @@
 {% extends "goflow/base_site.html" %}
 {% block content %}
-<h1>Instance history {{instance}}</h1>
-date création: {{instance.date}}
+<h1>ProcessInstance history {{instance}}</h1>
+datetime created: {{instance.creation_time}}
 
 <h2>Work items</h2>
 {% for wi in instance.workitems.all %}
@@ -23,6 +23,7 @@ date création: {{instance.date}}
 
 </table>
 <p>
+<br/>
 <a href="home">To frontpage</a>
 </p>
 {% endblock %}

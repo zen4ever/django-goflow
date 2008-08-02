@@ -5,7 +5,7 @@ from models import LeaveRequest
 from goflow.instances.forms import BaseForm, StartForm
 
 # allows calendar widgets
-from django import newforms as forms 
+from django import forms
 
 class StartRequestForm(StartForm):
     day_start = forms.DateField(widget=forms.TextInput(attrs={'class': 'vDateField'}))

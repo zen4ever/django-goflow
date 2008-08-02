@@ -1,20 +1,19 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
-from api import forward_workitem
-from models import Process, Activity, Transition, Application
 from django.conf import settings
 from django.contrib.auth.models import Group
-
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect, HttpResponse
 
 from goflow.instances.models import DefaultAppModel, ProcessInstance
 from forms import ContentTypeForm
 from django.contrib.contenttypes.models import ContentType
-from api import start_instance
+from goflow.workflow.models import Process, Activity, Transition, Application
 
-def index(request, template):
+
+def index(request, template='workflow/index.html'):
     """workflow dashboard handler.
     
     template context contains following objects:
@@ -53,8 +52,9 @@ def userlist(request, template):
     return HttpResponse('user page.')
 
 
-def process_dot(request, id, template):
-    """graphviz generator (WIP).
+def process_dot(request, id, template='goflow/process.dot'):
+    """graphviz generator (**Work In Progress**).
+    
     
     id process id
     template graphviz template
@@ -70,12 +70,13 @@ def process_dot(request, id, template):
     return render_to_response(template, context)
 
 def cron(request=None):
-    """WIP
+    """(**Work In Progress**)
     """
-    for t in Transition.objects.filter(condition__contains='workitem.time_out'):
-        workitems = WorkItem.objects.filter(activity=t.input).exclude(status='complete')
+    for t in Transition.objects.filter(condition__contains='workitem.timeout'):
+        workitems = WorkItem.objects.filter(
+            activity=t.input).exclude(status='complete')
         for wi in workitems:
-            forward_workitem(wi, timeoutForwarding=True)
+            wi.forward(timeout_forwarding=True)
     
     if request:
         request.user.message_set.create(message="cron has run.")
@@ -109,7 +110,7 @@ def test_start(request, id, template='goflow/test_start.html'):
     
     for a given application, with its unit test environment, the user
     choose a content-type then generates unit test process instances
-    by cloning existing content-type objects WIP.
+    by cloning existing content-type objects (**Work In Progress**).
     """
     app = Application.objects.get(id=int(id))
     context = {}
@@ -120,12 +121,21 @@ def test_start(request, id, template='goflow/test_start.html'):
             model = ctype.model_class()
             for inst in model.objects.all():
                 # just objects without link to a workflow instance
-                if ProcessInstance.objects.filter(content_type__pk=ctype.id,object_id=inst.id).count() > 0:
+                if ProcessInstance.objects.filter(
+                    content_type__pk=ctype.id,
+                    object_id=inst.id
+                ).count() > 0:
                     continue
                 inst.id = None
                 inst.save()
-                start_instance(process_name='test_%s' % app.url,
-                              user=request.user, item=inst, title="%s test instance for app %s" % (ctype.name, app.url))
+                #TODO: convert this to method
+                Process.objects.start(
+                #start_instance(
+                            process_name='test_%s' % app.url,
+                            user=request.user, item=inst, 
+                            title="%s test instance for app %s" % (
+                                ctype.name, app.url
+                            ))
             request.user.message_set.create(message='test instances created')
         return HttpResponseRedirect('../..')
     form = ContentTypeForm()

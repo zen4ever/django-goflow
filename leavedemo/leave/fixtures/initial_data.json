@@ -831,7 +831,7 @@
       "notified": true, 
       "last_notif": "2009-03-28 16:52:44", 
       "nb_wi_notif": 1, 
-      "delai_notif": 1, 
+      "notif_delay": 1, 
       "web_host": "localhost:8000", 
       "user": 1
     }
@@ -843,7 +843,7 @@
       "notified": true, 
       "last_notif": "2009-03-28 18:15:13", 
       "nb_wi_notif": 1, 
-      "delai_notif": 1, 
+      "notif_delay": 1, 
       "web_host": "localhost:8000", 
       "user": 9
     }
@@ -855,7 +855,7 @@
       "notified": true, 
       "last_notif": "2009-03-28 18:15:26", 
       "nb_wi_notif": 1, 
-      "delai_notif": 1, 
+      "notif_delay": 1, 
       "web_host": "localhost:8000", 
       "user": 3
     }
@@ -867,7 +867,7 @@
       "notified": true, 
       "last_notif": "2009-03-28 18:15:36", 
       "nb_wi_notif": 1, 
-      "delai_notif": 1, 
+      "notif_delay": 1, 
       "web_host": "localhost:8000", 
       "user": 4
     }
@@ -879,7 +879,7 @@
       "notified": true, 
       "last_notif": "2009-03-28 18:15:48", 
       "nb_wi_notif": 1, 
-      "delai_notif": 1, 
+      "notif_delay": 1, 
       "web_host": "localhost:8000", 
       "user": 7
     }
@@ -891,7 +891,7 @@
       "notified": true, 
       "last_notif": "2009-03-28 18:16:31", 
       "nb_wi_notif": 1, 
-      "delai_notif": 1, 
+      "notif_delay": 1, 
       "web_host": "localhost:8000", 
       "user": 5
     }
@@ -903,7 +903,7 @@
       "notified": true, 
       "last_notif": "2009-03-28 18:16:41", 
       "nb_wi_notif": 1, 
-      "delai_notif": 1, 
+      "notif_delay": 1, 
       "web_host": "localhost:8000", 
       "user": 8
     }
@@ -915,7 +915,7 @@
       "notified": true, 
       "last_notif": "2009-03-28 18:17:06", 
       "nb_wi_notif": 1, 
-      "delai_notif": 1, 
+      "notif_delay": 1, 
       "web_host": "localhost:8000", 
       "user": 6
     }
@@ -927,7 +927,7 @@
       "notified": true, 
       "last_notif": "2009-03-28 16:52:44", 
       "nb_wi_notif": 1, 
-      "delai_notif": 1, 
+      "notif_delay": 1, 
       "web_host": "localhost:8000", 
       "user": 10
     }
