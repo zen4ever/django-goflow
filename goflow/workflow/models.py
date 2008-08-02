@@ -6,7 +6,7 @@ from django.contrib.contenttypes.models import ContentType
 
 from django import forms
 from decorators import allow_tags
-from goflow.workflow.managers import ProcessManager
+from managers import ProcessManager
 
 from datetime import datetime, timedelta
 

@@ -10,7 +10,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from goflow.instances.models import DefaultAppModel, ProcessInstance
 from forms import ContentTypeForm
 from django.contrib.contenttypes.models import ContentType
-from goflow.workflow.models import Process, Activity, Transition, Application
+from models import Process, Activity, Transition, Application
 
 
 def index(request, template='workflow/index.html'):
@@ -18,6 +18,7 @@ def index(request, template='workflow/index.html'):
     
     template context contains following objects:
     user, processes, roles, obinstances.
+    TODO: move to instances
     """
     me = request.user
     roles = Group.objects.all()
@@ -33,6 +34,7 @@ def debug_switch_user(request, username, password, redirect=None):
     """fast user switch for test purpose.
     
     see template tag switch_users.
+    TODO: move to apptools
     """
     logout(request)
     #return HttpResponseRedirect(redirect)
@@ -71,6 +73,7 @@ def process_dot(request, id, template='goflow/process.dot'):
 
 def cron(request=None):
     """(**Work In Progress**)
+    TODO: move to instances ?
     """
     for t in Transition.objects.filter(condition__contains='workitem.timeout'):
         workitems = WorkItem.objects.filter(
@@ -92,6 +95,7 @@ def app_env(request, action, id, template=None):
     
     a process named "test_[app]" with one activity
     a group with appropriate permission
+    TODO: move to apptools
     """
     app = Application.objects.get(id=int(id))
     rep = 'Nothing done.'
@@ -111,6 +115,7 @@ def test_start(request, id, template='goflow/test_start.html'):
     for a given application, with its unit test environment, the user
     choose a content-type then generates unit test process instances
     by cloning existing content-type objects (**Work In Progress**).
+    TODO: move to apptools
     """
     app = Application.objects.get(id=int(id))
     context = {}

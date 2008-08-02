@@ -1,6 +1,7 @@
 import logging
 from django.conf import settings
 from django.db.models import get_model
+import sys
 
 try:
     _file_log = settings.LOGGING_FILE
@@ -14,9 +15,10 @@ if settings.DEBUG:
 else:
     level=logging.INFO
 
-#log_format='%(asctime)s %(levelname)s %(module)s.%(funcName)s: %(message)s'
+log_format='%(asctime)s %(levelname)s %(module)s.%(funcName)s: %(message)s'
 # python 2.4 ?
-log_format='%(asctime)s %(levelname)s %(module)s: %(message)s'
+if sys.version_info[:2]==(2,4):
+    log_format='%(asctime)s %(levelname)s %(module)s: %(message)s'
 # log_format='%(asctime)s %(levelname)s %(name)s.%(funcName)s: %(message)s'
 
 logging.basicConfig(
