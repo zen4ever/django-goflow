@@ -5,6 +5,16 @@ GoFlow - A workflow engine for Django
 
 - goflow: workflow django contrib
 
+  sub-components (django apps):
+  * workflow:  workflow statics modeling
+  * instances: workflow dynamics modeling
+  * apptools:  built-in workflow applications to help developers
+  * graphics: WIP process graphic stuff
+  * graphics2: WIP alternate process graphic stuff
+  
+  sub-components (other):
+  * testgoflow: django project for testing
+
 - leavedemo: goflow demo project
 
 - leave: fastcgi deployment (on alwaysdata.net)
@@ -13,7 +23,7 @@ GoFlow - A workflow engine for Django
 2. Requirements:
 
 - Python 2.4+
-- Django 0.97-pre (SVN)
+- Django 1.0 (SVN)
 
 
 3. Install instructions:
