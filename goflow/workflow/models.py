@@ -208,7 +208,7 @@ class Application(models.Model):
         p.begin = p.end
         p.begin.autostart = False
         p.begin.title = "test_activity"
-        p.begin.kind = 's'
+        p.begin.kind = 'standard'
         p.begin.application = self
         p.begin.description = 'test activity for application %s' % self.url
         p.begin.save()

@@ -58,8 +58,9 @@ class ProcessInstanceManager(models.Manager):
 
         '''
         from models import WorkItem
+        from goflow.workflow.models import Process
         
-        process = self.get(title=process_name, enabled=True)
+        process = Process.objects.get(title=process_name, enabled=True)
         if not title or (title=='instance'):
             title = '%s %s' % (process_name, str(item))
         instance = self.add(user, title, item)

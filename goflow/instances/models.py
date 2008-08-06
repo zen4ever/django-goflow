@@ -8,7 +8,7 @@ from datetime import timedelta, datetime
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
-from managers import WorkItemManager
+from managers import WorkItemManager, ProcessInstanceManager
 
 class ProcessInstance(models.Model):
     """ This is a process instance.
@@ -76,6 +76,9 @@ class ProcessInstance(models.Model):
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
+    
+    # add new ProcessInstanceManager
+    objects = ProcessInstanceManager()
     
     def wfobject(self):
         return self.content_object
