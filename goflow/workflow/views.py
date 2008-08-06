@@ -7,7 +7,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect, HttpResponse
 
-from goflow.instances.models import DefaultAppModel, ProcessInstance
+from goflow.instances.models import ProcessInstance
+from goflow.apptools.models import DefaultAppModel
 from forms import ContentTypeForm
 from django.contrib.contenttypes.models import ContentType
 from models import Process, Activity, Transition, Application

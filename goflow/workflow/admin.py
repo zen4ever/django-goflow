@@ -2,7 +2,7 @@ from django.contrib import admin
 from models import *
 
 class ProcessAdmin(admin.ModelAdmin):
-    list_display = ('title', 'wizzard', 'enabled', 'description_disp')
+    list_display = ('title', 'enabled', 'summary')
 admin.site.register(Process, ProcessAdmin)
 
 
@@ -34,6 +34,6 @@ admin.site.register(Transition, TransitionAdmin)
 
 
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'web_host', 'notified', 'last_notif', 'nb_wi_notif', 'delai_notif')
+    list_display = ('user', 'web_host', 'notified', 'last_notif', 'nb_wi_notif', 'notif_delay')
     list_filter = ('web_host', 'notified')
 admin.site.register(UserProfile, UserProfileAdmin)

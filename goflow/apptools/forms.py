@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 from models import DefaultAppModel
 
-from django.newforms import ModelForm
-from django import newforms as forms
+from django.forms import ModelForm
+from django import forms
 from datetime import datetime
 
 

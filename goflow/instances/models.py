@@ -8,6 +8,8 @@ from datetime import timedelta, datetime
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
+from managers import WorkItemManager
+
 class ProcessInstance(models.Model):
     """ This is a process instance.
     
@@ -121,6 +123,8 @@ class WorkItem(models.Model):
     blocked = models.BooleanField(default=False)
     priority = models.IntegerField(default=0)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='inactive')
+
+    objects = WorkItemManager()
     
     def forward(self, timeout_forwarding=False, subflow_workitem=None):
         # forward_workitem(workitem, path=None, timeout_forwarding=False, subflow_workitem=None):

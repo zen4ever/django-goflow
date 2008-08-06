@@ -11,10 +11,9 @@ from django.newforms import form_for_model, form_for_instance
 from django.contrib.auth.decorators import permission_required
 # little hack
 from goflow.workflow.decorators import login_required
-from goflow.instances.models import DefaultAppModel
-from goflow.instances.forms import DefaultAppForm
+from models import DefaultAppModel
+from forms import DefaultAppForm
 
-from django.contrib.admin.views.main import add_stage
 from django.conf import settings
 
 import goflow.workflow.logger, logging

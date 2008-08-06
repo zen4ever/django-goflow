@@ -3,7 +3,6 @@
 from django.db import models
 from django.contrib.auth.models import Group, User
 from goflow.workflow.logger import Log; log = Log('goflow.instances.managers')
-from models import ProcessInstance, WorkItem
 
 class ProcessInstanceManager(models.Manager):
     '''Custom model manager for ProcessInstance
@@ -58,10 +57,12 @@ class ProcessInstanceManager(models.Manager):
                                        user=admin, item=leaverequest1)
 
         '''
+        from models import WorkItem
+        
         process = self.get(title=process_name, enabled=True)
         if not title or (title=='instance'):
             title = '%s %s' % (process_name, str(item))
-        instance = ProcessInstance.objects.add(user, title, item)
+        instance = self.add(user, title, item)
         instance.process = process
         # instance running
         instance.set_status('running')
