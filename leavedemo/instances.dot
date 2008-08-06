@@ -24,7 +24,7 @@ digraph name {
         >Process</FONT></TD></TR>
         </TABLE>
         >]
-    Instance -> Process
+    ProcessInstance -> Process
     [label="process"] ;
     
     User [label=<
@@ -34,8 +34,18 @@ digraph name {
         >User</FONT></TD></TR>
         </TABLE>
         >]
-    Instance -> User
+    ProcessInstance -> User
     [label="user"] ;
+    
+    ContentType [label=<
+        <TABLE BGCOLOR="palegoldenrod" BORDER="0" CELLBORDER="0" CELLSPACING="0">
+        <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="olivedrab4"
+        ><FONT FACE="Helvetica Bold" COLOR="white"
+        >ContentType</FONT></TD></TR>
+        </TABLE>
+        >]
+    ProcessInstance -> ContentType
+    [label="content_type"] ;
     
   
     
@@ -49,14 +59,14 @@ digraph name {
     WorkItem -> User
     [label="user"] ;
     
-    Instance [label=<
+    ProcessInstance [label=<
         <TABLE BGCOLOR="palegoldenrod" BORDER="0" CELLBORDER="0" CELLSPACING="0">
         <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="olivedrab4"
         ><FONT FACE="Helvetica Bold" COLOR="white"
-        >Instance</FONT></TD></TR>
+        >ProcessInstance</FONT></TD></TR>
         </TABLE>
         >]
-    WorkItem -> Instance
+    WorkItem -> ProcessInstance
     [label="instance"] ;
     
     Activity [label=<
@@ -77,7 +87,7 @@ digraph name {
         </TABLE>
         >]
     WorkItem -> WorkItem
-    [label="workitemFrom"] ;
+    [label="workitem_from"] ;
     
     Group [label=<
         <TABLE BGCOLOR="palegoldenrod" BORDER="0" CELLBORDER="0" CELLSPACING="0">
@@ -87,7 +97,7 @@ digraph name {
         </TABLE>
         >]
     WorkItem -> Group
-    [label="pushRoles"] [arrowhead=normal arrowtail=normal];
+    [label="push_roles"] [arrowhead=normal arrowtail=normal];
     
     Group [label=<
         <TABLE BGCOLOR="palegoldenrod" BORDER="0" CELLBORDER="0" CELLSPACING="0">
@@ -97,19 +107,7 @@ digraph name {
         </TABLE>
         >]
     WorkItem -> Group
-    [label="pullRoles"] [arrowhead=normal arrowtail=normal];
-    
-  
-    
-    Instance [label=<
-        <TABLE BGCOLOR="palegoldenrod" BORDER="0" CELLBORDER="0" CELLSPACING="0">
-        <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="olivedrab4"
-        ><FONT FACE="Helvetica Bold" COLOR="white"
-        >Instance</FONT></TD></TR>
-        </TABLE>
-        >]
-    DefaultAppModel -> Instance
-    [label="wfinstance"] ;
+    [label="pull_roles"] [arrowhead=normal arrowtail=normal];
     
   
     
@@ -126,11 +124,11 @@ digraph name {
   
 
   
-    Instance [label=<
+    ProcessInstance [label=<
     <TABLE BGCOLOR="palegoldenrod" BORDER="0" CELLBORDER="0" CELLSPACING="0">
      <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="olivedrab4"
      ><FONT FACE="Helvetica Bold" COLOR="white"
-     >Instance</FONT></TD></TR>
+     >ProcessInstance</FONT></TD></TR>
 
     
         
@@ -191,10 +189,17 @@ digraph name {
         ></TD></TR>
         
         <TR><TD ALIGN="LEFT" BORDER="0"
-        ><FONT FACE="Helvetica Bold">_object_related_name</FONT
+        ><FONT FACE="Helvetica Bold">content_type</FONT
         ></TD>
         <TD ALIGN="LEFT"
-        ><FONT FACE="Helvetica Bold">CharField</FONT
+        ><FONT FACE="Helvetica Bold">ForeignKey</FONT
+        ></TD></TR>
+        
+        <TR><TD ALIGN="LEFT" BORDER="0"
+        ><FONT FACE="Helvetica Bold">object_id</FONT
+        ></TD>
+        <TD ALIGN="LEFT"
+        ><FONT FACE="Helvetica Bold">PositiveIntegerField</FONT
         ></TD></TR>
         
     
@@ -245,7 +250,7 @@ digraph name {
         ></TD></TR>
         
         <TR><TD ALIGN="LEFT" BORDER="0"
-        ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">workitemFrom</FONT
+        ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">workitem_from</FONT
         ></TD>
         <TD ALIGN="LEFT"
         ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">ForeignKey</FONT
@@ -273,57 +278,17 @@ digraph name {
         ></TD></TR>
         
         <TR><TD ALIGN="LEFT" BORDER="0"
-        ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">pushRoles</FONT
+        ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">push_roles</FONT
         ></TD>
         <TD ALIGN="LEFT"
         ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">ManyToManyField</FONT
         ></TD></TR>
         
         <TR><TD ALIGN="LEFT" BORDER="0"
-        ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">pullRoles</FONT
+        ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">pull_roles</FONT
         ></TD>
         <TD ALIGN="LEFT"
         ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">ManyToManyField</FONT
-        ></TD></TR>
-        
-    
-    </TABLE>
-    >]
-  
-    DefaultAppModel [label=<
-    <TABLE BGCOLOR="palegoldenrod" BORDER="0" CELLBORDER="0" CELLSPACING="0">
-     <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="olivedrab4"
-     ><FONT FACE="Helvetica Bold" COLOR="white"
-     >DefaultAppModel</FONT></TD></TR>
-
-    
-        
-        <TR><TD ALIGN="LEFT" BORDER="0"
-        ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">id</FONT
-        ></TD>
-        <TD ALIGN="LEFT"
-        ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">AutoField</FONT
-        ></TD></TR>
-        
-        <TR><TD ALIGN="LEFT" BORDER="0"
-        ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">wfinstance</FONT
-        ></TD>
-        <TD ALIGN="LEFT"
-        ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">ForeignKey</FONT
-        ></TD></TR>
-        
-        <TR><TD ALIGN="LEFT" BORDER="0"
-        ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">history</FONT
-        ></TD>
-        <TD ALIGN="LEFT"
-        ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">TextField</FONT
-        ></TD></TR>
-        
-        <TR><TD ALIGN="LEFT" BORDER="0"
-        ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">comment</FONT
-        ></TD>
-        <TD ALIGN="LEFT"
-        ><FONT COLOR="#7B7B7B" FACE="Helvetica Bold">TextField</FONT
         ></TD></TR>
         
     
