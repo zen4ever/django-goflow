@@ -105,7 +105,7 @@ def start_instance(process_name, user, item, title=None):
     '''
     process = Process.objects.get(title=process_name, enabled=True)
     if not title or (title=='instance'):
-        title = '%s %s' % (process_name, str(item))
+        title = '%s %s' % (process_name, __unicode__(item))
     instance = add_instance(user, title, item)
     instance.process = process
     # instance running
