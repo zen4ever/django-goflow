@@ -1,8 +1,19 @@
 from django.contrib import admin
 from models import *
 
+
+class TransitionInline(admin.StackedInline):
+    model = Transition
+    fieldsets = (
+              (None, {'fields':(('input', 'output'), 'condition',)}),
+              )
+
+
 class ProcessAdmin(admin.ModelAdmin):
     list_display = ('title', 'enabled', 'summary')
+    inlines = [
+                   TransitionInline,
+               ]
 admin.site.register(Process, ProcessAdmin)
 
 
@@ -19,10 +30,18 @@ admin.site.register(PushApplication, PushApplicationAdmin)
 
 
 class ActivityAdmin(admin.ModelAdmin):
-        save_as = True
-        list_display = ('title', 'description', 'kind', 'application', 
-                        'join_mode', 'split_mode', 'autostart', 'autofinish', 'process')
-        list_filter = ('process', 'kind')
+    save_as = True
+    list_display = ('title', 'description', 'kind', 'application', 
+                    'join_mode', 'split_mode', 'autostart', 'autofinish', 'process')
+    list_filter = ('process', 'kind')
+    fieldsets = (
+              (None, {'fields':(('kind', 'subflow'), ('title', 'process'), 'description')}),
+              ('Push application', {'fields':(('push_application', 'pushapp_param'),)}),
+              ('Application', {'fields':(('application', 'app_param'),)}),
+              ('I/O modes', {'fields':(('join_mode', 'split_mode'),)}),
+              ('Execution modes', {'fields':(('autostart', 'autofinish'),)}),
+              ('Permission', {'fields':('roles',)}),
+              )
 admin.site.register(Activity, ActivityAdmin)
 
 

@@ -6,7 +6,7 @@ from goflow.workflow.api import (start_instance, get_workitem, complete_workitem
                  is_process_enabled, check_start_instance_perm)
 from django.db import models
 from django.contrib.auth.models import User
-from django.newforms import form_for_model, form_for_instance
+from django.forms.models import modelform_factory
 
 from django.contrib.auth.decorators import permission_required
 # little hack
@@ -48,7 +48,7 @@ def start_application(request, app_label=None, model_name=None, process_name=Non
     if not template: template = 'start_%s.html' % app_label
     if not form_class:
         model = models.get_model(app_label, model_name)
-        form_class = form_for_model(model)
+        form_class = modelform_factory(model)
         is_form_used = False
     else:
         is_form_used = True

@@ -301,8 +301,7 @@ class UserProfile(models.Model):
     If your application have its own profile module, you must
     add to it the workflow.UserProfile fields.
     """
-    user = models.ForeignKey(User, unique=True, edit_inline=True, 
-                                   max_num_in_admin=1, num_in_admin=1)
+    user = models.ForeignKey(User, unique=True)
     web_host = models.CharField(max_length=100, default='localhost:8000')
     notified = models.BooleanField(default=True, verbose_name='notification by email')
     last_notif = models.DateTimeField(default=datetime.now())
