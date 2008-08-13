@@ -343,6 +343,9 @@ def get_workitems(user=None, username=None, queryset=WorkItem.objects, activity=
                (default is a list of these: blocked, suspended, fallout, complete)
     noauto: if True (default) auto activities are excluded.
     """
+    if status:
+        notstatus = []
+    
     groups = Group.objects.all()
     if user:
         query = queryset.filter(user=user, activity__process__enabled=True)
@@ -361,8 +364,6 @@ def get_workitems(user=None, username=None, queryset=WorkItem.objects, activity=
             query = query.filter(status=status)
         
         if notstatus:
-            query = query.exclude(status=notstatus)
-        else:
             for status in notstatus: 
                 query = query.exclude(status=status)
         
@@ -384,8 +385,6 @@ def get_workitems(user=None, username=None, queryset=WorkItem.objects, activity=
             pullables = pullables.filter(status=status)
         
         if notstatus:
-            pullables = pullables.exclude(status=notstatus)
-        else:
             for status in notstatus:
                 pullables = pullables.exclude(status=status)
         

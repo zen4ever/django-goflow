@@ -230,16 +230,13 @@ class WorkItem(models.Model):
         return '<a href=%s>%s</a>' % (url, label)
     
     def html_action_link(self):
-        #label = 'action'
         if self.status == 'inactive':
-            #label = 'activate'
             url='activate/%d/' % self.id
         if self.status == 'active':
-            #label = 'complete'
             url='complete/%d/' % self.id
         if self.status == 'complete':
             raise Exception('no action for completed workitems')
-        return '<a href=%s>' % (url)
+        return url
     
     def time_out(self, delay, unit='days'):
         '''

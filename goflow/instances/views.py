@@ -12,13 +12,13 @@ from goflow.workflow.decorators import login_required
 @login_required
 def mywork(request, template='goflow/mywork.html'):
     me = request.user
-    workitems = get_workitems(user=me, notstatus='complete', noauto=True)
+    workitems = get_workitems(user=me, notstatus=('complete',), noauto=True)
     return render_to_response(template, {'user':me, 'workitems':workitems})
 
 @login_required
 def otherswork(request, template='goflow/otherswork.html'):
     worker = request.GET['worker']
-    workitems = get_workitems(username=worker, notstatus='complete', noauto=False)
+    workitems = get_workitems(username=worker, notstatus=('complete',), noauto=False)
     return render_to_response(template, {'worker':worker, 'workitems':workitems})
 
 @login_required
