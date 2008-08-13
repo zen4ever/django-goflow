@@ -364,8 +364,8 @@ def get_workitems(user=None, username=None, queryset=WorkItem.objects, activity=
             query = query.filter(status=status)
         
         if notstatus:
-            for status in notstatus: 
-                query = query.exclude(status=status)
+            for s in notstatus: 
+                query = query.exclude(status=s)
         
         if noauto:
             query = query.exclude(activity__autostart=True)
@@ -385,8 +385,8 @@ def get_workitems(user=None, username=None, queryset=WorkItem.objects, activity=
             pullables = pullables.filter(status=status)
         
         if notstatus:
-            for status in notstatus:
-                pullables = pullables.exclude(status=status)
+            for s in notstatus:
+                pullables = pullables.exclude(status=s)
         
         if noauto:
             pullables = pullables.exclude(activity__autostart=True)
