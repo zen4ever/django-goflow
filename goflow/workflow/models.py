@@ -169,7 +169,7 @@ class Application(models.Model):
                     ('o', 'object.id'),
                     )
     suffix =  models.CharField(max_length=1, choices=SUFF_CHOICES, verbose_name='suffix', null=True, blank=True,
-                               help_text='http://[host]/[settings.WF_APPS_PREFIX/][url]/[suffix]')
+                               default='w', help_text='http://[host]/[settings.WF_APPS_PREFIX/][url]/[suffix]')
     def __unicode__(self):
         return self.url
     

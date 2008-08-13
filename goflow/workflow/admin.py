@@ -1,6 +1,9 @@
 from django.contrib import admin
 from models import *
 
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin
+
 
 class TransitionInline(admin.StackedInline):
     model = Transition
@@ -56,3 +59,14 @@ class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'web_host', 'notified', 'last_notif', 'nb_wi_notif', 'notif_delay')
     list_filter = ('web_host', 'notified')
 admin.site.register(UserProfile, UserProfileAdmin)
+
+
+admin.site.unregister(User)
+class UserProfileInline(admin.StackedInline):
+    model = UserProfile
+    max_num = 1
+
+
+class GoFlowUserAdmin(UserAdmin):
+    inlines = [UserProfileInline]
+admin.site.register(User, GoFlowUserAdmin)
