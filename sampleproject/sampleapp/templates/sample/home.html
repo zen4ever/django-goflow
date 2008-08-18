@@ -1,0 +1,29 @@
+{% extends "sample/base.html" %}
+
+{% block content %}
+<h1>GoFlow Sample project</h1>
+<ul>
+  <li><a href=admin/>console admin</a>
+  <li><a href=workflow/>console workflow</a>
+  <li><a href=sampleapp/start/>start workflow</a>
+</ul>
+<hr>
+<h2>My worklist ({{ user }})</h2>
+
+  <table border=1>
+  <thead>
+  <tr><th>n°</th><th>activity</th><th>process instance</th></tr>
+  </thead>
+  {% for wi in workitems %}
+  <tr class="{% cycle row1,row2 %}">
+    <td>{{wi.pk}}</td> <td>{{wi.activity}}</td> <td><a href="workflow/mywork/{{wi.html_action_link}}">{{wi.instance}}</a></td>
+  </tr>
+  {% endfor %}
+  </table>
+  
+<hr>
+
+<h2>Users switch</h2>
+{% load debug_goflow %}{% switch_users %}
+
+{% endblock %}

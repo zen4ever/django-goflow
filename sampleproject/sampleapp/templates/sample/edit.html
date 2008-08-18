@@ -1,0 +1,30 @@
+{% extends "sample/base.html" %}
+
+{% block content %}
+<h1>GoFlow Sample project</h1>
+this panel uses the <i>apptools.views.edit_model</i> application handler through the
+template <i>sample/edit.html/i>.
+
+<p>
+
+This panel allows to edit the number field of the workflow object. The
+<i>form_class</i> parameter is set with the form class <i>SampleModelNumberForm</i>.
+
+<p>
+{% if form.is_multipart %}
+<form enctype="multipart/form-data" method="post">
+{% else %}
+<form method="post">
+{% endif %}
+
+<table>
+{{ form }}
+</table>
+
+{% for value in ok_values %}
+<input type="submit" name="{{ submit_name }}" value="{{ value }}">
+{% endfor %}
+<input type="submit" name="{{ submit_name }}" value="{{ cancel_value }}">
+</form>
+
+{% endblock %}

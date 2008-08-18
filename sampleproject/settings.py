@@ -96,7 +96,7 @@ LOGIN_URL = '/accounts/login'
 AUTH_PROFILE_MODULE = 'workflow.userprofile'
 
 # mail notification
-DEFAULT_FROM_EMAIL = 'sample_app@sampleproject.net'
+DEFAULT_FROM_EMAIL = 'sample@project.com'
 EMAIL_HOST = 'localhost'
 
 # user that executes auto processes
@@ -107,5 +107,5 @@ WF_APPS_PREFIX = '/sampleapp'
 WF_PUSH_APPS_PREFIX = 'sampleproject.sampleapp.pushapps'
 
 # test users for fast switch (with DEBUG=TRUE only)
-TEST_USERS = (('admin','test'), )
+TEST_USERS = (('admin','admin'), ('user1','user1'))
 

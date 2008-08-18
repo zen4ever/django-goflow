@@ -1,0 +1,21 @@
+{% extends "sample/base.html" %}
+
+{% block content %}
+<h1>Start workflow "Sample process"</h1>
+
+
+{% if form.is_multipart %}
+<form enctype="multipart/form-data" method="post">
+{% else %}
+<form method="post">
+{% endif %}
+
+<table>
+{{ form }}
+</table>
+
+<input type="submit" name="{{ submit_name }}" value="{{ ok_value }}">
+<input type="submit" name="{{ submit_name }}" value="{{ cancel_value }}">
+</form>
+
+{% endblock %}

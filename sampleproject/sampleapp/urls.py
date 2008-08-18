@@ -6,11 +6,11 @@ urlpatterns = patterns('goflow.apptools.views',
     # starting application
     (r'^start/$', 'start_application', {'process_name':'Sample process',
                                         'form_class':forms.SampleModelForm,
-                                        'template':'start.html'}),
+                                        'template':'sample/start.html'}),
+    # applications provided by goflow.apptools
+    (r'^apptools/', include('goflow.apptools.urls')),
     # applications
-    (r'^sample_choice/(?P<id>\d+)/$', 'view_object'),
-    (r'^sample_view/(?P<id>\d+)/$', 'view_application'),
-    (r'^sample_edit/(?P<id>\d+)/$', 'view_application'),
+    (  r'^sample_edit/(?P<id>\d+)/$', 'edit_model', {'template':  'edit.html'}),
 )
 
 urlpatterns += patterns('',

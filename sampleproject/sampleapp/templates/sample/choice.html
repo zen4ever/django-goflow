@@ -1,0 +1,18 @@
+{% extends "sample/base.html" %}
+
+{% block content %}
+<h1>GoFlow Sample project</h1>
+this panel uses the <i>apptools.views.view_object</i> application handler through the
+template <i>sample/choice.html</i>.
+<p>
+Actions below are generated from the "action_values" application parameter:
+<ul>
+  {% for value in action_values %}
+  <li><a href="{{ value }}/">{{ value }}</a>
+  {% endfor %}
+</ul>
+
+<p>
+You can make the choice later with the <a href="{{ cancel_value }}/">{{ cancel_value }}</a> action.
+
+{% endblock %}

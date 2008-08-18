@@ -1,0 +1,13 @@
+{% extends "sample/base.html" %}
+
+{% block content %}
+<h1>GoFlow Sample project</h1>
+
+<form method="post">
+{% for value in ok_values %}
+<input type="submit" name="{{ submit_name }}" value="{{ value }}">
+{% endfor %}
+<input type="submit" name="{{ submit_name }}" value="{{ cancel_value }}">
+</form>
+
+{% endblock %}

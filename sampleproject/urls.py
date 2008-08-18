@@ -9,7 +9,7 @@ urlpatterns = patterns('',
     # FOR DEBUG AND TEST ONLY
     (r'^.*switch/(?P<username>.*)/(?P<password>.*)/$', 'goflow.workflow.views.debug_switch_user'),
     # home page
-    (r'^$', 'ressource.management.views.home'),
+    (r'^$', 'sampleproject.sampleapp.views.home'),
     # home redirection
     (r'^.*home/$', 'django.views.generic.simple.redirect_to', {'url':'/'}),
     # login/logout
