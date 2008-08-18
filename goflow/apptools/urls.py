@@ -1,8 +1,11 @@
 from django.conf.urls.defaults import *
-import views
 import forms
 
-urlpatterns = patterns('',
-    (r'^start/(?P<app_label>.*)/(?P<model_name>.*)/$', 'goflow.apptools.views.start_application'),
-    (r'^start_proto/(?P<process_name>.*)/$', 'goflow.apptools.views.start_application', {'form_class':forms.DefaultAppStartForm, 'template':'goflow/start_proto.html'}),
+urlpatterns = patterns('goflow.apptools.views',
+    (r'^start/(?P<app_label>.*)/(?P<model_name>.*)/$', 'start_application'),
+    (r'^start_proto/(?P<process_name>.*)/$', 'start_application', {'form_class':forms.DefaultAppStartForm, 'template':'goflow/start_proto.html'}),
+    (r'^view_application/(?P<id>\d+)/$', 'view_application'),
+    (r'^view_object/(?P<id>\d+)/$', 'view_object'),
+    (r'^view_object/(?P<id>\d+)/(?P<action>.*)/$', 'view_object'),
+    (r'^sendmail/$', 'sendmail'),
 )

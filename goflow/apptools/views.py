@@ -19,6 +19,7 @@ from django.conf import settings
 import goflow.workflow.logger, logging
 _log = logging.getLogger('workflow.log')
 
+from goflow.workflow.notification import send_mail
 
 @login_required
 def start_application(request, app_label=None, model_name=None, process_name=None, instance_label=None,
@@ -251,6 +252,40 @@ def view_application(request, id, template='goflow/view_application.html', redir
                                          'cancel_value':cancel_value,
                                          'title':title,})
 
+@login_required
+def view_object(request, id, action=None, template='goflow/view_object.html', redirect='home',
+                cancel_value='cancel', action_values=('submit',)):
+    '''
+    WIP test for a no form application.
+    '''
+    workitem = get_workitem(int(id), user=request.user)
+    instance = workitem.instance
+    activity = workitem.activity
+    
+    obj = instance.wfobject()
+    
+    template = override_app_params(activity, 'template', template)
+    redirect = override_app_params(activity, 'redirect', redirect)
+    action_values = override_app_params(activity, 'action_values', action_values)
+    cancel_value = override_app_params(activity, 'cancel_value', cancel_value)
+
+    if action:
+        if action == cancel_value:
+            return HttpResponseRedirect(redirect)
+        
+        if action in action_values:
+            instance.condition = action
+            instance.save()
+            complete_workitem(workitem, request.user)
+            return HttpResponseRedirect(redirect)
+    return render_to_response(template, {'object':obj,
+                                         'instance':instance,
+                                         'action_values':action_values,
+                                         'cancel_value':cancel_value})
+
+
+def sendmail(workitem, subject='goflow.apptools sendmail message', template='goflow/app_sendmail.txt'):
+    send_mail(workitems=(workitem,), user=workitem.user, subject=subject, template=template)
 
 def override_app_params(activity, name, value):
     '''

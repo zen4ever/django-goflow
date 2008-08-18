@@ -1,0 +1,41 @@
+{% extends "goflow/base_site.html" %}
+
+{% block content %}
+
+{% block content_header %}
+<h1>Object view</h1>
+This is a default template used by the generic application <i>view_object</i>.
+<p>
+You may define a suitable template (the default is <i>view_object.html</i>) with the <i>template</i> parameter
+in the urls.py file as follows:
+<pre>
+    (r'^my/appli/view_appli/$',
+      'goflow.apptools.views.view_object',
+      {'template':'mytemplate.html'}),
+</pre>
+
+you can use directly the url provided by goflow.apptools.urls, and define parameters in the activity.
+
+This template can access the following variables:
+<ul>
+<li>object: object (linked to the process instance, instance.wfobject())
+<li>action_values: list of action values for OK
+<li>cancel_value: action value for redirect and quit
+</ul>
+<p>
+This application looks like view_application, but works without a form; href links replace buttons.
+{% endblock %}
+
+<p>
+Actions are:
+<ul>
+  {% for value in action_values %}
+  <li><a href="{{ value }}/">{{ value }}</a>
+  {% endfor %}
+</ul>
+Cancel value is:
+<ul>
+<li><a href="{{ cancel_value }}/">{{ cancel_value }}</a>
+</ul>
+
+{% endblock %}

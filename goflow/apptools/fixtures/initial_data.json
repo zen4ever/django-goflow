@@ -1,0 +1,26 @@
+[
+  {
+    "pk": 1, 
+    "model": "workflow.application", 
+    "fields": {
+      "url": "apptools/view_object", 
+      "suffix": "w"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "workflow.application", 
+    "fields": {
+      "url": "apptools/view_application", 
+      "suffix": "w"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "workflow.application", 
+    "fields": {
+      "url": "apptools/sendmail", 
+      "suffix": "w"
+    }
+  }
+]

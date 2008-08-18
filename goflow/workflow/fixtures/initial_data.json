@@ -1,0 +1,23 @@
+[
+  {
+    "pk": 1, 
+    "model": "workflow.pushapplication", 
+    "fields": {
+      "url": "route_to_requester"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "workflow.pushapplication", 
+    "fields": {
+      "url": "route_to_user"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "workflow.pushapplication", 
+    "fields": {
+      "url": "route_to_superuser"
+    }
+  }
+]

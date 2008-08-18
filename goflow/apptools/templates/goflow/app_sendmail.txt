@@ -1,0 +1,25 @@
+Mail sent by the apptools sendmail auto application.
+
+This mail template (app_sendmail.txt) is a default template for
+the sendmail auto application provided by apptools.
+
+You should define one template for each activity.
+
+You should define the following parameters at urls.py or
+activity level:
+- subject
+- template
+
+You can use these variables in the template:
+- user
+- workitems
+- url_prefix (like "http://myhost.com/", with myhost.com defined in the user profile field [web_host])
+
+The value of the "subject" parameter (urls.py) is a template string too, with these variables
+availables:
+- workitems
+- user
+
+GoFlow.
+
+
