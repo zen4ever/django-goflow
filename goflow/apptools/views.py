@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 
 from goflow.workflow.models import Process
-from goflow.instances.models import ProcessInstance, WorkItem
+from goflow.runtime.models import ProcessInstance, WorkItem
 
 from django.db import models
 from django.contrib.auth.models import User

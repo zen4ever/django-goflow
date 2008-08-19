@@ -22,7 +22,7 @@ urlpatterns += patterns('goflow.apptools.views',
         {'form_class':DefaultAppStartForm, 'template':'goflow/start_proto.html'}),
 )
 
-urlpatterns += patterns('goflow.instances.views',
+urlpatterns += patterns('goflow.runtime.views',
     (r'^otherswork/$',                 'otherswork'),
     (r'^otherswork/instancehistory/$', 'instancehistory'),
     (r'^myrequests/$',                 'myrequests'),

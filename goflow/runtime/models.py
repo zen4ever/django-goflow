@@ -9,7 +9,7 @@ from datetime import timedelta, datetime
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
-from goflow.workflow.logger import Log; log = Log('goflow.instances.managers')
+from goflow.workflow.logger import Log; log = Log('goflow.runtime.managers')
 from django.conf import settings
 
 class ProcessInstanceManager(models.Manager):

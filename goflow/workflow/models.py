@@ -8,7 +8,7 @@ from django import forms
 from decorators import allow_tags
 
 from datetime import datetime, timedelta
-from goflow.workflow.logger import Log; log = Log('goflow.instances.managers')
+from goflow.workflow.logger import Log; log = Log('goflow.runtime.managers')
 
 class Activity(models.Model):
     """Activities represent any kind of action an employee might want to do on an instance.

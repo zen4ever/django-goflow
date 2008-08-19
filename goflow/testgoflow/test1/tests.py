@@ -5,9 +5,9 @@ from django.test.client import Client
 from django.core import mail
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
-from goflow.instances.models import DefaultAppModel
+from goflow.runtime.models import DefaultAppModel
 from goflow.workflow.models import *
-from goflow.instances.models import *
+from goflow.runtime.models import *
 
 
 class Test(unittest.TestCase):
