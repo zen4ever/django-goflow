@@ -80,7 +80,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'goflow.workflow',
     'goflow.graphics2',
-    'goflow.instances',
+    'goflow.runtime',
     'goflow.apptools',
     'leavedemo.leave',
 )
