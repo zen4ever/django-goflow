@@ -85,7 +85,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'goflow.workflow',
-    'goflow.instances',
+    'goflow.runtime',
     'goflow.apptools',
     'sampleproject.sampleapp'
 )
