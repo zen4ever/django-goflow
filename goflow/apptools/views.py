@@ -2,8 +2,10 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
-from goflow.workflow.api import (start_instance, get_workitem, complete_workitem, activate_workitem, 
-                 is_process_enabled, check_start_instance_perm)
+
+from goflow.workflow.models import Process
+from goflow.instances.models import ProcessInstance, WorkItem
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.forms.models import modelform_factory
@@ -41,7 +43,7 @@ def start_application(request, app_label=None, model_name=None, process_name=Non
     if not process_name:
         process_name = app_label
     try:
-        check_start_instance_perm(process_name, request.user)
+        Process.objects.check_can_start(process_name, request.user)
     except Exception, v:
         return HttpResponse(str(v))
     
@@ -74,7 +76,7 @@ def start_application(request, app_label=None, model_name=None, process_name=Non
                     _log.error("forme save error: %s", str(v))
             
             if ob:
-                start_instance(process_name, request.user, ob, instance_label)
+                ProcessInstance.objects.start(process_name, request.user, ob, instance_label)
             
             return HttpResponseRedirect(redirect)
     else:
@@ -95,7 +97,7 @@ def default_app(request, id, template='goflow/default_app.html', redirect='home'
     id = int(id)
     if request.method == 'POST':
         data = request.POST.copy()
-        workitem = get_workitem(id, user=request.user)
+        workitem = WorkItem.objects.get_safe(id, user=request.user)
         inst = workitem.instance
         ob = inst.wfobject()
         form = DefaultAppForm(data, instance=ob)
@@ -110,10 +112,10 @@ def default_app(request, id, template='goflow/default_app.html', redirect='home'
             #ob.comment = data['comment']
             #ob.save(workitem=workitem, submit_value=submit_value)
             
-            complete_workitem(workitem, request.user)
+            workitem.complete(request.user)
             return HttpResponseRedirect(redirect)
     else:
-        workitem = get_workitem(id, user=request.user)
+        workitem = WorkItem.objects.get_safe(id, user=request.user)
         inst = workitem.instance
         ob = inst.wfobject()
         form = DefaultAppForm(instance=ob)
@@ -157,7 +159,7 @@ def edit_model(request, id, form_class, cmp_attr=None,template=None, template_de
     '''
     if not template: template = 'goflow/edit_%s.html' % form_class._meta.model._meta.object_name.lower()
     model_class = form_class._meta.model
-    workitem = get_workitem(int(id), user=request.user)
+    workitem = WorkItem.objects.get_safe(int(id), user=request.user)
     instance = workitem.instance
     activity = workitem.activity
     
@@ -198,7 +200,7 @@ def edit_model(request, id, form_class, cmp_attr=None,template=None, template_de
                     raise Exception(str(v))
                 instance.condition = submit_value
                 instance.save()
-                complete_workitem(workitem, request.user)
+                workitem.complete(request.user)
                 return HttpResponseRedirect(redirect)
     else:
         form = form_class(instance=obj)
@@ -223,7 +225,7 @@ def view_application(request, id, template='goflow/view_application.html', redir
     
     useful for a simple view or a complex object edition.
     '''
-    workitem = get_workitem(int(id), user=request.user)
+    workitem = WorkItem.objects.get_safe(int(id), user=request.user)
     instance = workitem.instance
     activity = workitem.activity
     
@@ -243,7 +245,7 @@ def view_application(request, id, template='goflow/view_application.html', redir
         if submit_value in ok_values:
             instance.condition = submit_value
             instance.save()
-            complete_workitem(workitem, request.user)
+            workitem.complete(request.user)
             return HttpResponseRedirect(redirect)
     return render_to_response(template, {'object':obj,
                                          'instance':instance,
@@ -258,7 +260,7 @@ def view_object(request, id, action=None, template='goflow/view_object.html', re
     '''
     WIP test for a no form application.
     '''
-    workitem = get_workitem(int(id), user=request.user)
+    workitem = WorkItem.objects.get_safe(int(id), user=request.user)
     instance = workitem.instance
     activity = workitem.activity
     
@@ -276,7 +278,7 @@ def view_object(request, id, action=None, template='goflow/view_object.html', re
         if action in action_values:
             instance.condition = action
             instance.save()
-            complete_workitem(workitem, request.user)
+            workitem.complete(request.user)
             return HttpResponseRedirect(redirect)
     return render_to_response(template, {'object':obj,
                                          'instance':instance,

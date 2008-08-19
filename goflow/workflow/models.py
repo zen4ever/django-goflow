@@ -6,9 +6,9 @@ from django.contrib.contenttypes.models import ContentType
 
 from django import forms
 from decorators import allow_tags
-from managers import ProcessManager
 
 from datetime import datetime, timedelta
+from goflow.workflow.logger import Log; log = Log('goflow.instances.managers')
 
 class Activity(models.Model):
     """Activities represent any kind of action an employee might want to do on an instance.
@@ -51,7 +51,53 @@ class Activity(models.Model):
         unique_together = (("title", "process"),)
         verbose_name = 'Activity'
         verbose_name_plural = 'Activities'
+
+
+class ProcessManager(models.Manager):
+    '''Custom model manager for Process
+    '''
+    
+    #TODO: also not too happy about this one.
+    def is_enabled(self, title):
+        '''
+        Determines given a title if a process is enabled or otherwise
         
+        :rtype: bool
+        
+        usage::
+        
+            if Process.objects.is_enabled('leave1'):
+                # do something
+        
+        '''
+        return self.get(title=title).enabled
+    
+    def check_can_start(self, process_name, user):
+        '''
+        Checks whether a process is enabled and whether the user has permission
+        to instantiate it; raises exceptions if not the case, returns None otherwise.
+        
+        @type process_name: string
+        @param process_name: a name of a process. e.g. 'leave'
+        @type user: User
+        @param user: an instance of django.contrib.auth.models.User, 
+                     typically retrieved through a request object.
+        @rtype:
+        @return: passes silently if checks are met, 
+                 raises exceptions otherwise.
+        '''
+        if not self.is_enabled(process_name):
+            raise Exception('process %s disabled.' % process_name)
+        
+        if user.has_perm("workflow.can_instantiate"):
+            lst = user.groups.filter(name=process_name)
+            if lst.count()==0 or \
+               (lst[0].permissions.filter(codename='can_instantiate').count() == 0):
+                raise Exception('permission needed to instantiate process %s.' % process_name)
+        else:
+            raise Exception('permission needed.')
+        return
+
 
 class Process(models.Model):
     """A process holds the map that describes the flow of work.
@@ -71,28 +117,7 @@ class Process(models.Model):
     end = models.ForeignKey('Activity', related_name='eprocess', verbose_name='final activity', null=True, blank=True,
                             help_text='a default end activity will be created if blank')
     priority = models.IntegerField(default=0)
-    
-    def start_instance(self, user, item, title=None):
-        '''
-        Returns a workitem given the name of a preexisting enabled Process 
-        instance, while passing in the id of the user, the contenttype 
-        object and the title.
         
-        @type process_name: string
-        @param process_name: a name of a process. e.g. 'leave'
-        @type user: User
-        @param user: an instance of django.contrib.auth.models.User, 
-                     typically retrieved through a request object.
-        @type item: ContentType
-        @param item: a content_type object e.g. an instance of LeaveRequest
-        @type: title: string
-        @param title: title of new ProcessInstance instance (optional)
-        @rtype: WorkItem
-        @return: a newly configured workitem sent to auto_user, 
-                 a target_user, or ?? (roles).
-        '''
-        raise Exception("New API (not yet implemented)")
-    
     # add new ProcessManager
     objects = ProcessManager()
     
@@ -328,3 +353,4 @@ class UserProfile(models.Model):
     class Meta:
         verbose_name='Workflow user profile'
         verbose_name_plural='Workflow users profiles'
+
