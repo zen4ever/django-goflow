@@ -52,6 +52,15 @@ class TransitionAdmin(admin.ModelAdmin):
     save_as = True
     list_display = ('name', 'input', 'output', 'condition', 'description', 'process')
     list_filter = ('process',)
+    fieldsets = (
+              (None, {'fields':(
+                                ('name', 'description'),
+                                'process',
+                                ('input', 'output'),
+                                'condition'
+                                )
+                     }),
+              )
 admin.site.register(Transition, TransitionAdmin)
 
 
