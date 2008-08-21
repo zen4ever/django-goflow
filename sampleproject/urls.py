@@ -20,7 +20,10 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable admin documentation:
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
+    
+    # FOR TEST - insert before admin/(.*)
+    (r'^admin/workflow/', include('goflow.apptools.urls_admin')),
+    
     # Uncomment the next line for to enable the admin:
     (r'^admin/(.*)', admin.site.root),
     # workflow pages
