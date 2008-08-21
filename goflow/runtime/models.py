@@ -152,9 +152,9 @@ class ProcessInstance(models.Model):
     
     def wfobject(self):
         return self.content_object
-        
+    
     def __str__(self):
-        return self.title
+        return str(self.pk)
     
     def __unicode__(self):
         return self.title
@@ -623,6 +623,9 @@ class WorkItem(models.Model):
         evaluate the condition of a transition
         '''
         raise Exception("New API (not yet implemented)")
+    
+    def __str__(self):
+        return str(self.pk)
     
     def __unicode__(self):
         return '%s-%s-%s' % (unicode(self.instance), self.activity, str(self.id))

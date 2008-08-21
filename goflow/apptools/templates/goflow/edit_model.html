@@ -46,7 +46,19 @@ This template can access the following variables:
 {% endif %}
 
 <table>
-{{ form }}
+{% for field in form %}
+  {% if not field.is_hidden %}
+    <tr>
+    {% if field.field.required %}
+    <th>{{ field.label_tag }}</th>
+    {% else %}
+    <td><i>{{ field.label_tag }}</i></td>
+    {% endif %}
+    <td>{% if field.errors %}{{ field.errors }}<br>{% endif %}
+    {{ field }}{% if field.help_text %}<br><i>{{ field.help_text }}</i>{% endif %}</td>
+    </tr>
+  {% endif %}
+{% endfor %}
 </table>
 {% for value in ok_values %}
 <input type="submit" name="{{ submit_name }}" value="{{ value }}">

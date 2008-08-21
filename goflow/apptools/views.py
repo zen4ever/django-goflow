@@ -21,8 +21,7 @@ from forms import DefaultAppForm
 
 from django.conf import settings
 
-import goflow.workflow.logger, logging
-_log = logging.getLogger('workflow.log')
+from goflow.workflow.logger import Log; log = Log('goflow.apptools.views')
 
 from goflow.workflow.notification import send_mail
 
@@ -30,7 +29,7 @@ from goflow.workflow.notification import send_mail
 def start_application(request, app_label=None, model_name=None, process_name=None, instance_label=None,
                        template=None, template_def='goflow/start_application.html',
                        form_class=None, redirect='home', submit_name='action',
-                       ok_value='OK', cancel_value='Cancel'):
+                       ok_value='OK', cancel_value='Cancel', extra_context={}):
     '''
     generic handler for application that enters a workflow.
     
@@ -74,9 +73,9 @@ def start_application(request, app_label=None, model_name=None, process_name=Non
             except Exception, v:
                 if is_form_used:
                     raise
-                    _log.error("the save method of the form must accept parameters user and data")
+                    log.error("the save method of the form must accept parameters user and data")
                 else:
-                    _log.error("forme save error: %s", str(v))
+                    log.error("forme save error: %s", str(v))
             
             if ob:
                 ProcessInstance.objects.start(process_name, request.user, ob, instance_label)
@@ -88,6 +87,7 @@ def start_application(request, app_label=None, model_name=None, process_name=Non
         form.pre_check(user=request.user)
     context = {'form': form, 'process_name':process_name,
                'submit_name':submit_name, 'ok_value':ok_value, 'cancel_value':cancel_value}
+    context.update(extra_context)
     return render_to_response((template, template_def), context)
 
 
@@ -156,7 +156,8 @@ def _cond_to_button_value(cond):
 
 @login_required
 def edit_model(request, id, form_class, cmp_attr=None,template=None, template_def='goflow/edit_model.html', title="",
-               redirect='home', submit_name='action', ok_values=('OK',), save_value='Save', cancel_value='Cancel'):
+               redirect='home', submit_name='action', ok_values=('OK',), save_value='Save', cancel_value='Cancel',
+               extra_context={}):
     '''
     generic handler for editing a model
     '''
@@ -209,20 +210,20 @@ def edit_model(request, id, form_class, cmp_attr=None,template=None, template_de
         form = form_class(instance=obj)
         # precheck
         form.pre_check(obj_context, user=request.user)
-    return render_to_response((template, template_def), {'form': form,
-                                                         'object':obj,
-                                                         'object_context':obj_context,
-                                                         'instance':instance,
-                                                         'submit_name':submit_name,
-                                                         'ok_values':ok_values,
-                                                         'save_value':save_value,
-                                                         'cancel_value':cancel_value,
-                                                         'title':title,})
+    
+    context = {  'form': form, 'object':obj, 'object_context':obj_context,
+                 'instance':instance,
+                 'submit_name':submit_name, 'ok_values':ok_values,
+                 'save_value':save_value, 'cancel_value':cancel_value,
+                 'title':title,}
+    context.update(extra_context)
+    return render_to_response((template, template_def), context)
 
 
 @login_required
 def view_application(request, id, template='goflow/view_application.html', redirect='home', title="",
-               submit_name='action', ok_values=('OK',), cancel_value='Cancel'):
+               submit_name='action', ok_values=('OK',), cancel_value='Cancel',
+               extra_context={}):
     '''
     generic handler for a view.
     
@@ -250,16 +251,16 @@ def view_application(request, id, template='goflow/view_application.html', redir
             instance.save()
             workitem.complete(request.user)
             return HttpResponseRedirect(redirect)
-    return render_to_response(template, {'object':obj,
-                                         'instance':instance,
-                                         'submit_name':submit_name,
-                                         'ok_values':ok_values,
-                                         'cancel_value':cancel_value,
-                                         'title':title,})
+    context = {  'object':obj,'instance':instance,
+                 'submit_name':submit_name,
+                 'ok_values':ok_values,'cancel_value':cancel_value,
+                 'title':title,}
+    context.update(extra_context)
+    return render_to_response(template, context)
 
 @login_required
 def view_object(request, id, action=None, template='goflow/view_object.html', redirect='home',
-                cancel_value='cancel', action_values=('submit',)):
+                cancel_value='cancel', action_values=('submit',), extra_context={}):
     '''
     WIP test for a no form application.
     '''
@@ -283,10 +284,11 @@ def view_object(request, id, action=None, template='goflow/view_object.html', re
             instance.save()
             workitem.complete(request.user)
             return HttpResponseRedirect(redirect)
-    return render_to_response(template, {'object':obj,
-                                         'instance':instance,
-                                         'action_values':action_values,
-                                         'cancel_value':cancel_value})
+    context = {  'object':obj, 'instance':instance,
+                 'action_values':action_values,
+                 'cancel_value':cancel_value}
+    context.update(extra_context)
+    return render_to_response(template, context)
 
 
 def sendmail(workitem, subject='goflow.apptools sendmail message', template='goflow/app_sendmail.txt'):
@@ -303,7 +305,7 @@ def override_app_params(activity, name, value):
         if dicparams.has_key(name):
             return dicparams[name]
     except Exception, v:
-        _log.error('_override_app_params %s %s - %s', activity, name, v)
+        log.error('_override_app_params %s %s - %s', activity, name, v)
     return value
 
 
