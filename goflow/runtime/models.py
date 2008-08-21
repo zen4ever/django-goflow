@@ -5,6 +5,7 @@ from django.contrib.auth.models import Group, User
 from goflow.workflow.models import Process, Activity, Transition, UserProfile
 from goflow.workflow.notification import send_mail
 from datetime import timedelta, datetime
+from django.core.urlresolvers import resolve
 
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
@@ -392,7 +393,7 @@ class WorkItem(models.Model):
                 raise Exception(error % settings.WF_USER_AUTO)
             wi.activate(actor=auto_user)
             if wi.exec_auto_application():
-                wi.complete_workitem(actor=auto_user)
+                wi.complete(actor=auto_user)
             return wi
         
         if target_activity.push_application:
