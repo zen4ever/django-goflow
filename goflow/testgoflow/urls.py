@@ -16,7 +16,7 @@ urlpatterns = patterns('',
     # test edit_model handler
     (r'^edit/(?P<id>.*)/$', 'goflow.apptools.views.edit_model', {'form_class':DefaultAppForm}),
     #
-    (r'^admin/workflow/', include('goflow.urls_admin')),
+    (r'^admin/workflow/', include('goflow.apptools.urls_admin')),
     (r'^admin/graphics2/', include('goflow.graphics2.urls_admin')),
     (r'^admin/(.*)', admin.site.root),
     (r'^workflow/', include('goflow.urls')),

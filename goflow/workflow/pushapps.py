@@ -1,7 +1,7 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
-from goflow.workflow.logger import Log; log = Log('goflow.workflow.pushapps')
+from logger import Log; log = Log('goflow.workflow.pushapps')
 
 def route_to_requester(workitem):
     '''Simplest possible pushapp

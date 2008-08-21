@@ -6,6 +6,8 @@ from django.forms import ModelForm
 from django import forms
 from datetime import datetime
 
+from django.contrib.contenttypes.models import ContentType
+
 
 class BaseForm(ModelForm):
     '''
@@ -84,3 +86,26 @@ class DefaultAppStartForm(StartForm):
          model = DefaultAppModel
          exclude = ('reasonDenial',)
 
+
+ctypes = ContentType.objects.\
+        exclude(app_label='auth').\
+        exclude(app_label='contenttypes').\
+        exclude(app_label='workflow').\
+        exclude(app_label='graphics').\
+        exclude(app_label='graphics2').\
+        exclude(app_label='runtime').\
+        exclude(app_label='apptools').\
+        exclude(app_label='sessions').\
+        exclude(app_label='sites').\
+        exclude(app_label='admin')
+
+class ContentTypeForm(forms.Form):
+    ctype = forms.ModelChoiceField(
+                queryset=ctypes, 
+                required=True, 
+                empty_label='(select a content-type)',
+                label='content type',
+                help_text=('clone all instances of the selected content type and push '
+                           'them in the test process of the application')
+            )
+    

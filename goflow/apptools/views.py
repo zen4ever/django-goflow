@@ -3,7 +3,10 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 
-from goflow.workflow.models import Process
+from django.contrib.contenttypes.models import ContentType
+from forms import ContentTypeForm
+
+from goflow.workflow.models import Process, Application
 from goflow.runtime.models import ProcessInstance, WorkItem
 
 from django.db import models
@@ -302,3 +305,63 @@ def override_app_params(activity, name, value):
     except Exception, v:
         _log.error('_override_app_params %s %s - %s', activity, name, v)
     return value
+
+
+@login_required
+def app_env(request, action, id, template=None):
+    """creates/removes unit test environment for applications.
+    
+    a process named "test_[app]" with one activity
+    a group with appropriate permission
+    TODO: move to apptools
+    """
+    app = Application.objects.get(id=int(id))
+    rep = 'Nothing done.'
+    if action == 'create':
+        app.create_test_env(user=request.user)
+        rep = 'test env created for app %s' % app.url
+    if action == 'remove':
+        app.remove_test_env()
+        rep = 'test env removed for app %s' % app.url
+    
+    rep += '<hr><p><b><a href=../../../>return</a></b>'
+    return HttpResponse(rep)
+
+@login_required
+def test_start(request, id, template='goflow/test_start.html'):
+    """starts test instances.
+    
+    for a given application, with its unit test environment, the user
+    choose a content-type then generates unit test process instances
+    by cloning existing content-type objects (**Work In Progress**).
+    TODO: move to apptools
+    """
+    app = Application.objects.get(id=int(id))
+    context = {}
+    if request.method == 'POST':
+        submit_value = request.POST['action']
+        if submit_value == 'Create':
+            ctype = ContentType.objects.get(id=int(request.POST['ctype']))
+            model = ctype.model_class()
+            for inst in model.objects.all():
+                # just objects without link to a workflow instance
+                if ProcessInstance.objects.filter(
+                    content_type__pk=ctype.id,
+                    object_id=inst.id
+                ).count() > 0:
+                    continue
+                inst.id = None
+                inst.save()
+                #TODO: convert this to method
+                ProcessInstance.objects.start(
+                #start_instance(
+                            process_name='test_%s' % app.url,
+                            user=request.user, item=inst, 
+                            title="%s test instance for app %s" % (
+                                ctype.name, app.url
+                            ))
+            request.user.message_set.create(message='test instances created')
+        return HttpResponseRedirect('../..')
+    form = ContentTypeForm()
+    context['form'] = form
+    return render_to_response(template, context)
