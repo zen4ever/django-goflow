@@ -6,6 +6,7 @@ from goflow.workflow.models import Process, Activity, Transition, UserProfile
 from goflow.workflow.notification import send_mail
 from datetime import timedelta, datetime
 from django.core.urlresolvers import resolve
+from django.core.mail import mail_admins
 
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
@@ -13,11 +14,13 @@ from django.contrib.contenttypes import generic
 from goflow.workflow.logger import Log; log = Log('goflow.runtime.managers')
 from django.conf import settings
 
+from goflow.workflow.decorators import allow_tags
+
 class ProcessInstanceManager(models.Manager):
     '''Custom model manager for ProcessInstance
     '''
    
-    def start(self, process_name, user, item, title=None):
+    def start(self, process_name, user, item, title=None, priority=0):
         '''
         Returns a workitem given the name of a preexisting enabled Process 
         instance, while passing in the id of the user, the contenttype 
@@ -32,6 +35,8 @@ class ProcessInstanceManager(models.Manager):
         :param item: a content_type object e.g. an instance of LeaveRequest
         :type: title: string
         :param title: title of new ProcessInstance instance (optional)
+        :type: priority: integer
+        :param priority: default priority (optional)
         :rtype: WorkItem
         :return: a newly configured workitem sent to auto_user, 
                  a target_user, or ?? (roles).
@@ -44,6 +49,8 @@ class ProcessInstanceManager(models.Manager):
         '''
         
         process = Process.objects.get(title=process_name, enabled=True)
+        if priority == 0: priority = process.priority
+            
         if not title or (title=='instance'):
             title = '%s %s' % (process_name, str(item))
         instance = ProcessInstance.objects.create(process=process, user=user, title=title, content_object=item)
@@ -51,7 +58,7 @@ class ProcessInstanceManager(models.Manager):
         instance.set_status('running')
         
         workitem = WorkItem.objects.create(instance=instance, user=user, 
-                                           activity=process.begin)
+                                           activity=process.begin, priority=priority)
         log.event('created by ' + user.username, workitem)
         log('process:', process_name, 'user:', user.username, 'item:', item)
     
@@ -154,6 +161,15 @@ class ProcessInstance(models.Model):
     def wfobject(self):
         return self.content_object
     
+    @allow_tags
+    def workitems_list(self):
+        '''provide html link to workitems for a process instance in admin change list.
+        @rtype: string
+        @return: html href link "../workitem/?instance__id__exact=[self.id]&ot=asc&o=0"
+        '''
+        nbwi = self.workitems.count()
+        return '<a href=../workitem/?instance__id__exact=%d&ot=asc&o=0>%d item(s)</a>' % (self.pk, nbwi)
+    
     def __str__(self):
         return str(self.pk)
     
@@ -166,11 +182,6 @@ class ProcessInstance(models.Model):
         self.old_status = self.status
         self.status = status
         self.save()
-    
-    class Admin:
-        date_hierarchy = 'creationTime'
-        list_display = ('title', 'process', 'user', 'creationTime', 'status')
-        list_filter = ('process', 'user')
 
 
 class WorkItemManager(models.Manager):
@@ -232,14 +243,14 @@ class WorkItemManager(models.Manager):
         
         groups = Group.objects.all()
         if user:
-            query = queryset.filter(user=user, activity__process__enabled=True)
+            query = queryset.filter(user=user, activity__process__enabled=True).order_by('-priority')
             groups = user.groups.all()
         else:
             if username:
                 query = queryset.filter(
                         user__username=username, 
                         activity__process__enabled=True
-                )
+                ).order_by('-priority')
                 groups = User.objects.get(username=username).groups.all()
             else:
                 query = None
@@ -264,7 +275,7 @@ class WorkItemManager(models.Manager):
         
         # search pullable workitems
         for role in groups:
-            pullables = queryset.filter(pull_roles=role, activity__process__enabled=True)
+            pullables = queryset.filter(pull_roles=role, activity__process__enabled=True).order_by('-priority')
             if status:
                 pullables = pullables.filter(status=status)
             
@@ -379,7 +390,8 @@ class WorkItem(models.Model):
                  activity (and next user)
         '''
         instance = self.instance
-        wi = WorkItem.objects.create(instance=instance, user=None, activity=target_activity)
+        wi = WorkItem.objects.create(instance=instance, user=None,
+                                     activity=target_activity, priority=self.priority)
         log.info('forwarded to %s', target_activity.title)
         Event.objects.create(name='creation by %s' % self.user.username, workitem=wi)
         Event.objects.create(name='forwarded to %s' % target_activity.title, workitem=self)
@@ -664,10 +676,41 @@ class WorkItem(models.Model):
         self.fallOut()
         return False
     
+    def can_priority_change(self):
+        '''can the user change priority.
+        
+        @rtype: bool
+        @return: returns True if the user can change priority
+        
+        the user must belong to a group with "workitem.can_change_priority"  permission,
+        and this group's name must be the same as the process title.
+        '''
+        if self.user.has_perm("workitem.can_change_priority"):
+            lst = self.user.groups.filter(name=self.instance.process.title)
+            if lst.count()==0 or \
+               (lst[0].permissions.filter(codename='can_change_priority').count() == 0):
+                return False
+            return True
+        return False
+    
     def fall_out(self):
         self.status = 'fallout'
         self.save()
         Event.objects.create(name='fallout', workitem=self)
+        if not settings.DEBUG:
+            mail_admins(subject='workflow workitem %s fall out' % str(self.pk),
+                    message=u'''
+The workitem [%s] was falling out.
+
+Process:  %s
+Activity: %s
+instance: %s
+----------------------------------
+                    ''' % (
+                           self.instance.process,
+                           self.activity,
+                           self.instance,
+                           ))
     
     def html_action(self):
         label = 'action'
@@ -699,18 +742,24 @@ class WorkItem(models.Model):
         tdelta = eval('timedelta('+unit+'=delay)')
         now = datetime.now()
         return (now > (self.date + tdelta))
-        
-    class Admin:
-        date_hierarchy = 'date'
-        list_display = ('date', 'user', 'instance', 'activity', 'status',)
-        list_filter = ('user', 'activity', 'status')
+    
+    @allow_tags
+    def events_list(self):
+        '''provide html link to events for a workitem in admin change list.
+        @rtype: string
+        @return: html href link "../event/?workitem__id__exact=[self.id]&ot=asc&o=0"
+        '''
+        nbevt = self.events.count()
+        return '<a href=../event/?workitem__id__exact=%d&ot=asc&o=0>%d item(s)</a>' % (self.pk, nbevt)
+    
+    class Meta:
+        permissions = (
+            ("can_change_priority", "Can change priority"),
+        )
 
 class Event(models.Model):
     """Event are changes that happens on workitems.
     """
     date = models.DateTimeField(auto_now=True, core=True)
     name = models.CharField(max_length=50, core=True)
-    workitem = models.ForeignKey(WorkItem, related_name='events', edit_inline=True)
-    class Admin:
-        date_hierarchy = 'date'
-        list_display = ('date', 'name', 'workitem')
+    workitem = models.ForeignKey(WorkItem, related_name='events')

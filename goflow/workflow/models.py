@@ -310,7 +310,7 @@ class Transition(models.Model):
         models.Model.save(self)
     
     def __unicode__(self):
-        return self.name or 't%d' % self.id
+        return self.name or 't%s' % str(self.pk)
 
     class Meta:
         pass
@@ -334,6 +334,7 @@ class UserProfile(models.Model):
                                       help_text='notification if the number of items waiting is reached')
 
     notif_delay = models.IntegerField(default=1, verbose_name='Notification delay', help_text='in days')
+    urgent_priority = models.IntegerField(default=5, verbose_name='Urgent priority threshold', help_text='a mail notification is sent when an item has at least this priority level')
     
     def save(self):
         if not self.last_notif: self.last_notif = datetime.now()

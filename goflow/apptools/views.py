@@ -78,7 +78,8 @@ def start_application(request, app_label=None, model_name=None, process_name=Non
                     log.error("forme save error: %s", str(v))
             
             if ob:
-                ProcessInstance.objects.start(process_name, request.user, ob, instance_label)
+                priority = int(form.cleaned_data['priority'])
+                ProcessInstance.objects.start(process_name, request.user, ob, instance_label, priority=priority)
             
             return HttpResponseRedirect(redirect)
     else:

@@ -15,8 +15,14 @@ class BaseForm(ModelForm):
     '''
     
     workitem_id = forms.IntegerField(widget=forms.HiddenInput, required=False)
+    priority = forms.ChoiceField(label=u'Priorité', widget=forms.RadioSelect, initial='0',
+                                 choices=(('0','normal'), ('1','urgent'), ('5','prioritaire')),
+                                 )
     def save(self, workitem=None, submit_value=None, commit=True):
         ob = super(BaseForm, self).save(commit=commit)
+        if workitem and workitem.can_priority_change():
+            workitem.priority = int(self.cleaned_data['priority'])
+            workitem.save()
         return ob
     
     def pre_check(self, obj_context=None, user=None):
@@ -34,6 +40,9 @@ class StartForm(ModelForm):
     '''
     base class for starting a workflow
     '''
+    priority = forms.ChoiceField(label=u'Priorité', widget=forms.RadioSelect, initial='0',
+                                 choices=(('0','normal'), ('1','urgent'), ('5','prioritaire')),
+                                 )
     
     def save(self, user=None, data=None, commit=True):
         ob = super(StartForm, self).save(commit=commit)

@@ -3,8 +3,8 @@ from models import *
 
 class ProcessInstanceAdmin(admin.ModelAdmin):
     date_hierarchy = 'creationTime'
-    list_display = ('title', 'process', 'user', 'creationTime', 'status')
-    list_filter = ('process', 'user')
+    list_display = ('title', 'process', 'user', 'creationTime', 'status', 'workitems_list')
+    list_filter = ('process', 'status', 'user')
     fieldsets = (
               (None, {'fields':(
                                 'title', 'process', 'user',
@@ -18,8 +18,8 @@ admin.site.register(ProcessInstance, ProcessInstanceAdmin)
 
 class WorkItemAdmin(admin.ModelAdmin):
     date_hierarchy = 'date'
-    list_display = ('date', 'user', 'instance', 'activity', 'status',)
-    list_filter = ('user', 'activity', 'status')
+    list_display = ('date', 'user', 'instance', 'activity', 'status', 'events_list')
+    list_filter = ('status', 'user', 'activity',)
     fieldsets = (
               (None, {'fields':(
                                 ('instance', 'activity'),

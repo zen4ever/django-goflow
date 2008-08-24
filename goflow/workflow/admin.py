@@ -13,7 +13,7 @@ class TransitionInline(admin.StackedInline):
 
 
 class ProcessAdmin(admin.ModelAdmin):
-    list_display = ('title', 'enabled', 'summary')
+    list_display = ('title', 'enabled', 'summary', 'priority')
     inlines = [
                    TransitionInline,
                ]
