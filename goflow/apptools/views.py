@@ -293,6 +293,12 @@ def view_object(request, id, action=None, template='goflow/view_object.html', re
 
 
 def sendmail(workitem, subject='goflow.apptools sendmail message', template='goflow/app_sendmail.txt'):
+    '''send a mail notification to the workitem user.
+    
+    parameters:
+    subject:  default="goflow.apptools sendmail message"
+    template: default="goflow/app_sendmail.txt"
+    '''
     send_mail(workitems=(workitem,), user=workitem.user, subject=subject, template=template)
 
 def override_app_params(activity, name, value):

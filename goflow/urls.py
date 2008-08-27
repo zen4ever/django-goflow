@@ -1,6 +1,7 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
 from apptools.forms import DefaultAppStartForm
+from apptools.views import DefaultAppModel
 
 urlpatterns = patterns('django.contrib.auth.views.',
     (r'^.*/logout/$', 'logout'),

@@ -3,6 +3,9 @@
 from django.db import models
 from django.contrib.auth.models import Group, User, Permission
 from django.contrib.contenttypes.models import ContentType
+from django.core.urlresolvers import resolve
+
+from django.conf import settings
 
 from django import forms
 from decorators import allow_tags
@@ -195,6 +198,8 @@ class Application(models.Model):
                     )
     suffix =  models.CharField(max_length=1, choices=SUFF_CHOICES, verbose_name='suffix', null=True, blank=True,
                                default='w', help_text='http://[host]/[settings.WF_APPS_PREFIX/][url]/[suffix]')
+    detected_as_auto = None
+    
     def __unicode__(self):
         return self.url
     
@@ -211,6 +216,28 @@ class Application(models.Model):
         if extern_for_user:
             path = 'http://%s%s' % (extern_for_user.get_profile().web_host, path)
         return path
+    
+    def get_handler(self):
+        '''returns handler mapped to url.
+        '''
+        try:
+            func, args, kwargs = resolve(self.get_app_url() + '0/')
+            self.detected_as_auto = False
+        except Exception:
+            func, args, kwargs = resolve(self.get_app_url())
+            self.detected_as_auto = True
+        return func
+    
+    @allow_tags
+    def documentation(self):
+        doc = ''
+        if self.detected_as_auto:
+            doc = 'detected as auto application.<hr>'
+        try:
+            doc += u'<pre>%s</pre>' % self.get_handler().__doc__
+        except Exception, v:
+            doc += 'WARNING: the url %s is not resolved.' % self.get_app_url()
+        return doc
     
     def has_test_env(self):
         if Process.objects.filter(title='test_%s' % self.url).count() > 0:
@@ -271,6 +298,34 @@ class PushApplication(models.Model):
     
     """
     url = models.CharField(max_length=255, unique=True)
+    
+    def get_handler(self):
+        '''returns handler mapped to url.
+        '''
+        try:
+            # search first in pre-built handlers
+            import pushapps
+            if self.url in dir(pushapps):
+                # TODO
+                return eval('pushapps.%s' % self.url)
+            # then search elsewhere
+            prefix = settings.WF_PUSH_APPS_PREFIX
+            # dyn import
+            exec 'import %s' % prefix
+            appname = '%s.%s' % (prefix, appname)
+            return eval('%s.%s' % (prefix, self.url))
+        except Exception, v:
+            log.error('PushApplication.get_handler %s', v)
+        return None
+    
+    @allow_tags
+    def documentation(self):
+        return u'<pre>%s</pre>' % self.get_handler().__doc__
+        
+    def execute(self, workitem, **kwargs):
+        handler = self.get_handler()
+        return handler(workitem, **kwargs)
+    
     def __unicode__(self):
         return self.url
     

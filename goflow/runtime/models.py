@@ -499,29 +499,11 @@ class WorkItem(models.Model):
         '''
         if not self.activity.process.enabled:
             raise Exception('process %s disabled.' % self.activity.process.title)
-        appname = self.activity.push_application.url
         params = self.activity.pushapp_param
-        # try std pushapps:
-        from goflow.workflow import pushapps
-        if appname in dir(pushapps):
-            try:
-                kwargs = ''
-                if params:
-                    kwargs = ',**%s' % params
-                result = eval('pushapps.%s(self, %s)' % (appname, kwargs))
-            except Exception, v:
-                log.error('exec_push_application %s', v)
-                result = None
-                self.fall_out()
-            return result
-        
         try:
-            prefix = settings.WF_PUSH_APPS_PREFIX
-            # dyn import
-            exec 'import %s' % prefix
-            
-            appname = '%s.%s' % (prefix, appname)
-            result = eval('%s(self)' % appname)
+            if params: kwargs = eval(params)
+            else: kwargs = {}
+            result = self.activity.push_application.execute(self, **kwargs)
         except Exception, v:
             log.error('exec_push_application %s', v)
             result = None

@@ -22,13 +22,13 @@ admin.site.register(Process, ProcessAdmin)
 
 class ApplicationAdmin(admin.ModelAdmin):
     save_as = True
-    list_display = ('url','test')
+    list_display = ('url', 'documentation', 'test')
 admin.site.register(Application, ApplicationAdmin)
 
 
 class PushApplicationAdmin(admin.ModelAdmin):
     save_as = True
-    list_display = ('url','test')
+    list_display = ('url', 'documentation', 'test')
 admin.site.register(PushApplication, PushApplicationAdmin)
 
 

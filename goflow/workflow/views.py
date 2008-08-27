@@ -21,7 +21,12 @@ def index(request, template='workflow/index.html', extra_context={}):
     me = request.user
     roles = Group.objects.all()
     processes = Process.objects.all()
-    obinstances = DefaultAppModel.objects.all()
+    # optional package (ugly design)
+    try:
+        from goflow.apptools.models import DefaultAppModel
+        obinstances = DefaultAppModel.objects.all()
+    except Exception:
+        obinstances = None
     
     context = {'user':me, 'processes':processes, 'roles':roles}
     context.update(extra_context)
