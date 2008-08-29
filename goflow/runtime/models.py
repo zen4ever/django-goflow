@@ -144,7 +144,7 @@ class ProcessInstance(models.Model):
                       )
     title = models.CharField(max_length=100)
     process = models.ForeignKey(Process, related_name='instances', null=True, blank=True)
-    creationTime = models.DateTimeField(auto_now_add=True, core=True)
+    creationTime = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, related_name='instances')
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='initiated')
     old_status = models.CharField(max_length=10, choices=STATUS_CHOICES, null=True, blank=True)
@@ -335,7 +335,7 @@ class WorkItem(models.Model):
                       ('fallout', 'fallout'),
                       ('complete', 'complete'),
                       )
-    date = models.DateTimeField(auto_now=True, core=True)
+    date = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, related_name='workitems', null=True, blank=True)
     instance = models.ForeignKey(ProcessInstance, related_name='workitems')
     activity = models.ForeignKey(Activity, related_name='workitems')
@@ -742,6 +742,6 @@ instance: %s
 class Event(models.Model):
     """Event are changes that happens on workitems.
     """
-    date = models.DateTimeField(auto_now=True, core=True)
-    name = models.CharField(max_length=50, core=True)
+    date = models.DateTimeField(auto_now=True)
+    name = models.CharField(max_length=50)
     workitem = models.ForeignKey(WorkItem, related_name='events')

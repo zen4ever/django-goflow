@@ -29,7 +29,7 @@ class Activity(models.Model):
                     ('and', 'and'),
                     ('xor', 'xor'),
                     )
-    title = models.CharField(max_length=100, core=True)
+    title = models.CharField(max_length=100)
     kind =  models.CharField(max_length=10, choices=KIND_CHOICES, verbose_name='type', default='standard')
     process = models.ForeignKey('Process', related_name='activities')
     push_application = models.ForeignKey('PushApplication', related_name='push_activities', null=True, blank=True)
@@ -353,10 +353,10 @@ class Transition(models.Model):
     """
     name = models.CharField(max_length=50, null=True, blank=True)
     process = models.ForeignKey(Process, related_name='transitions')
-    input = models.ForeignKey(Activity, core=True, related_name='transition_inputs')
+    input = models.ForeignKey(Activity, related_name='transition_inputs')
     condition = models.CharField(max_length=200, null=True, blank=True,
                                  help_text='ex: instance.condition=="OK" | OK')
-    output = models.ForeignKey(Activity, core=True, related_name='transition_outputs')
+    output = models.ForeignKey(Activity, related_name='transition_outputs')
     description = models.CharField(max_length=100, null=True, blank=True)
     
     def save(self):
@@ -385,7 +385,7 @@ class UserProfile(models.Model):
     web_host = models.CharField(max_length=100, default='localhost:8000')
     notified = models.BooleanField(default=True, verbose_name='notification by email')
     last_notif = models.DateTimeField(default=datetime.now())
-    nb_wi_notif = models.IntegerField(default=1, core=True, verbose_name='items before notification', 
+    nb_wi_notif = models.IntegerField(default=1, verbose_name='items before notification', 
                                       help_text='notification if the number of items waiting is reached')
 
     notif_delay = models.IntegerField(default=1, verbose_name='Notification delay', help_text='in days')
