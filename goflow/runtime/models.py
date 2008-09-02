@@ -213,7 +213,7 @@ class WorkItemManager(models.Manager):
         workitem._check(user, status)
         return workitem
 
-    def list_safe(self, user=None, username=None, queryset=None, activity=None, status=None,
+    def list_safe(self, user=None, username=None, queryset='qs_default', activity=None, status=None,
                       notstatus=('blocked','suspended','fallout','complete'), noauto=True):
         """
         Retrieve list of workitems (in order to display a task list for example).
@@ -238,7 +238,7 @@ class WorkItemManager(models.Manager):
             workitems = WorkItem.objects.list_safe(user=me, notstatus='complete', noauto=True)
         
         """
-        if not queryset: queryset = WorkItem.objects
+        if queryset == 'qs_default': queryset = WorkItem.objects
         if status: notstatus = []
         
         groups = Group.objects.all()
