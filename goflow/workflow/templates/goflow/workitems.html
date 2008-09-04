@@ -1,0 +1,15 @@
+<table border=1>
+<tr>
+ <th>Activity</th><th>ProcessInstance</th><th>Status</th><th>Actor</th><th>Action</th>
+</tr>
+{% for wi in workitems%}
+<tr>
+<td>{{wi.activity}}</td>
+<td>{{wi.instance}}</td>
+<td>{{ wi.get_status_display }}</td>
+<td>{{wi.user}}</td>
+<td>{{wi.html_action|safe}}</td>
+</tr>
+{% endfor %}
+
+</table>

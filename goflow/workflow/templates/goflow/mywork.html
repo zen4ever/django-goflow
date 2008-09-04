@@ -2,21 +2,8 @@
 {% block content %}
 <h1>Worklist for {{ user.username }}</h1>
 
-<table border=1>
-<tr>
- <th>Activity</th><th>ProcessInstance</th><th>Status</th><th>Actor</th><th>Action</th>
-</tr>
-{% for wi in workitems%}
-<tr>
-<td>{{wi.activity}}</td>
-<td>{{wi.instance}}</td>
-<td>{{ wi.get_status_display }}</td>
-<td>{{wi.user}}</td>
-<td>{{wi.html_action|safe}}</td>
-</tr>
-{% endfor %}
+{% include "goflow/workitems.html" %}
 
-</table>
 <p>
 <a href="home">To frontpage</a>
 </p>
