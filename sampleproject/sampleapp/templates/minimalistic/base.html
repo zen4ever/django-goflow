@@ -48,6 +48,20 @@ Aenean dapibus, leo vitae eleifend porta, sem ipsum nonummy est, eu fermentum ar
 			<p>GoFlow gkDC CQD.</p>
 	</div>
 	{% endblock %}
+
+	<div class="box">
+		<h4>Language</h4>
+		{% load i18n %}
+		<form action="/i18n/setlang/" method="post">
+		<input name="next" type="hidden" value="/" />
+		<select name="language">
+		{% for lang in LANGUAGES %}
+		<option value="{{ lang.0 }}">{% trans lang.1 %}</option>
+		{% endfor %}
+		</select>
+		<input type=submit value="ok">
+		</form>
+	</div>
 			
 	<div class="box">
 				<h2>Links :</h2>

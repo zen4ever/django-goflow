@@ -6,6 +6,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    (r'^i18n/', include('django.conf.urls.i18n')),
     # FOR DEBUG AND TEST ONLY
     (r'^.*switch/(?P<username>.*)/(?P<password>.*)/$', 'goflow.workflow.views.debug_switch_user'),
     # home page

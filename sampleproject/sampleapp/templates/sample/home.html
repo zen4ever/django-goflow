@@ -13,7 +13,7 @@ Le projet <i>GoFlow sample project</i> vise trois buts:
 
 <h3><a href=#tutorial>modèle de projet workflow</a></h3>
 
-<h3><a href=#tutorial>test</a></h3>
+<h3><a href=#test>test</a></h3>
 
 <hr>
 
@@ -40,12 +40,25 @@ Il est tout à fait classique; nous relèverons simplement quelques éléments c
 Positionné sur <i>True</i> il donne accès à la fonction <i>fast switch</i>
 fournie par le templatetag <i>switch_users</i> de la librairie <i>debug_goflow</i>.
 <h5>INSTALLED_APPS</h5>
-<ul>
-    <li>'goflow.workflow',
-    <li>'goflow.runtime',
-    <li>'goflow.apptools',
-    <li>'sampleproject.sampleapp'
-</ul>
+Il contient entre autre les applications suivantes:
+<table border=1>
+    <tr><th>'goflow.workflow'</th><td>définition workflow</td></tr>
+    <tr><th>'goflow.runtime'</th><td>runtime workflow</td></tr>
+    <tr><th>'goflow.apptools'</th><td>utilitaires applications</td></tr>
+    <tr><th>'sampleproject.sampleapp'</th><td>application de workflow</td></tr>
+</table>
+
+<h5>AUTH_PROFILE_MODULE</h5>
+TODO
+
+<h5>WF_USER_AUTO</h5>
+TODO
+<h5>WF_APPS_PREFIX</h5>
+TODO
+<h5>WF_PUSH_APPS_PREFIX</h5>
+TODO
+<h5>TEST_USERS</h5>
+TODO
 
 
 <h4>application sampleapp</h4>
@@ -54,7 +67,7 @@ TODO
 <h4>fichiers urls.py</h4>
 TODO
 
-<a href=test></a><h3>test</h3>
+<a name=test></a><h3>test</h3>
 Le process workflow fourni avec ce projet met en oeuvre toutes les applications
 prédéfinies disponible dans le module goflow.apptools. Ce projet peut donc servir de base
 pour construire des tests permettant d'améliorer la robustesse de GoFlow.
@@ -70,5 +83,6 @@ I am <b>{{ user }}</b>
 <h3>fast switch</h3>
 {% load debug_goflow %}{% switch_users %}
 </div>
+
 
 {% endblock %}

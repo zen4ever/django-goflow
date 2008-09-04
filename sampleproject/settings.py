@@ -66,6 +66,7 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.doc.XViewMiddleware',
 )
@@ -89,6 +90,12 @@ INSTALLED_APPS = (
     'goflow.runtime',
     'goflow.apptools',
     'sampleproject.sampleapp'
+)
+
+ugettext = lambda s: s
+LANGUAGES = (
+    ('fr', ugettext('French')),
+    ('en', ugettext('English')),
 )
 
 LOGIN_URL = '/accounts/login'
