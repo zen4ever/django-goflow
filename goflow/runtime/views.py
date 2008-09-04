@@ -1,6 +1,7 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
+from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
 from models import ProcessInstance, WorkItem
 
@@ -9,26 +10,29 @@ from goflow.workflow.decorators import login_required
 
 @login_required
 def mywork(request, template='goflow/mywork.html'):
-    me = request.user
-    workitems = WorkItem.objects.list_safe(user=me, noauto=True)
-    return render_to_response(template, {'user':me, 'workitems':workitems})
+    workitems = WorkItem.objects.list_safe(user=request.user, noauto=True)
+    return render_to_response(template, {'workitems':workitems},
+                              context_instance=RequestContext(request))
 
 @login_required
 def otherswork(request, template='goflow/otherswork.html'):
     worker = request.GET['worker']
     workitems = WorkItem.objects.list_safe(username=worker, noauto=False)
-    return render_to_response(template, {'worker':worker, 'workitems':workitems})
+    return render_to_response(template, {'worker':worker, 'workitems':workitems},
+                              context_instance=RequestContext(request))
 
 @login_required
 def instancehistory(request, template='goflow/instancehistory.html'):
     id = int(request.GET['id'])
     inst = ProcessInstance.objects.get(pk=id)
-    return render_to_response(template, {'instance':inst})
+    return render_to_response(template, {'instance':inst},
+                              context_instance=RequestContext(request))
 
 @login_required
 def myrequests(request, template='goflow/myrequests.html'):
     inst_list = ProcessInstance.objects.filter(user=request.user)
-    return render_to_response(template, {'user':request.user, 'instances':inst_list})
+    return render_to_response(template, {'instances':inst_list},
+                              context_instance=RequestContext(request))
 
 @login_required
 def activate(request, id):

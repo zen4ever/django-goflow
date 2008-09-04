@@ -1,6 +1,7 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
+from django.template import RequestContext
 from django.conf import settings
 from django.contrib.auth.models import Group
 from django.contrib.auth import authenticate, login, logout
@@ -28,9 +29,10 @@ def index(request, template='workflow/index.html', extra_context={}):
     except Exception:
         obinstances = None
     
-    context = {'user':me, 'processes':processes, 'roles':roles}
+    context = {'processes':processes, 'roles':roles}
     context.update(extra_context)
-    return render_to_response(template, context)
+    return render_to_response(template, context,
+                              context_instance=RequestContext(request))
 
 def debug_switch_user(request, username, password, redirect=None):
     """fast user switch for test purpose.

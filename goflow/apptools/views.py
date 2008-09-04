@@ -1,6 +1,7 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
+from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse
 
 from django.contrib.contenttypes.models import ContentType
@@ -89,7 +90,8 @@ def start_application(request, app_label=None, model_name=None, process_name=Non
     context = {'form': form, 'process_name':process_name,
                'submit_name':submit_name, 'ok_value':ok_value, 'cancel_value':cancel_value}
     context.update(extra_context)
-    return render_to_response((template, template_def), context)
+    return render_to_response((template, template_def), context,
+                              context_instance=RequestContext(request))
 
 
 @login_required
@@ -136,7 +138,8 @@ def default_app(request, id, template='goflow/default_app.html', redirect='home'
                                          'workitem':workitem,
                                          'instance':inst,
                                          'history':inst.wfobject().history,
-                                         'submit_values':submit_values,})
+                                         'submit_values':submit_values,},
+                              context_instance=RequestContext(request))
 
 
 def _cond_to_button_value(cond):
@@ -218,7 +221,8 @@ def edit_model(request, id, form_class, cmp_attr=None,template=None, template_de
                  'save_value':save_value, 'cancel_value':cancel_value,
                  'title':title,}
     context.update(extra_context)
-    return render_to_response((template, template_def), context)
+    return render_to_response((template, template_def), context,
+                              context_instance=RequestContext(request))
 
 
 @login_required
@@ -257,7 +261,8 @@ def view_application(request, id, template='goflow/view_application.html', redir
                  'ok_values':ok_values,'cancel_value':cancel_value,
                  'title':title,}
     context.update(extra_context)
-    return render_to_response(template, context)
+    return render_to_response(template, context,
+                              context_instance=RequestContext(request))
 
 @login_required
 def view_object(request, id, action=None, template='goflow/view_object.html', redirect='home',
@@ -289,7 +294,8 @@ def view_object(request, id, action=None, template='goflow/view_object.html', re
                  'action_values':action_values,
                  'cancel_value':cancel_value}
     context.update(extra_context)
-    return render_to_response(template, context)
+    return render_to_response(template, context,
+                              context_instance=RequestContext(request))
 
 
 def sendmail(workitem, subject='goflow.apptools sendmail message', template='goflow/app_sendmail.txt'):
