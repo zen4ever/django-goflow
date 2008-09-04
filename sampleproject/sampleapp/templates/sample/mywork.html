@@ -1,0 +1,23 @@
+{% extends "sample/home.html" %}
+
+{% block nav_extra%}
+   <li><a href="../../">Home</a></li>
+   <li><a href="" class=active>My worklist</a></li>
+{% endblock %}
+
+
+{% block content %}
+<h2>Ma liste de tâches</h2>
+Si la liste ci-dessous est vide, essayer de "changer de casquette", au moyen du menu
+de droite <i>fast switch</i>.
+<p>
+{% if workitems %}
+Il y a un ou plusieurs éléments, bravo, vous avez réussi à instancier le
+processus workflow <i>Sample process</i>. En cliquant sur le lien <i>Action</i>,
+vous serez dirigé(e) vers une application workflow. Bonne continuation ...
+{% endif %}
+
+
+{% include "goflow/workitems.html" %}
+
+{% endblock %}

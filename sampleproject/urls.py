@@ -13,7 +13,7 @@ urlpatterns = patterns('',
     # home redirection
     (r'^.*home/$', 'django.views.generic.simple.redirect_to', {'url':'/'}),
     # login/logout
-    (r'^logout/$', 'django.contrib.auth.views.logout', {'template_name':'logged_out.html'}),
+    (r'^logout/$', 'django.contrib.auth.views.logout'),
     (r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name':'goflow/login.html'}),
     # Example:
     (r'^sampleapp/', include('sampleproject.sampleapp.urls')),
@@ -29,5 +29,5 @@ urlpatterns = patterns('',
     # workflow pages
     (r'^workflow/', include('goflow.urls')),
     # static files
-    (r'^files/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+    (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 )

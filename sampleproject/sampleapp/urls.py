@@ -16,3 +16,7 @@ urlpatterns = patterns('goflow.apptools.views',
 urlpatterns += patterns('',
     (r'^sample_myview/$', views.myview),
 )
+
+urlpatterns += patterns('goflow.runtime.views',
+    (r'^mywork/$', 'mywork', {'template':'sample/mywork.html'}),
+)
