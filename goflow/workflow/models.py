@@ -312,7 +312,6 @@ class PushApplication(models.Model):
             prefix = settings.WF_PUSH_APPS_PREFIX
             # dyn import
             exec 'import %s' % prefix
-            appname = '%s.%s' % (prefix, appname)
             return eval('%s.%s' % (prefix, self.url))
         except Exception, v:
             log.error('PushApplication.get_handler %s', v)
