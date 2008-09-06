@@ -26,10 +26,12 @@ GoFlow - A workflow engine for Django
 
 - Python 2.4+
 - Django 1.0 (SVN)
+- for sampleproject: django-flags (http://code.google.com/p/django-flags/)
 
 
 3. Install instructions:
 
+leavedemo project:
 
 - cd leavedemo
   > create the database with command "python manage.py syncdb --noinput"
@@ -39,6 +41,15 @@ GoFlow - A workflow engine for Django
  
 - superuser is "admin" with password "open"
 
+
+sampleproject project:
+
+- install flags application in the sampleproject directory
+- move "flags/img/flags" directory in the "static" directory
+- choose flags_urls source : local or distant (see settings and urls files)
+- cd sampleproject 
+  > create the database with command "python manage.py syncdb --noinput"
+- superuser is  "admin" with password "admin"
 
 
 4. Test instructions:

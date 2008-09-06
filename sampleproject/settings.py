@@ -58,6 +58,8 @@ SECRET_KEY = 'ih3^*u=ndnu+nbuv&0)zbd5m2gt%5alzu9*%s!bze2w&r426(6'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
+    'sampleproject.flags.loaders.filesystem.load_template_source',
+    'sampleproject.flags.loaders.app_directories.load_template_source',
     'django.template.loaders.filesystem.load_template_source',
     'django.template.loaders.app_directories.load_template_source',
 #     'django.template.loaders.eggs.load_template_source',
@@ -89,13 +91,8 @@ INSTALLED_APPS = (
     'goflow.workflow',
     'goflow.runtime',
     'goflow.apptools',
-    'sampleproject.sampleapp'
-)
-
-ugettext = lambda s: s
-LANGUAGES = (
-    ('fr', ugettext('French')),
-    ('en', ugettext('English')),
+    'sampleproject.sampleapp',
+    'sampleproject.flags',
 )
 
 LOGIN_URL = '/accounts/login'
@@ -116,4 +113,25 @@ WF_PUSH_APPS_PREFIX = 'sampleproject.sampleapp.pushapps'
 
 # test users for fast switch (with DEBUG=TRUE only)
 TEST_USERS = (('admin','admin'), ('user1','user1'))
+
+# the FLAGS_I18N_PREFIX parameter must match urls.py item:
+# urls.py     > (r'^PREFIX/i18n/', include('django.conf.urls.i18n')),
+# settings.py > FLAGS_I18N_PREFIX = '/PREFIX/i18n/'
+FLAGS_I18N_PREFIX = '/lang/i18n/'
+# flags served by local server
+FLAGS_URL = MEDIA_URL + "flags/"
+# flags served by net server
+#FLAGS_URL = 'http://djangodev.free.fr/flags/'
+
+# languages
+ugettext = lambda s: s
+LANGUAGES = (
+    ('ar', ugettext('Arabic')),
+    ('fr', ugettext('French')),
+    ('en', ugettext('English')),
+    ('es', ugettext('Spanish')),
+    ('de', ugettext('German')),
+    ('pl', ugettext('Polish')),
+)
+
 

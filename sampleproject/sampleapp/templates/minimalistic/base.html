@@ -51,16 +51,10 @@ Aenean dapibus, leo vitae eleifend porta, sem ipsum nonummy est, eu fermentum ar
 
 	<div class="box">
 		<h4>Language</h4>
-		{% load i18n %}
-		<form action="/i18n/setlang/" method="post">
-		<input name="next" type="hidden" value="/" />
-		<select name="language">
-		{% for lang in LANGUAGES %}
-		<option value="{{ lang.0 }}">{% trans lang.1 %}</option>
-		{% endfor %}
-		</select>
-		<input type=submit value="ok">
-		</form>
+		{% load flags_lib %}{% flags_form %}
+	   <div style="font-size: 0.8em;">
+	   internationalized by <a href="http://code.google.com/p/django-flags/">django-flags</a>
+	   </div>
 	</div>
 			
 	<div class="box">
@@ -69,6 +63,7 @@ Aenean dapibus, leo vitae eleifend porta, sem ipsum nonummy est, eu fermentum ar
 				<li><a href="">Django project</a></li>
 				<li><a href="">GoFlow homepage</a></li>
 				<li><a href="">GoFlow dev site</a></li>
+				<li><a href="http://code.google.com/p/django-flags/">django-flags</a>
 				</ul>
 	</div>
 		
