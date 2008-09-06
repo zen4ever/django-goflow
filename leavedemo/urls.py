@@ -16,7 +16,6 @@ urlpatterns = patterns('',
     # user connection
     (r'^.*/logout/$', 'django.contrib.auth.views.logout'),
     (r'^.*/accounts/login/$', 'django.contrib.auth.views.login', {'template_name':'goflow/login.html'}),
-    (r'^.*/password_change/$', 'django.contrib.auth.views.password_change'),
     
     # static
     (r'^images/(?P<path>.*)$', 'django.views.static.serve', {'document_root': join(_dir, 'media/img'), 'show_indexes': True}),
