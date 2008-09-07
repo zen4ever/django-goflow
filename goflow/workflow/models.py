@@ -358,6 +358,11 @@ class Transition(models.Model):
     output = models.ForeignKey(Activity, related_name='transition_outputs')
     description = models.CharField(max_length=100, null=True, blank=True)
     
+    def is_transition(self):
+        ''' used in admin templates.
+        '''
+        return True
+    
     def save(self):
         if self.input.process != self.process or self.output.process != self.process:
             raise Exception("a transition and its activities must be linked to the same process")

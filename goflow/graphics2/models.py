@@ -22,9 +22,6 @@ class ProcessImage(models.Model):
     
     def list_activity_positions(self):
         return ActivityPosition.objects.filter(diagram=self)
-    
-    class Admin:
-        list_display = ('process', 'graphic', 'file')
         
     def __unicode__(self):
         return self.process.title
@@ -34,6 +31,3 @@ class ActivityPosition(models.Model):
     activity = models.ForeignKey(Activity)
     x = models.PositiveSmallIntegerField(default=0)
     y = models.PositiveSmallIntegerField(default=0)
-    
-    class Admin:
-        list_display = ('activity', 'diagram', 'x', 'y')
