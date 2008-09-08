@@ -25,6 +25,8 @@ urlpatterns = patterns('',
     
     # FOR TEST - insert before admin/(.*)
     (r'^admin/workflow/', include('goflow.apptools.urls_admin')),
+    # special
+    (r'^admin/apptools/', include('goflow.apptools.urls_admin')),
     
     # Uncomment the next line for to enable the admin:
     (r'^admin/(.*)', admin.site.root),

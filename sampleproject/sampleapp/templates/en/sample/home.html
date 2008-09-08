@@ -1,0 +1,75 @@
+{% extends "minimalistic/base.html" %}
+
+{% block nav_extra%}
+   <li><a href="#" class=active>Home</a></li>
+   <li><a href="sampleapp/mywork">My worklist</a></li>
+{% endblock %}
+
+
+{% block content %}
+<h2>GoFlow Sample project</h2>
+The <i>GoFlow sample project</i> aims at:
+<h3><a href=#tutorial>tutorial</a></h3>
+
+<h3><a href=#tutorial>workflow project template</a></h3>
+
+<h3><a href=#tutorial>test</a></h3>
+
+<hr>
+
+<a name=tutorial></a><h3>tutorial</h3>
+Ce projet permet d'expérimenter une véritable application de workflow
+utilisant le moteur GoFlow. Un process workflow est ici utilisé pour
+permettre à l'utilisateur d'explorer les diverses application prédéfinies.
+<p>
+<a href=sampleapp/start/>Démarrer le tutoriel</a> en entrant directement dans le workflow
+<i>Sample process</i>.
+
+<a href=#model></a><h3>modèle de projet workflow</h3>
+Le démarrage d'un projet django intégrant le moteur GoFlow comporte des tâches
+un peu fastidieuses (configuration settings, authentification, fichiers statiques, ...).
+<p>
+Ce projet fournit une configuration standard permettant de tester immédiatement
+ses propres workflows, en fournissant un workflow composé d'applications
+types prédéfinies, qu'on peut modifier à sa guise.
+Un partie du tutoriel est d'ailleurs consacré à celà.
+<p>Exminons la structure du projet <i>sampleproject</i>:
+<h4>fichier settings</h4>
+Il est tout à fait classique; nous relèverons simplement quelques éléments caractéristiques
+<h5>DEBUG</h5>
+Positionné sur <i>True</i> il donne accès à la fonction <i>fast switch</i>
+fournie par le templatetag <i>switch_users</i> de la librairie <i>debug_goflow</i>.
+<h5>INSTALLED_APPS</h5>
+<table border=0>
+    <tr><td>'goflow.workflow'</td><td>définition workflow</td></tr>
+    <tr><td>'goflow.runtime'</td><td>runtime workflow</td></tr>
+    <tr><td>'goflow.apptools'</td><td></td>utilitaires applications</tr>
+    <tr><td>'sampleproject.sampleapp'</td><td></td>application de workflow</tr>
+</table>
+
+
+<h4>application sampleapp</h4>
+TODO
+
+<h4>fichiers urls.py</h4>
+TODO
+
+<a href=test></a><h3>test</h3>
+Le process workflow fourni avec ce projet met en oeuvre toutes les applications
+prédéfinies disponible dans le module goflow.apptools. Ce projet peut donc servir de base
+pour construire des tests permettant d'améliorer la robustesse de GoFlow.
+
+{% endblock %}
+
+
+{% block boxes %}
+<div class="box">
+<h2>About me</h2>
+I am <b>{{ user }}</b>
+<br><a href=/logout/>disconnect</a>
+<h3>fast switch</h3>
+{% load debug_goflow %}{% switch_users %}
+</div>
+
+
+{% endblock %}

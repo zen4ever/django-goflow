@@ -45,6 +45,7 @@ urlpatterns = patterns('',
     (r'^leave/finalinfo/(?P<id>.*)/$', 'goflow.apptools.views.view_application', {'template':'finalinfo.html'}),
     
      # administration
+    (r'^leave/admin/apptools/', include('goflow.apptools.urls_admin')),
     (r'^leave/admin/workflow/', include('goflow.apptools.urls_admin')),
     (r'^leave/admin/graphics2/', include('goflow.graphics2.urls_admin')),
     (r'^leave/admin/(.*)', admin.site.root),

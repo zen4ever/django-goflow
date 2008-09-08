@@ -1,0 +1,74 @@
+{% extends "sample/home.html" %}
+
+
+{% block nav_extra%}
+   <li><a href="/">Home</a></li>
+   <li><a href="/sampleapp/mywork">My worklist</a></li>
+{% endblock %}
+
+{% block content %}
+<h2>Lancement du workflow "Sample process"</h2>
+<h3>Permission</h3>
+Commencer par vous <b>connecter comme <i>user1</i></b>, en cliquant dans le menu de droite; cette
+fonctionnalité est très pratique pour "changer de casquette" rapidement (bien entendu, ceci ne fonctionne
+que si settings.DEBUG=True).
+<p>
+Effectivement, pour instancier un processus workflow, l'utilisateur doit appartenir à un groupe
+de même nom que le processus et possédant la permission spéciale ("can_instantiate").
+<p>
+<a href=/admin/auth/>Vérifiez cette permission</a> dans la console admin, après vous être connecté(e)
+sous <i>admin</i> (menu de droite "fast switch").
+
+<h3>Objet workflow</h3>
+Quand on définit un processus workflow, on définit également un objet métier qui
+sera "transporté" dans le workflow, d'activités en activités. Cet objet est un modèle
+django quelconque, qui doit être simplement précisé dans un fichier urls.py, de la façon
+suivante:
+<pre>
+    # voir le fichier sampleapp/urls.py
+    (r'^start/$', 'start_application', {'process_name':'Sample process',
+                                        <b>'form_class':forms.SampleModelForm,</b>
+                                        'template':'sample/start.html'}),
+</pre>
+
+Pour les besoins de cette démo, l'objet est un <i>SampleModel</i> qui contient quelques
+champs divers, dont <i>requester</i>. Comme on le voit, la classe de l'objet n'est pas
+spécifiée directement, mais au moyen d'un <i>ModelForm</i>.
+
+<h3>Instanciation du processus</h3>
+le handler vu ci-dessus <i>start_application</i> est fourni par le module goflow.apptools,
+il permet de démarrer un processus workflow facilement en spécifiant
+une classe <i>form</i> et un template.
+<p>La class form est une sorte de <i>ModelForm</i>, ou plus précisément, héritant de
+<i>goflow.apptools.forms.StartForm</i>.
+<p>Le template par défaut est <i>goflow/start_application</i> fourni encore par goflow.apptools,
+il est ici redéfini en <i>sample/start.html</i>.
+
+<h3>Formulaire</h3>
+Le formulaire ci-dessous expose uniquement un champ texte; les autres champs, comme
+<i>requester</i>, pourront être renseignés dans la méthode <i>save</i> de la classe
+<i>form</i> spécifiée.
+<p>La classe de base <i>StartForm</i> fourni le champ <i>priority</i> qui permet de donner
+un niveau de priorité.
+<p>Tapez un mot quelconque dans la zone de texte:
+{% if form.is_multipart %}
+<form enctype="multipart/form-data" method="post">
+{% else %}
+<form method="post">
+{% endif %}
+
+<table>
+{{ form }}
+</table>
+
+<p>
+Après avoir cliquer sur OK, vous vous retrouverez à la page d'accueil. Cliquez
+alors sur l'onglet <b><i>My worklist</i></b>; si la liste est vide, peut-être
+faudra-t-il "changer de casquette" ...
+</p>
+<input type="submit" name="{{ submit_name }}" value="{{ ok_value }}">
+<input type="submit" name="{{ submit_name }}" value="{{ cancel_value }}">
+</form>
+
+
+{% endblock %}

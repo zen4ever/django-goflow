@@ -72,6 +72,11 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'leavedemo.urls'
 
+TEMPLATE_DIRS = (
+    join(_dir,'..', 'goflow', 'apptools', 'templates'),
+    join(_dir,'..', 'goflow', 'runtime', 'templates')
+)
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',

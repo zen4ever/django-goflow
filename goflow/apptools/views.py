@@ -17,7 +17,7 @@ from django.forms.models import modelform_factory
 from django.contrib.auth.decorators import permission_required
 # little hack
 from goflow.workflow.decorators import login_required
-from models import DefaultAppModel
+from models import DefaultAppModel, Icon, Image
 from forms import DefaultAppForm
 
 from django.conf import settings
@@ -380,3 +380,14 @@ def test_start(request, id, template='goflow/test_start.html'):
     form = ContentTypeForm()
     context['form'] = form
     return render_to_response(template, context)
+
+
+@login_required
+def image_update(request):
+    rep = '<h1>Update Icons from Images</h1>'
+    for im in Image.objects.all():
+        if Icon.objects.filter(url__endswith=str(im.url)).count() == 0:
+            Icon.objects.create(category='local-'+im.category, url=im.url())
+            rep += '<br> %s added ' % im.url()
+    rep += '<hr><p><b><a href=../>return</a></b>'
+    return HttpResponse(rep)

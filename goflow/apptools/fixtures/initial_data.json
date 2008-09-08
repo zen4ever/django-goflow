@@ -1,26 +1,227 @@
 [
   {
     "pk": 1, 
-    "model": "workflow.application", 
+    "model": "apptools.image", 
     "fields": {
-      "url": "apptools/view_object", 
-      "suffix": "w"
+      "category": "base", 
+      "file": "images/32px-Crystal_Clear_action_button_cancel_.png"
     }
   }, 
   {
     "pk": 2, 
-    "model": "workflow.application", 
+    "model": "apptools.image", 
     "fields": {
-      "url": "apptools/view_application", 
-      "suffix": "w"
+      "category": "large", 
+      "file": "images/Crystal_Clear_action_button_cancel_.png"
     }
   }, 
   {
     "pk": 3, 
-    "model": "workflow.application", 
+    "model": "apptools.image", 
     "fields": {
-      "url": "apptools/sendmail", 
-      "suffix": "w"
+      "category": "base", 
+      "file": "images/32px-Crystal_Clear_app_clean__.png"
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "large", 
+      "file": "images/Crystal_Clear_app_clean_.png"
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "base", 
+      "file": "images/32px-Crystal_Clear_device_floppy_unmount.png"
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "large", 
+      "file": "images/Crystal_Clear_device_floppy_unmount.png"
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "base", 
+      "file": "images/32px-Crystal_Clear_action_edit.png"
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "large", 
+      "file": "images/Crystal_Clear_action_edit.png"
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "base", 
+      "file": "images/32px-Crystal_Clear_action_build.png"
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "large", 
+      "file": "images/Crystal_Clear_action_build.png"
+    }
+  }, 
+  {
+    "pk": 11, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "base", 
+      "file": "images/32px-Crystal_Clear_action_stop.png"
+    }
+  }, 
+  {
+    "pk": 12, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "large", 
+      "file": "images/Crystal_Clear_action_stop.png"
+    }
+  }, 
+  {
+    "pk": 13, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "base", 
+      "file": "images/32px-Crystal_Clear_action_exit.png"
+    }
+  }, 
+  {
+    "pk": 14, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "large", 
+      "file": "images/Crystal_Clear_action_exit.png"
+    }
+  }, 
+  {
+    "pk": 15, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "base", 
+      "file": "images/32px-Crystal_Clear_action_edit_add.png"
+    }
+  }, 
+  {
+    "pk": 16, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "large", 
+      "file": "images/Crystal_Clear_action_edit_add.png"
+    }
+  }, 
+  {
+    "pk": 17, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "base", 
+      "file": "images/32px-Crystal_Clear_action_edit_remove.png"
+    }
+  }, 
+  {
+    "pk": 18, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "large", 
+      "file": "images/Crystal_Clear_action_edit_remove.png"
+    }
+  }, 
+  {
+    "pk": 19, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "base", 
+      "file": "images/32px-Crystal_Clear_action_filenew.png"
+    }
+  }, 
+  {
+    "pk": 20, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "large", 
+      "file": "images/Crystal_Clear_action_filenew.png"
+    }
+  }, 
+  {
+    "pk": 21, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "base", 
+      "file": "images/32px-Crystal_Clear_app_email.png"
+    }
+  }, 
+  {
+    "pk": 22, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "large", 
+      "file": "images/Crystal_Clear_app_email.png"
+    }
+  }, 
+  {
+    "pk": 23, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "base", 
+      "file": "images/32px-Crystal_Clear_action_reload.png"
+    }
+  }, 
+  {
+    "pk": 24, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "large", 
+      "file": "images/Crystal_Clear_action_reload.png"
+    }
+  }, 
+  {
+    "pk": 25, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "base", 
+      "file": "images/32px-Crystal_Clear_app_error.png"
+    }
+  }, 
+  {
+    "pk": 26, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "large", 
+      "file": "images/Crystal_Clear_app_error.png"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "apptools.icon", 
+    "fields": {
+      "category": "local", 
+      "url": "http://localhost:8000/static/images/32px-Crystal_Clear_action_button_cancel.png"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "apptools.transitionicon", 
+    "fields": {
+      "transition": 6, 
+      "icon": 1, 
+      "label": "Annuler"
     }
   }
 ]
