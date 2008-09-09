@@ -19,4 +19,6 @@ urlpatterns += patterns('',
 
 urlpatterns += patterns('goflow.runtime.views',
     (r'^mywork/$', 'mywork', {'template':'sample/mywork.html'}),
+    (r'^mywork/activate/(?P<id>.*)/$', 'activate'),
+    (r'^mywork/complete/(?P<id>.*)/$', 'complete'),
 )

@@ -27,7 +27,7 @@
       "is_active": true, 
       "is_superuser": true, 
       "is_staff": true, 
-      "last_login": "2008-08-18 17:59:31", 
+      "last_login": "2008-09-09 22:34:06", 
       "groups": [
         1
       ], 
@@ -47,7 +47,7 @@
       "is_active": true, 
       "is_superuser": false, 
       "is_staff": false, 
-      "last_login": "2008-08-18 17:58:56", 
+      "last_login": "2008-09-09 22:35:18", 
       "groups": [
         1, 
         2
@@ -102,7 +102,7 @@
     "fields": {
       "kind": "standard", 
       "push_application": null, 
-      "description": "this activity use the \"view_object\" handler.", 
+      "description": "this activity use the \"choice_application\" handler.", 
       "roles": [
         2
       ], 
@@ -113,7 +113,7 @@
       "subflow": null, 
       "application": 1, 
       "split_mode": "xor", 
-      "app_param": "{'action_values':('view','edit','end'), 'template':'sample/choice.html'}", 
+      "app_param": "{'template':'sample/choice.html'}", 
       "autostart": false, 
       "pushapp_param": ""
     }
@@ -155,7 +155,7 @@
       "autofinish": true, 
       "join_mode": "xor", 
       "subflow": null, 
-      "application": 3, 
+      "application": 4, 
       "split_mode": "and", 
       "app_param": "", 
       "autostart": false, 
@@ -175,7 +175,7 @@
       "autofinish": true, 
       "join_mode": "xor", 
       "subflow": null, 
-      "application": 4, 
+      "application": 3, 
       "split_mode": "and", 
       "app_param": "{'subject':'sample model content', 'template':'sample/sample_mail.txt'}", 
       "autostart": true, 
@@ -192,14 +192,14 @@
       "title": "Sample process", 
       "enabled": true, 
       "priority": 0, 
-      "date": "2008-08-18 17:01:53"
+      "date": "2008-09-09 21:35:12"
     }
   }, 
   {
     "pk": 1, 
     "model": "workflow.application", 
     "fields": {
-      "url": "apptools/view_object", 
+      "url": "apptools/choice_application", 
       "suffix": "w"
     }
   }, 
@@ -215,7 +215,7 @@
     "pk": 3, 
     "model": "workflow.application", 
     "fields": {
-      "url": "sample_edit", 
+      "url": "apptools/sendmail", 
       "suffix": "w"
     }
   }, 
@@ -223,7 +223,7 @@
     "pk": 4, 
     "model": "workflow.application", 
     "fields": {
-      "url": "apptools/sendmail", 
+      "url": "sample_edit", 
       "suffix": "w"
     }
   }, 
@@ -268,7 +268,7 @@
       "process": 1, 
       "output": 3, 
       "input": 2, 
-      "condition": "view", 
+      "condition": "new", 
       "name": null
     }
   }, 
@@ -329,6 +329,7 @@
       "last_notif": "2008-08-18 17:52:38", 
       "nb_wi_notif": 1, 
       "user": 2, 
+      "urgent_priority": 5, 
       "web_host": "localhost:8000"
     }
   }

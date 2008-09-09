@@ -1,18 +1,35 @@
-{% extends "sample/base.html" %}
+{% extends "sample/home.html" %}
+
+{% block nav_extra%}
+   <li><a href="/">Home</a></li>
+   <li><a href="" class=active>Application</a></li>
+   <li><a href="/sampleapp/mywork/">My worklist</a></li>
+{% endblock %}
 
 {% block content %}
 <h1>GoFlow Sample project</h1>
-this panel uses the <i>apptools.views.view_object</i> application handler through the
+this panel uses the <i>apptools.views.choice_application</i> application handler through the
 template <i>sample/choice.html</i>.
 <p>
-Actions below are generated from the "action_values" application parameter:
-<ul>
-  {% for value in action_values %}
-  <li><a href="{{ value }}/">{{ value }}</a>
-  {% endfor %}
-</ul>
-
+Image buttons below are generated from actions in the condition field of transitions:
 <p>
-You can make the choice later with the <a href="{{ cancel_value }}/">{{ cancel_value }}</a> action.
+	{% block buttons_form%}
+	{% load apptools_lib %}
+	
+	{% for value in ok_values %}
+		{% image_button value %}
+	{% endfor %}
+	
+	<p>
+	You can make the choice later with the Cancel button, corresponding
+	to the cancel action:
+	<p>
+	{% image_button cancel_value %}
+	
+	{% endblock %}
 
 {% endblock %}
+
+
+
+

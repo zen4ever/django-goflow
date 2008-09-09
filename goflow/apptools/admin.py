@@ -3,15 +3,6 @@ from models import *
 from goflow.workflow.models import Transition
 from goflow.workflow.admin import TransitionAdmin as TransitionAdminOld
 
-
-class TransitionIconInline(admin.StackedInline):
-    model = TransitionIcon
-    max_num = 1
-    raw_id_fields = ('icon',)
-    fieldsets = (
-              (None, {'fields':('label', 'icon',)}),
-              )
-
 class ImageAdmin(admin.ModelAdmin):
     list_display = ('category', 'graphic', 'file', 'url')
     list_filter = ('category',)
@@ -22,9 +13,7 @@ class IconAdmin(admin.ModelAdmin):
     list_filter = ('category',)
 admin.site.register(Icon, IconAdmin)
 
-admin.site.unregister(Transition)
-
-class TransitionAdmin(TransitionAdminOld):
-    inlines = [TransitionIconInline]
-admin.site.register(Transition, TransitionAdmin)
-
+class ImageButtonAdmin(admin.ModelAdmin):
+    raw_id_fields = ('icon',)
+    list_display = ('action', 'label', 'graphic')
+admin.site.register(ImageButton, ImageButtonAdmin)

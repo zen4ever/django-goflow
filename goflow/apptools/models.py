@@ -62,23 +62,18 @@ class Icon(models.Model):
     def __unicode__(self):
         return self.url
 
-class TransitionIcon(models.Model):
+class ImageButton(models.Model):
+    action = models.SlugField(primary_key=True)
     label = models.CharField(max_length=100)
-    transition = models.OneToOneField(Transition, related_name='icon')
     icon = models.ForeignKey(Icon)
-    
-    def is_transition_icon(self):
-        ''' used in admin templates.
-        '''
-        return True
     
     @allow_tags
     def graphic(self):
-        return '<img name="trimage%d" src="%s">' % (self.pk, self.icon.url)
+        return '<img name="image-%s" src="%s">' % (self.pk, self.icon.url)
     
     @allow_tags
     def graphic_input(self):
-        return '<input type=image name=transition src="%s">' % self.icon.url
+        return '<input type=image name=image src="%s" value="%s" title="%s">' % (self.icon.url, self.pk, self.label)
     
     def __unicode__(self):
         return self.label

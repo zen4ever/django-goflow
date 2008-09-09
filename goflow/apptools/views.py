@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.contenttypes.models import ContentType
 from forms import ContentTypeForm
 
-from goflow.workflow.models import Process, Application
+from goflow.workflow.models import Process, Application, Transition
 from goflow.runtime.models import ProcessInstance, WorkItem
 
 from django.db import models
@@ -17,7 +17,7 @@ from django.forms.models import modelform_factory
 from django.contrib.auth.decorators import permission_required
 # little hack
 from goflow.workflow.decorators import login_required
-from models import DefaultAppModel, Icon, Image
+from models import DefaultAppModel, Icon, Image, ImageButton
 from forms import DefaultAppForm
 
 from django.conf import settings
@@ -216,10 +216,10 @@ def edit_model(request, id, form_class, cmp_attr=None,template=None, template_de
         form.pre_check(obj_context, user=request.user)
     
     context = {  'form': form, 'object':obj, 'object_context':obj_context,
-                 'instance':instance,
+                 'instance':instance, 'workitem':workitem,
                  'submit_name':submit_name, 'ok_values':ok_values,
                  'save_value':save_value, 'cancel_value':cancel_value,
-                 'title':title,}
+                 'title':title}
     context.update(extra_context)
     return render_to_response((template, template_def), context,
                               context_instance=RequestContext(request))
@@ -256,47 +256,39 @@ def view_application(request, id, template='goflow/view_application.html', redir
             instance.save()
             workitem.complete(request.user)
             return HttpResponseRedirect(redirect)
-    context = {  'object':obj,'instance':instance,
+        
+    context = {  'object':obj,'instance':instance, 'workitem':workitem,
                  'submit_name':submit_name,
                  'ok_values':ok_values,'cancel_value':cancel_value,
-                 'title':title,}
+                 'title':title}
     context.update(extra_context)
     return render_to_response(template, context,
                               context_instance=RequestContext(request))
+
 
 @login_required
-def view_object(request, id, action=None, template='goflow/view_object.html', redirect='home',
-                cancel_value='cancel', action_values=('submit',), extra_context={}):
-    '''
-    WIP test for a no form application.
+def choice_application(request, id, template='goflow/view_application_image.html', redirect='home', title="Choice",
+               submit_name='image', cancel_action='cancel', extra_context={}):
+    ''' a view to make a choice within image buttons.
+    
+    actions are generated from instances conditions of outer transitions
+    the activity split_mode must be xor
+    actions are rendered with images
+    actions are mapped to images with ImageButton instances
     '''
     workitem = WorkItem.objects.get_safe(int(id), user=request.user)
-    instance = workitem.instance
     activity = workitem.activity
-    
-    obj = instance.wfobject()
-    
-    template = override_app_params(activity, 'template', template)
-    redirect = override_app_params(activity, 'redirect', redirect)
-    action_values = override_app_params(activity, 'action_values', action_values)
-    cancel_value = override_app_params(activity, 'cancel_value', cancel_value)
-
-    if action:
-        if action == cancel_value:
-            return HttpResponseRedirect(redirect)
+    if activity.split_mode != 'xor':
+        raise Exception('choice_application: split_mode xor required')
+    list_trans = Transition.objects.filter(input=activity)
+    ok_values = []
+    for t in list_trans:
+        if ImageButton.objects.filter(action=t.condition).count() == 0:
+            raise Exception('no ImageButton for action [%s]' % t.condition)
+        ok_values.append(t.condition)
         
-        if action in action_values:
-            instance.condition = action
-            instance.save()
-            workitem.complete(request.user)
-            return HttpResponseRedirect(redirect)
-    context = {  'object':obj, 'instance':instance,
-                 'action_values':action_values,
-                 'cancel_value':cancel_value}
-    context.update(extra_context)
-    return render_to_response(template, context,
-                              context_instance=RequestContext(request))
-
+    return view_application(request, id, template, redirect, title,
+               submit_name, ok_values, cancel_action, extra_context)
 
 def sendmail(workitem, subject='goflow.apptools sendmail message', template='goflow/app_sendmail.txt'):
     '''send a mail notification to the workitem user.
@@ -391,3 +383,5 @@ def image_update(request):
             rep += '<br> %s added ' % im.url()
     rep += '<hr><p><b><a href=../>return</a></b>'
     return HttpResponse(rep)
+    
+    

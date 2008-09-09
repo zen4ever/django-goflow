@@ -1,0 +1,9 @@
+{% for value in ok_values %}
+<input type="submit" name="{{ submit_name }}" value="{{ value }}">
+{% endfor %}
+
+{% if save_value %}
+<input type="submit" name="{{ submit_name }}" value="{{ save_value }}">
+{% endif %}
+
+<input type="submit" name="{{ submit_name }}" value="{{ cancel_value }}">

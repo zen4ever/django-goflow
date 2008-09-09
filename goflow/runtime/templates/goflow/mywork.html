@@ -2,7 +2,7 @@
 {% block content %}
 <h1>Worklist for {{ user.username }}</h1>
 
-{% include "goflow/workitems.html" %}
+{% load work_lib %}{% mywork user %}
 
 <p>
 <a href="home">To frontpage</a>

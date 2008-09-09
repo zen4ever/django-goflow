@@ -1,0 +1,4 @@
+{% for input in transition_icons %}
+<input type="image" name="{{ submit_name }}" value="{{ value }}">
+  <input name="{{ submit_name }}" type="image" value="{{ input.pk }}" src="{{ input.icon.url }}" onclick="this.form.submit()" title="{{ input.label }}" />
+{% endfor %}

@@ -34,10 +34,14 @@ an OK button has to be clicked.
 
 {% block content_form %}
 <form method="post">
-{% for value in ok_values %}
-<input type="submit" name="{{ submit_name }}" value="{{ value }}">
-{% endfor %}
-<input type="submit" name="{{ submit_name }}" value="{{ cancel_value }}">
+
+	{% block buttons_form %}
+	{% for value in ok_values %}
+	<input type="submit" name="{{ submit_name }}" value="{{ value }}">
+	{% endfor %}
+	<input type="submit" name="{{ submit_name }}" value="{{ cancel_value }}">
+	{% endblock %}
+
 </form>
 {% endblock %}
 
