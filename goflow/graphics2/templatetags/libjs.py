@@ -5,9 +5,10 @@ register = Library()
 
 @register.simple_tag
 def graphics_url_prefix():
-    """url prefix for js lib.
+    """Returns the string contained in the setting GRAPHICS_JS_URL.
     
-    settings.GRAPHICS_JS_URL must be set.
-    A suitable value is "http://www.walterzorn.com/scripts/"
+    (obsolete since django 1.0 ?)
+    
+    A suitable value is *http://www.walterzorn.com/scripts/*
     """
     return settings.GRAPHICS_JS_URL

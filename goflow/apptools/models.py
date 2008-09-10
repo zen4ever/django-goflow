@@ -30,6 +30,9 @@ class DefaultAppModel(models.Model):
         verbose_name='Simulation object'
 
 class Image(models.Model):
+    '''
+    An image stored in the database
+    '''
     category = models.CharField(max_length=20, null=True, blank=True)
     file = models.ImageField(upload_to='images')
     
@@ -38,41 +41,70 @@ class Image(models.Model):
     
     @allow_tags
     def graphic(self):
+        '''
+        generates an *img* html tag for html rendering
+        '''
         return '<img name="image%d" src="%s">' % (self.pk, self.url())
     
     @allow_tags
     def graphic_input(self):
+        '''
+        generates an *input* html tag with type=image for html rendering
+        '''
         return '<input type=image name=icon src=%s>' % self.get_file_url()
     
     def __unicode__(self):
         return str(self.file)
 
 class Icon(models.Model):
+    '''
+    An image accessible by an url.
+
+    Tip: all of the "Image" objects can be imported as "Icon" from the
+    admin panel.
+    '''
     category = models.CharField(max_length=20, null=True, blank=True)
     url = models.URLField(verify_exists=False)
     
     @allow_tags
     def graphic(self):
+        '''
+        generates an *img* html tag for html rendering
+        '''
         return '<img name="image%d" src="%s">' % (self.pk, self.url)
     
     @allow_tags
     def graphic_input(self):
+        '''
+        generates an *input* html tag with type=image for html rendering
+        '''
         return '<input type=image name=icon src="%s">' % self.url
     
     def __unicode__(self):
         return self.url
 
 class ImageButton(models.Model):
+    '''
+    Mapping object between an "action" and an "Icon".
+    
+    ImageButton objects have also a textual field: label.
+    '''
     action = models.SlugField(primary_key=True)
     label = models.CharField(max_length=100)
     icon = models.ForeignKey(Icon)
     
     @allow_tags
     def graphic(self):
+        '''
+        generates an *img* html tag for html rendering
+        '''
         return '<img name="image-%s" src="%s">' % (self.pk, self.icon.url)
     
     @allow_tags
     def graphic_input(self):
+        '''
+        generates an *input* html tag with type=image for html rendering
+        '''
         return '<input type=image name=image src="%s" value="%s" title="%s">' % (self.icon.url, self.pk, self.label)
     
     def __unicode__(self):

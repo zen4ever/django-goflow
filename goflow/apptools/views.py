@@ -15,8 +15,8 @@ from django.contrib.auth.models import User
 from django.forms.models import modelform_factory
 
 from django.contrib.auth.decorators import permission_required
-# little hack
-from goflow.workflow.decorators import login_required
+
+from django.contrib.auth.decorators import login_required
 from models import DefaultAppModel, Icon, Image, ImageButton
 from forms import DefaultAppForm
 

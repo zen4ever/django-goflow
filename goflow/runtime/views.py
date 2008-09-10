@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
 from models import ProcessInstance, WorkItem
 
-from goflow.workflow.decorators import login_required
+from django.contrib.auth.decorators import login_required
 
 
 @login_required

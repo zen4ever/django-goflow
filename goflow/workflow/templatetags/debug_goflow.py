@@ -6,9 +6,14 @@ register = Library()
 @register.simple_tag
 def switch_users():
     """
-    Returns a menu to switch between users. need settings.TEST_USERS
-    settings.TEST_USERS = (('user1', 'pass1'), ...)
-    settings.DEBUG = True is mandatory
+    Returns a menu to switch users quickly.
+
+    Settings required::
+
+        settings.TEST_USERS = (('user1', 'pass1'), ...)
+        settings.DEBUG = True
+
+    FOR TESTING PURPOSE ONLY
     """
     if not settings.DEBUG: return ''
     try:

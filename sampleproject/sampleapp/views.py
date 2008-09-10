@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from goflow.runtime.models import WorkItem
-from goflow.workflow.decorators import login_required
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
 @login_required
