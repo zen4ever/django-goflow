@@ -15,7 +15,9 @@ def index(request, template='workflow/index.html', extra_context={}):
     """workflow dashboard handler.
     
     template context contains following objects:
-    user, processes, roles.
+    - user
+    - processes
+    - roles
     
     other applications (ie runtime or apptools) should fill extra_context.
     """
@@ -35,10 +37,21 @@ def index(request, template='workflow/index.html', extra_context={}):
                               context_instance=RequestContext(request))
 
 def debug_switch_user(request, username, password, redirect=None):
-    """fast user switch for test purpose.
+    """
+    fast user switch for test purpose.
+    
+    parameters:
+    
+    username
+        username
+    password
+        password
+    redirect
+        redirection url
+    
+    *FOR TEST ONLY*
     
     see template tag switch_users.
-    TODO: move to apptools
     """
     logout(request)
     #return HttpResponseRedirect(redirect)
@@ -55,12 +68,15 @@ def debug_switch_user(request, username, password, redirect=None):
         return HttpResponse('authentication failed')
 
 def userlist(request, template):
+    '''
+    not used
+    '''
     return HttpResponse('user page.')
 
 
 def process_dot(request, id, template='goflow/process.dot'):
     """graphviz generator (**Work In Progress**).
-    
+    (**Work In Progress**)
     
     id process id
     template graphviz template
@@ -76,7 +92,8 @@ def process_dot(request, id, template='goflow/process.dot'):
     return render_to_response(template, context)
 
 def cron(request=None):
-    """(**Work In Progress**)
+    """
+    (**Work In Progress**)
     TODO: move to instances ?
     """
     for t in Transition.objects.filter(condition__contains='workitem.timeout'):

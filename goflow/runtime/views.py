@@ -10,6 +10,14 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def mywork(request, template='goflow/mywork.html'):
+    '''
+    displays the worklist of the current user.
+    
+    parameters:
+    
+    template
+        default:'goflow/mywork.html'
+    '''
     workitems = WorkItem.objects.list_safe(user=request.user, noauto=True)
     return render_to_response(template, {'workitems':workitems},
                               context_instance=RequestContext(request))
@@ -36,6 +44,14 @@ def myrequests(request, template='goflow/myrequests.html'):
 
 @login_required
 def activate(request, id):
+    '''
+    activates and redirect to the application.
+    
+    parameters:
+    
+    id
+        workitem id
+    '''
     id = int(id)
     workitem = WorkItem.objects.get_safe(id=id, user=request.user)
     workitem.activate(request.user)
@@ -43,6 +59,14 @@ def activate(request, id):
 
 @login_required
 def complete(request, id):
+    '''
+    redirect to the application.
+    
+    parameters:
+    
+    id
+        workitem id
+    '''
     id = int(id)
     workitem = WorkItem.objects.get_safe(id=id, user=request.user)
     return _app_response(workitem)

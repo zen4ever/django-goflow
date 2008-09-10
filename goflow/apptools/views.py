@@ -36,12 +36,18 @@ def start_application(request, app_label=None, model_name=None, process_name=Non
     
     parameters:
     
-    app_label, model_name    model linked to workflow instance
-    process_name             default: same name as app_label
-    instance_label           default: process_name + str(object)
-    template                 default: 'start_%s.html' % app_label
-    template_def             used if template not found; default: 'start_application.html'
-    form_class               default: old form_for_model
+    app_label, model_name
+        model linked to workflow instance (deprecated)
+    process_name
+        default: same name as app_label
+    instance_label
+        default: process_name + str(object)
+    template 
+        default: 'start_%s.html' % app_label
+    template_def
+        used if template not found - default: 'goflow/start_application.html'
+    form_class
+        default: django.forms.models.modelform_factory(model)
     '''
     if not process_name:
         process_name = app_label
@@ -163,7 +169,34 @@ def edit_model(request, id, form_class, cmp_attr=None,template=None, template_de
                redirect='home', submit_name='action', ok_values=('OK',), save_value='Save', cancel_value='Cancel',
                extra_context={}):
     '''
-    generic handler for editing a model
+    generic handler for editing a model.
+    
+    parameters:
+
+    id
+        workitem id (required)
+    form_class
+        model form based on goflow.apptools.forms.BaseForm (required)
+    cmp_attr
+        edit obj.cmp_attr attribute instead of obj - default=None
+    template 
+        default: 'goflow/edit_%s.html' % model_lowercase
+    template_def
+        used if template not found - default: 'goflow/edit_model.html'
+    title
+        default=""
+    redirect
+        default='home'
+    submit_name
+        name for submit buttons - default='action'
+    ok_values
+        submit buttons values - default=('OK',)
+    save_value
+        save button value - default='Save'
+    cancel_value
+        cancel button value - default='Cancel'
+    extra_context
+        default={}
     '''
     if not template: template = 'goflow/edit_%s.html' % form_class._meta.model._meta.object_name.lower()
     model_class = form_class._meta.model
@@ -230,9 +263,28 @@ def view_application(request, id, template='goflow/view_application.html', redir
                submit_name='action', ok_values=('OK',), cancel_value='Cancel',
                extra_context={}):
     '''
-    generic handler for a view.
+    generic handler for a view application.
     
     useful for a simple view or a complex object edition.
+
+    parameters:
+    
+    id
+        workitem id (required)
+    template 
+        default: 'goflow/view_application.html'
+    redirect
+        default='home'
+    title
+        default=""
+    submit_name
+        name for submit buttons - default='action'
+    ok_values
+        submit buttons values - default=('OK',)
+    cancel_value
+        cancel button value - default='Cancel'
+    extra_context
+        default={}
     '''
     workitem = WorkItem.objects.get_safe(int(id), user=request.user)
     instance = workitem.instance
@@ -269,12 +321,30 @@ def view_application(request, id, template='goflow/view_application.html', redir
 @login_required
 def choice_application(request, id, template='goflow/view_application_image.html', redirect='home', title="Choice",
                submit_name='image', cancel_action='cancel', extra_context={}):
-    ''' a view to make a choice within image buttons.
+    '''
+    a view to make a choice within image buttons.
     
-    actions are generated from instances conditions of outer transitions
-    the activity split_mode must be xor
-    actions are rendered with images
-    actions are mapped to images with ImageButton instances
+    - actions are generated from instances conditions of outer transitions
+    - the activity split_mode must be xor
+    - actions are rendered with images
+    - actions are mapped to images with ImageButton instances
+
+    parameters:
+    
+    id
+        workitem id (required)
+    template 
+        default: 'goflow/view_application_image.html'
+    redirect
+        default='home'
+    title
+        default='Choice'
+    submit_name
+        name for submit buttons - default='image'
+    cancel_value
+        cancel button value - default='Cancel'
+    extra_context
+        default={}
     '''
     workitem = WorkItem.objects.get_safe(int(id), user=request.user)
     activity = workitem.activity
@@ -294,8 +364,11 @@ def sendmail(workitem, subject='goflow.apptools sendmail message', template='gof
     '''send a mail notification to the workitem user.
     
     parameters:
-    subject:  default="goflow.apptools sendmail message"
-    template: default="goflow/app_sendmail.txt"
+    
+    subject
+        default='goflow.apptools sendmail message'
+    template
+        default='goflow/app_sendmail.txt'
     '''
     send_mail(workitems=(workitem,), user=workitem.user, subject=subject, template=template)
 
@@ -316,11 +389,11 @@ def override_app_params(activity, name, value):
 
 @login_required
 def app_env(request, action, id, template=None):
-    """creates/removes unit test environment for applications.
+    """
+    creates/removes unit test environment for applications.
     
     a process named "test_[app]" with one activity
     a group with appropriate permission
-    TODO: move to apptools
     """
     app = Application.objects.get(id=int(id))
     rep = 'Nothing done.'
@@ -336,12 +409,12 @@ def app_env(request, action, id, template=None):
 
 @login_required
 def test_start(request, id, template='goflow/test_start.html'):
-    """starts test instances.
+    """
+    starts test instances.
     
     for a given application, with its unit test environment, the user
     choose a content-type then generates unit test process instances
     by cloning existing content-type objects (**Work In Progress**).
-    TODO: move to apptools
     """
     app = Application.objects.get(id=int(id))
     context = {}
@@ -376,6 +449,14 @@ def test_start(request, id, template='goflow/test_start.html'):
 
 @login_required
 def image_update(request):
+    '''
+    Import Image instances as Icon instances.
+    
+    GoFlow can use local images as well as http distant images.
+    For a genericity reason, local images (Image) are obtained as
+    Icon images by their url; this view is useful to wrap all local
+    images in a row. 
+    '''
     rep = '<h1>Update Icons from Images</h1>'
     for im in Image.objects.all():
         if Icon.objects.filter(url__endswith=str(im.url)).count() == 0:
