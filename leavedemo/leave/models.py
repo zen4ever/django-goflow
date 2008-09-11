@@ -30,8 +30,12 @@ class LeaveRequest(models.Model):
         return 'leaverequest-%s' % str(self.pk)
 
 class Manager(models.Model):
+    MANAGER_CHOICES = (
+                       ('secretary','Secretary'),
+                       ('supervisor','Supervisor'),
+                       )
     user = models.ForeignKey(User, related_name='manager_set')
-    category = models.CharField(max_length=50, help_text='secretary, supervisor, ...')
+    category = models.CharField(max_length=50, choices=MANAGER_CHOICES, help_text='secretary, supervisor, ...')
     users = models.ManyToManyField(User, related_name='managers')
     def __unicode__(self):
         return '%s as %s' % (self.user.username, self.category)

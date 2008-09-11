@@ -1,6 +1,8 @@
 The Leave application
 ---------------------
 
+(Obsolete ?)
+
 This note shows how to use the GoFlow workflow engine.
 
 Settings.py:
