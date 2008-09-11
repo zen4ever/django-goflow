@@ -2,6 +2,8 @@
 {% load i18n %}
 {% block content %}
 <h1>Demonstration of leave request</h1>
+(This demo is a clone of <i>leave</i>, a demo product of the Zope2 project OpenFlow&reg;)
+<p>
 <ul>
 {% if user.is_authenticated and user.is_staff %}
 <li><a href="mywork/">See your worklist</a> ({{user.username}})</li>
@@ -50,6 +52,7 @@ Primus, Secundus, Socius and Prefectus has Notarius as their secretary.
 Tertius, Quartus and Notarius
 has Socius. Everybody has Prefectus as supervisor - even Prefectus.
 </p>
+<b>
 <ul>
 {% if user.is_authenticated and user.is_staff %}
 <li><a href="start/">Request leave/vacation</a></li>
@@ -57,6 +60,7 @@ has Socius. Everybody has Prefectus as supervisor - even Prefectus.
 <li><a href=accounts/login/?next=home/>login in order to make a leave/vacation request</a></li>
 {% endif %}
 </ul>
+</b>
 <p>
 All account names are spelled in all lowercase. The password is the first letter of the
 account name.

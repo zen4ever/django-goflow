@@ -4,6 +4,28 @@ from goflow.apptools.models import ImageButton
 
 register = Library()
 
+def form_ext(form):
+    '''
+    This will insert a form, in a bit more sophisticated way than {{ form }}.
+
+    Required and optional fields are displayed differently. For details,
+    see template file *goflow/apptools/edit_form.html*.
+
+    parameter:
+
+    form
+        form variable
+
+    Usage::
+
+        {% form_ext form %}
+    
+    the current implementation is equivalent to::
+
+        {% include "goflow/apptools/edit_form.html" %}
+    '''
+    return {'form':form}
+form_ext = register.inclusion_tag("goflow/apptools/edit_form.html")(form_ext)
 
 def _get_transitions_out_images(activity):
     if activity.split_mode == 'and':

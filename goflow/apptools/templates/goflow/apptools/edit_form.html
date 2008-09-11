@@ -1,0 +1,15 @@
+<table>
+{% for field in form %}
+  {% if not field.is_hidden %}
+    <tr>
+    {% if field.field.required %}
+    <th>{{ field.label_tag }}</th>
+    {% else %}
+    <td><i>{{ field.label_tag }}</i></td>
+    {% endif %}
+    <td>{% if field.errors %}{{ field.errors }}<br>{% endif %}
+    {{ field }}{% if field.help_text %}<br><i>{{ field.help_text }}</i>{% endif %}</td>
+    </tr>
+  {% endif %}
+{% endfor %}
+</table>
