@@ -26,7 +26,9 @@ GoFlow - A workflow engine for Django
 
 - Python 2.4+
 - Django 1.0 (SVN)
-- for sampleproject: django-flags (http://code.google.com/p/django-flags/)
+- for sampleproject:
+  * django-flags (http://code.google.com/p/django-flags/)
+  * docutils (admindocs)
 
 
 3. Install instructions:
