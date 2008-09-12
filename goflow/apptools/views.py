@@ -460,8 +460,8 @@ def image_update(request):
     rep = '<h1>Update Icons from Images</h1>'
     for im in Image.objects.all():
         if Icon.objects.filter(url__endswith=str(im.url)).count() == 0:
-            Icon.objects.create(category='local-'+im.category, url=im.url())
-            rep += '<br> %s added ' % im.url()
+            ic, created = Icon.objects.get_or_create(category='local-'+im.category, url=im.url())
+            if created: rep += '<br> %s added ' % im.url()
     rep += '<hr><p><b><a href=../>return</a></b>'
     return HttpResponse(rep)
     

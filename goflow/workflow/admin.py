@@ -8,7 +8,7 @@ from django.contrib.auth.admin import UserAdmin
 class TransitionInline(admin.StackedInline):
     model = Transition
     fieldsets = (
-              (None, {'fields':(('input', 'output'), 'condition',)}),
+              (None, {'fields':(('input', 'output'), 'condition', 'precondition')}),
               )
 
 
@@ -50,14 +50,14 @@ admin.site.register(Activity, ActivityAdmin)
 
 class TransitionAdmin(admin.ModelAdmin):
     save_as = True
-    list_display = ('name', 'input', 'output', 'condition', 'description', 'process')
+    list_display = ('__unicode__', 'input', 'output', 'condition', 'description', 'process')
     list_filter = ('process',)
     fieldsets = (
               (None, {'fields':(
                                 ('name', 'description'),
                                 'process',
                                 ('input', 'output'),
-                                'condition'
+                                'condition', 'precondition'
                                 )
                      }),
               )

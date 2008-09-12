@@ -41,7 +41,7 @@ class Activity(models.Model):
                                  help_text='parameters dictionary', null=True, blank=True)
     subflow = models.ForeignKey('Process', related_name='parent_activities', null=True, blank=True)
     roles = models.ManyToManyField(Group, related_name='activities', null=True, blank=True)
-    description = models.CharField(max_length=100, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     autostart = models.BooleanField(default=False)
     autofinish = models.BooleanField(default=True)
     join_mode =  models.CharField(max_length=3, choices=COMP_CHOICES, verbose_name='join mode', default='xor')
@@ -357,6 +357,7 @@ class Transition(models.Model):
                                  help_text='ex: instance.condition=="OK" | OK')
     output = models.ForeignKey(Activity, related_name='transition_outputs')
     description = models.CharField(max_length=100, null=True, blank=True)
+    precondition = models.SlugField(null=True, blank=True, help_text='object method that return True if transition is posible')
     
     def is_transition(self):
         ''' used in admin templates.

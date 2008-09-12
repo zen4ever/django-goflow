@@ -46,7 +46,6 @@ sampleproject project:
 
 - install flags application in the sampleproject directory
 - move "flags/img/flags" directory in the "static" directory
-- choose flags_urls source : local or distant (see settings and urls files)
 - cd sampleproject 
   > create the database with command "python manage.py syncdb --noinput"
 - superuser is  "admin" with password "admin"

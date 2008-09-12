@@ -6,12 +6,23 @@
    <li><a href="/sampleapp/mywork/">My worklist</a></li>
 {% endblock %}
 
+{% block top_box %}
+<b>Current activity</b><p>
+<center><a href="/static/images/sampleprocess.png" target="diagram">
+<img src="/static/images/sampleprocess_choice.png" title="open a window with the diagram view">
+</a></center>
+{% endblock %}
+
 {% block content %}
 <h1>GoFlow Sample project</h1>
-this panel uses the <i>apptools.views.choice_application</i> application handler through the
-template <i>sample/choice.html</i>.
-<p>
-Image buttons below are generated from actions in the condition field of transitions:
+La page présente constitue l'application <i>
+<a href="/admin/doc/views/goflow.apptools.views.choice_application/">apptools.views.choice_application</a>
+</i> 
+affichée à l'aide du template <i>sample/choice.html</i>. L'icône en haut à droite
+rapelle votre situation dans le process workflow.
+<h2>Affichage automatique des boutons</h2>
+Les <a href="/admin/apptools/imagebutton/">boutons images</a> affichés ci-dessous sont générés automatiquement
+à partir des <a href="/admin/workflow/transition/">transitions</a> sortantes de l'<a href="/admin/workflow/activity/">activité</a>.
 <p>
 	{% block buttons_form%}
 	{% load apptools_lib %}
@@ -20,12 +31,28 @@ Image buttons below are generated from actions in the condition field of transit
 		{% image_button value %}
 	{% endfor %}
 	
-	<p>
-	You can make the choice later with the Cancel button, corresponding
-	to the cancel action:
+	<h2>Affichage manuel des boutons</h2>
+	Il est bien sur possible de les placer à son gré, en utilisant alors le tag
+	<i><a href="/admin/doc/tags/#image_button">image_button</a></i> dans son template.
+	Ci-dessous, les boutons sont placés explicitement:
+	<ul>
+	<li>cliquer sur {% image_button "help" %} vous conduira à un panneau d'aide,
+	<li>cliquer sur {% image_button "edit" %} vous conduira à une application permettant d'éditer l'objet workflow,
+	<li>cliquer sur {% image_button "exit" %} terminera le process en vous conduisant sur l'activité finale du process
+	</ul>
+	
+	<h2>Annulation</h2>
+	Vous pouvez effectuer le choix ultérieurement, et quitter ce panneau
+	en cliquant sur le bouton image <i><a href="/admin/apptools/imagebutton/">Annuler</a></i>
+	correpondant à l'action <i>cancel</i>.
 	<p>
 	{% image_button cancel_value %}
-	
+
+<p>
+<hr>
+<p>
+Rendez-vous donc à votre liste de tâches après avoir cliqué sur un de ces boutons ...
+
 	{% endblock %}
 
 {% endblock %}

@@ -6,7 +6,19 @@
    <li><a href="/sampleapp/mywork">My worklist</a></li>
 {% endblock %}
 
+{% block top_box %}
+<h3>Current activity</h3>
+<img src="/static/images/sampleprocess_start.png">
+{% endblock %}
+
 {% block content %}
+<h2>Le process "Sample process"</h2>
+<i>Sample process</i> est un process qui va vous permettre de parcourir
+un workflow où chaque activité sera l'occasion d'apprendre à utiliser les
+application prédéfinies fournies par GoFlow (plus précisément par <i>goflow.apptools</i>).
+<p>
+Le diagramme ci-dessous est une représentation graphique de ce process:
+<p><img src="/static/images/sampleprocess.png">
 <h2>Lancement du workflow "Sample process"</h2>
 <h3>Permission</h3>
 Commencer par vous <b>connecter comme <i>user1</i></b>, en cliquant dans le menu de droite; cette
@@ -31,18 +43,22 @@ suivante:
                                         'template':'sample/start.html'}),
 </pre>
 
-Pour les besoins de cette démo, l'objet est un <i>SampleModel</i> qui contient quelques
+Pour les besoins de cette démo, l'objet est un <i>
+<a href="/admin/doc/models/sampleapp.samplemodel/">SampleModel</a>
+</i> qui contient quelques
 champs divers, dont <i>requester</i>. Comme on le voit, la classe de l'objet n'est pas
-spécifiée directement, mais au moyen d'un <i>ModelForm</i>.
+spécifiée directement, mais au moyen d'un <i>ModelForm</i> associé au modèle.
 
 <h3>Instanciation du processus</h3>
-le handler vu ci-dessus <i>start_application</i> est fourni par le module goflow.apptools,
+le handler vu ci-dessus <i>
+<a href="/admin/doc/views/goflow.apptools.views.start_application/">start_application</a>
+</i> est fourni par le module goflow.apptools,
 il permet de démarrer un processus workflow facilement en spécifiant
 une classe <i>form</i> et un template.
 <p>La class form est une sorte de <i>ModelForm</i>, ou plus précisément, héritant de
 <i>goflow.apptools.forms.StartForm</i>.
 <p>Le template par défaut est <i>goflow/start_application</i> fourni encore par goflow.apptools,
-il est ici redéfini en <i>sample/start.html</i>.
+il est ici redéfini en <i>sample/start.html</i> et affiche la page présente.
 
 <h3>Formulaire</h3>
 Le formulaire ci-dessous expose uniquement un champ texte; les autres champs, comme

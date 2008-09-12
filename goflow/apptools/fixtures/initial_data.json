@@ -232,6 +232,38 @@
     }
   }, 
   {
+    "pk": 27, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "base", 
+      "file": "images/32px-Crystal_Clear_action_info.png"
+    }
+  }, 
+  {
+    "pk": 28, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "base", 
+      "file": "images/32px-Crystal_Clear_app_xmag.png"
+    }
+  }, 
+  {
+    "pk": 29, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "large", 
+      "file": "images/Crystal_Clear_action_info.png"
+    }
+  }, 
+  {
+    "pk": 30, 
+    "model": "apptools.image", 
+    "fields": {
+      "category": "large", 
+      "file": "images/Crystal_Clear_app_xmag.png"
+    }
+  }, 
+  {
     "pk": 1, 
     "model": "apptools.icon", 
     "fields": {
@@ -448,6 +480,38 @@
     }
   }, 
   {
+    "pk": 28, 
+    "model": "apptools.icon", 
+    "fields": {
+      "category": "local-base", 
+      "url": "/static/images/32px-Crystal_Clear_action_info.png"
+    }
+  }, 
+  {
+    "pk": 29, 
+    "model": "apptools.icon", 
+    "fields": {
+      "category": "local-base", 
+      "url": "/static/images/32px-Crystal_Clear_app_xmag.png"
+    }
+  }, 
+  {
+    "pk": 30, 
+    "model": "apptools.icon", 
+    "fields": {
+      "category": "local-large", 
+      "url": "/static/images/Crystal_Clear_action_info.png"
+    }
+  }, 
+  {
+    "pk": 31, 
+    "model": "apptools.icon", 
+    "fields": {
+      "category": "local-large", 
+      "url": "/static/images/Crystal_Clear_app_xmag.png"
+    }
+  }, 
+  {
     "pk": "cancel", 
     "model": "apptools.imagebutton", 
     "fields": {
@@ -525,6 +589,22 @@
     "fields": {
       "icon": 22, 
       "label": "Send mail"
+    }
+  }, 
+  {
+    "pk": "help", 
+    "model": "apptools.imagebutton", 
+    "fields": {
+      "icon": 28, 
+      "label": "Help"
+    }
+  }, 
+  {
+    "pk": "view", 
+    "model": "apptools.imagebutton", 
+    "fields": {
+      "icon": 29, 
+      "label": "View"
     }
   }
 ]

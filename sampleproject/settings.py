@@ -114,7 +114,8 @@ WF_APPS_PREFIX = '/sampleapp'
 WF_PUSH_APPS_PREFIX = 'sampleproject.sampleapp.pushapps'
 
 # test users for fast switch (with DEBUG=TRUE only)
-TEST_USERS = (('admin','admin'), ('user1','user1'))
+TEST_USERS = (('admin','admin'), ('user1','user1'),
+              ('user2','user2'), ('userg1','userg1'))
 
 # the FLAGS_I18N_PREFIX parameter must match urls.py item:
 # urls.py     > (r'^PREFIX/i18n/', include('django.conf.urls.i18n')),

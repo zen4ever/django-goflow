@@ -367,7 +367,7 @@ class WorkItem(models.Model):
                 return
         if self.has_workitems_to() and not subflow_workitem:
             log.debug('forward_workitem canceled for %s: ' 
-                       'workitem.has_workitem_to()', self.__unicode__())
+                       'workitem.has_workitems_to()', self.__unicode__())
             return
         
         if timeout_forwarding:

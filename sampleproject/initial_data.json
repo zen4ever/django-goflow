@@ -13,8 +13,86 @@
     "pk": 2, 
     "model": "auth.group", 
     "fields": {
-      "name": "sample activity group", 
+      "name": "group1", 
       "permissions": []
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "auth.group", 
+    "fields": {
+      "name": "admin_all", 
+      "permissions": [
+        22, 
+        23, 
+        24, 
+        55, 
+        61, 
+        58, 
+        64, 
+        56, 
+        62, 
+        59, 
+        65, 
+        57, 
+        63, 
+        60, 
+        66, 
+        4, 
+        10, 
+        1, 
+        7, 
+        5, 
+        11, 
+        2, 
+        8, 
+        6, 
+        12, 
+        3, 
+        9, 
+        13, 
+        14, 
+        15, 
+        52, 
+        45, 
+        48, 
+        51, 
+        53, 
+        46, 
+        49, 
+        54, 
+        47, 
+        50, 
+        67, 
+        68, 
+        69, 
+        16, 
+        17, 
+        18, 
+        19, 
+        20, 
+        21, 
+        25, 
+        33, 
+        28, 
+        36, 
+        39, 
+        42, 
+        32, 
+        31, 
+        26, 
+        34, 
+        29, 
+        37, 
+        40, 
+        43, 
+        27, 
+        35, 
+        30, 
+        38, 
+        41, 
+        44
+      ]
     }
   }, 
   {
@@ -27,7 +105,7 @@
       "is_active": true, 
       "is_superuser": true, 
       "is_staff": true, 
-      "last_login": "2008-09-09 22:34:06", 
+      "last_login": "2008-09-12 17:08:30", 
       "groups": [
         1
       ], 
@@ -46,11 +124,12 @@
       "last_name": "", 
       "is_active": true, 
       "is_superuser": false, 
-      "is_staff": false, 
-      "last_login": "2008-09-09 22:35:18", 
+      "is_staff": true, 
+      "last_login": "2008-09-12 16:45:59", 
       "groups": [
         1, 
-        2
+        2, 
+        3
       ], 
       "user_permissions": [], 
       "password": "sha1$61c72$3faf3371afcba941558a6c1125ea6246351468d8", 
@@ -74,6 +153,44 @@
       "password": "sha1$22b72$084f0ff33d3a37b14f6554d76b04d7d64fc3560d", 
       "email": "sample@project.com", 
       "date_joined": "2008-08-18 17:59:56"
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "user2", 
+      "first_name": "", 
+      "last_name": "", 
+      "is_active": true, 
+      "is_superuser": false, 
+      "is_staff": true, 
+      "last_login": "2008-09-12 17:15:50", 
+      "groups": [
+        3
+      ], 
+      "user_permissions": [], 
+      "password": "sha1$698e6$f0612d078cd038f598edd4a4dbce4cbce23eaee2", 
+      "email": "", 
+      "date_joined": "2008-09-12 17:07:31"
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "userg1", 
+      "first_name": "", 
+      "last_name": "", 
+      "is_active": true, 
+      "is_superuser": false, 
+      "is_staff": false, 
+      "last_login": "2008-09-12 17:15:51", 
+      "groups": [], 
+      "user_permissions": [], 
+      "password": "sha1$08c51$8c29c3bedea911f2d277a0a57a32f07f7c1ff383", 
+      "email": "", 
+      "date_joined": "2008-09-12 17:13:47"
     }
   }, 
   {
@@ -101,12 +218,10 @@
     "model": "workflow.activity", 
     "fields": {
       "kind": "standard", 
-      "push_application": null, 
+      "push_application": 1, 
       "description": "this activity use the \"choice_application\" handler.", 
-      "roles": [
-        2
-      ], 
-      "title": "A sample activity", 
+      "roles": [], 
+      "title": "A choice activity", 
       "process": 1, 
       "autofinish": true, 
       "join_mode": "xor", 
@@ -125,10 +240,8 @@
       "kind": "standard", 
       "push_application": 1, 
       "description": "this activity use the \"view_application\" handler.", 
-      "roles": [
-        2
-      ], 
-      "title": "A sample activity 2", 
+      "roles": [], 
+      "title": "A view activity", 
       "process": 1, 
       "autofinish": true, 
       "join_mode": "xor", 
@@ -145,12 +258,12 @@
     "model": "workflow.activity", 
     "fields": {
       "kind": "standard", 
-      "push_application": 1, 
+      "push_application": null, 
       "description": "this activity use the \"edit_model\" handler.", 
       "roles": [
         2
       ], 
-      "title": "A sample activity 3", 
+      "title": "An edition activity for group1", 
       "process": 1, 
       "autofinish": true, 
       "join_mode": "xor", 
@@ -167,10 +280,10 @@
     "model": "workflow.activity", 
     "fields": {
       "kind": "standard", 
-      "push_application": 1, 
+      "push_application": null, 
       "description": "This auto activity sends a mail", 
       "roles": [], 
-      "title": "Sample auto activity", 
+      "title": "An auto activity", 
       "process": 1, 
       "autofinish": true, 
       "join_mode": "xor", 
@@ -180,6 +293,26 @@
       "app_param": "{'subject':'sample model content', 'template':'sample/sample_mail.txt'}", 
       "autostart": true, 
       "pushapp_param": ""
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "workflow.activity", 
+    "fields": {
+      "kind": "standard", 
+      "push_application": 2, 
+      "description": "this activity use the \"edit_model\" handler.", 
+      "roles": [], 
+      "title": "Another edition activity for user2", 
+      "process": 1, 
+      "autofinish": true, 
+      "join_mode": "xor", 
+      "subflow": null, 
+      "application": 4, 
+      "split_mode": "and", 
+      "app_param": "", 
+      "autostart": false, 
+      "pushapp_param": "{'username':'user2'}"
     }
   }, 
   {
@@ -252,30 +385,33 @@
     "pk": 1, 
     "model": "workflow.transition", 
     "fields": {
-      "description": null, 
+      "precondition": "", 
+      "description": "", 
       "process": 1, 
       "output": 1, 
       "input": 2, 
-      "condition": "end", 
-      "name": null
+      "condition": "exit", 
+      "name": ""
     }
   }, 
   {
     "pk": 2, 
     "model": "workflow.transition", 
     "fields": {
-      "description": null, 
+      "precondition": "", 
+      "description": "", 
       "process": 1, 
       "output": 3, 
       "input": 2, 
-      "condition": "new", 
-      "name": null
+      "condition": "help", 
+      "name": ""
     }
   }, 
   {
     "pk": 3, 
     "model": "workflow.transition", 
     "fields": {
+      "precondition": null, 
       "description": null, 
       "process": 1, 
       "output": 4, 
@@ -288,36 +424,78 @@
     "pk": 4, 
     "model": "workflow.transition", 
     "fields": {
-      "description": null, 
+      "precondition": "", 
+      "description": "", 
       "process": 1, 
-      "output": 5, 
+      "output": 2, 
       "input": 3, 
-      "condition": "sendmail", 
-      "name": null
+      "condition": "return", 
+      "name": ""
     }
   }, 
   {
     "pk": 5, 
     "model": "workflow.transition", 
     "fields": {
-      "description": null, 
+      "precondition": "", 
+      "description": "", 
       "process": 1, 
-      "output": 1, 
-      "input": 3, 
-      "condition": "end", 
-      "name": null
+      "output": 5, 
+      "input": 4, 
+      "condition": "sendmail", 
+      "name": ""
     }
   }, 
   {
     "pk": 6, 
     "model": "workflow.transition", 
     "fields": {
-      "description": null, 
+      "precondition": "", 
+      "description": "", 
+      "process": 1, 
+      "output": 6, 
+      "input": 4, 
+      "condition": "ok", 
+      "name": ""
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "workflow.transition", 
+    "fields": {
+      "precondition": "", 
+      "description": "", 
       "process": 1, 
       "output": 1, 
-      "input": 4, 
+      "input": 5, 
       "condition": "", 
-      "name": null
+      "name": ""
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "workflow.transition", 
+    "fields": {
+      "precondition": "", 
+      "description": "", 
+      "process": 1, 
+      "output": 2, 
+      "input": 6, 
+      "condition": "home", 
+      "name": ""
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "workflow.transition", 
+    "fields": {
+      "precondition": "", 
+      "description": "", 
+      "process": 1, 
+      "output": 1, 
+      "input": 6, 
+      "condition": "ok", 
+      "name": ""
     }
   }, 
   {
