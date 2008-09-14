@@ -4,43 +4,7 @@
     "model": "auth.group", 
     "fields": {
       "name": "manager", 
-      "permissions": [
-        25, 
-        26, 
-        27, 
-        42, 
-        43, 
-        44, 
-        48, 
-        49, 
-        50, 
-        33, 
-        34, 
-        35, 
-        57, 
-        58, 
-        59, 
-        28, 
-        32, 
-        31, 
-        29, 
-        30, 
-        45, 
-        46, 
-        47, 
-        51, 
-        52, 
-        53, 
-        36, 
-        37, 
-        38, 
-        39, 
-        40, 
-        41, 
-        54, 
-        55, 
-        56
-      ]
+      "permissions": []
     }
   }, 
   {
@@ -49,7 +13,7 @@
     "fields": {
       "name": "secretary", 
       "permissions": [
-        26
+        80
       ]
     }
   }, 
@@ -81,7 +45,7 @@
       "is_active": true, 
       "is_superuser": true, 
       "is_staff": true, 
-      "last_login": "2008-08-06 14:42:01", 
+      "last_login": "2008-09-14 18:20:03", 
       "groups": [], 
       "user_permissions": [], 
       "password": "sha1$c5ef3$1ffce0c6ab8bfbd1e56109cd8c32c07487eb8099", 
@@ -99,7 +63,7 @@
       "is_active": true, 
       "is_superuser": false, 
       "is_staff": true, 
-      "last_login": "2008-05-20 17:15:33", 
+      "last_login": "2008-09-14 18:23:47", 
       "groups": [
         1, 
         3, 
@@ -121,7 +85,7 @@
       "is_active": true, 
       "is_superuser": false, 
       "is_staff": true, 
-      "last_login": "2008-08-06 11:46:12", 
+      "last_login": "2008-09-14 18:23:19", 
       "groups": [
         3, 
         4
@@ -205,7 +169,7 @@
       "is_active": true, 
       "is_superuser": false, 
       "is_staff": true, 
-      "last_login": "2008-04-02 11:00:07", 
+      "last_login": "2008-09-14 18:18:51", 
       "groups": [
         2, 
         3, 
@@ -227,7 +191,7 @@
       "is_active": true, 
       "is_superuser": false, 
       "is_staff": true, 
-      "last_login": "2008-07-17 23:57:11", 
+      "last_login": "2008-09-14 18:23:56", 
       "groups": [
         2, 
         3, 
@@ -255,6 +219,19 @@
       "password": "sha1$724c9$c92da4ab8185ba00b89384e234e089a0e46dcb25", 
       "email": "", 
       "date_joined": "2007-10-06 22:30:01"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "leave.leaverequest", 
+    "fields": {
+      "requester": 4, 
+      "day_start": "2008-09-14", 
+      "reason": "a", 
+      "day_end": "2008-09-14", 
+      "reason_denial": "", 
+      "date": "2008-09-14 18:23:52", 
+      "type": "Vacation"
     }
   }, 
   {
@@ -652,6 +629,30 @@
     }
   }, 
   {
+    "pk": 1, 
+    "model": "workflow.application", 
+    "fields": {
+      "url": "apptools/choice_application", 
+      "suffix": "w"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "workflow.application", 
+    "fields": {
+      "url": "apptools/view_application", 
+      "suffix": "w"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "workflow.application", 
+    "fields": {
+      "url": "apptools/sendmail", 
+      "suffix": "w"
+    }
+  }, 
+  {
     "pk": 9, 
     "model": "workflow.application", 
     "fields": {
@@ -732,6 +733,7 @@
     "pk": 8, 
     "model": "workflow.transition", 
     "fields": {
+      "precondition": null, 
       "description": "", 
       "process": 2, 
       "output": 10, 
@@ -744,6 +746,7 @@
     "pk": 9, 
     "model": "workflow.transition", 
     "fields": {
+      "precondition": null, 
       "description": "", 
       "process": 2, 
       "output": 9, 
@@ -756,6 +759,7 @@
     "pk": 10, 
     "model": "workflow.transition", 
     "fields": {
+      "precondition": null, 
       "description": "", 
       "process": 2, 
       "output": 6, 
@@ -768,6 +772,7 @@
     "pk": 11, 
     "model": "workflow.transition", 
     "fields": {
+      "precondition": null, 
       "description": "", 
       "process": 2, 
       "output": 7, 
@@ -780,6 +785,7 @@
     "pk": 12, 
     "model": "workflow.transition", 
     "fields": {
+      "precondition": null, 
       "description": "", 
       "process": 2, 
       "output": 9, 
@@ -792,6 +798,7 @@
     "pk": 13, 
     "model": "workflow.transition", 
     "fields": {
+      "precondition": null, 
       "description": "", 
       "process": 2, 
       "output": 7, 
@@ -804,6 +811,7 @@
     "pk": 14, 
     "model": "workflow.transition", 
     "fields": {
+      "precondition": null, 
       "description": "", 
       "process": 2, 
       "output": 8, 
@@ -816,6 +824,7 @@
     "pk": 15, 
     "model": "workflow.transition", 
     "fields": {
+      "precondition": null, 
       "description": "test timeout", 
       "process": 3, 
       "output": 11, 
@@ -833,6 +842,7 @@
       "last_notif": "2009-03-28 16:52:44", 
       "nb_wi_notif": 1, 
       "user": 1, 
+      "urgent_priority": 5, 
       "web_host": "localhost:8000"
     }
   }, 
@@ -845,6 +855,7 @@
       "last_notif": "2009-03-28 18:15:13", 
       "nb_wi_notif": 1, 
       "user": 9, 
+      "urgent_priority": 5, 
       "web_host": "localhost:8000"
     }
   }, 
@@ -857,6 +868,7 @@
       "last_notif": "2009-03-28 18:15:26", 
       "nb_wi_notif": 1, 
       "user": 3, 
+      "urgent_priority": 5, 
       "web_host": "localhost:8000"
     }
   }, 
@@ -869,6 +881,7 @@
       "last_notif": "2009-03-28 18:15:36", 
       "nb_wi_notif": 1, 
       "user": 4, 
+      "urgent_priority": 5, 
       "web_host": "localhost:8000"
     }
   }, 
@@ -881,6 +894,7 @@
       "last_notif": "2009-03-28 18:15:48", 
       "nb_wi_notif": 1, 
       "user": 7, 
+      "urgent_priority": 5, 
       "web_host": "localhost:8000"
     }
   }, 
@@ -893,6 +907,7 @@
       "last_notif": "2009-03-28 18:16:31", 
       "nb_wi_notif": 1, 
       "user": 5, 
+      "urgent_priority": 5, 
       "web_host": "localhost:8000"
     }
   }, 
@@ -905,6 +920,7 @@
       "last_notif": "2009-03-28 18:16:41", 
       "nb_wi_notif": 1, 
       "user": 8, 
+      "urgent_priority": 5, 
       "web_host": "localhost:8000"
     }
   }, 
@@ -917,6 +933,7 @@
       "last_notif": "2009-03-28 18:17:06", 
       "nb_wi_notif": 1, 
       "user": 6, 
+      "urgent_priority": 5, 
       "web_host": "localhost:8000"
     }
   }, 
@@ -929,6 +946,7 @@
       "last_notif": "2009-03-28 16:52:44", 
       "nb_wi_notif": 1, 
       "user": 10, 
+      "urgent_priority": 5, 
       "web_host": "localhost:8000"
     }
   }, 
@@ -937,7 +955,7 @@
     "model": "graphics2.processimage", 
     "fields": {
       "process": 4, 
-      "file": "images\/leave_workflow.png"
+      "file": "images/leave_workflow.png"
     }
   }, 
   {
