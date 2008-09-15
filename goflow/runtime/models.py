@@ -340,6 +340,7 @@ class WorkItem(models.Model):
     instance = models.ForeignKey(ProcessInstance, related_name='workitems')
     activity = models.ForeignKey(Activity, related_name='workitems')
     workitem_from = models.ForeignKey('self', related_name='workitems_to', null=True, blank=True)
+    others_workitems_from = models.ManyToManyField('self', related_name='others_workitems_to', null=True, blank=True)
     push_roles = models.ManyToManyField(Group, related_name='push_workitems', null=True, blank=True)
     pull_roles = models.ManyToManyField(Group, related_name='pull_workitems', null=True, blank=True)
     blocked = models.BooleanField(default=False)
@@ -376,6 +377,7 @@ class WorkItem(models.Model):
         
         for destination in self.get_destinations(timeout_forwarding):
             self._forward_workitem_to_activity(destination)
+            if self.activity.split_mode == 'xor': break
 
     def _forward_workitem_to_activity(self, target_activity):
         '''
@@ -390,12 +392,42 @@ class WorkItem(models.Model):
                  activity (and next user)
         '''
         instance = self.instance
-        wi = WorkItem.objects.create(instance=instance, user=None,
-                                     activity=target_activity, priority=self.priority)
-        log.info('forwarded to %s', target_activity.title)
-        Event.objects.create(name='creation by %s' % self.user.username, workitem=wi)
-        Event.objects.create(name='forwarded to %s' % target_activity.title, workitem=self)
-        wi.workitem_from = self
+        wi, created = WorkItem.objects.get_or_create(instance=instance, activity=target_activity,
+                                                     defaults={'user':None, 'priority':self.priority})
+        if created:
+            log.info('forwarded to %s', target_activity.title)
+            Event.objects.create(name='creation by %s' % self.user.username, workitem=wi)
+            Event.objects.create(name='forwarded to %s' % target_activity.title, workitem=self)
+            wi.workitem_from = self
+            
+        if target_activity.join_mode == 'and':
+            nb_input_transitions = target_activity.nb_input_transitions()
+            if nb_input_transitions > 1:
+                if created:
+                    # first worktem: block it
+                    self.block()
+                    return    
+                else:
+                    wi.others_workitems_from.add(self)
+                    if wi.others_workitems_from.all().count() + 1 < nb_input_transitions:
+                        # keep blocked
+                        return
+                    else:
+                        # check if the join is OK
+                        if wi.check_join():
+                            wi.status = 'inactive'
+                            wi.save()
+                            log.info('activity %s: workitem %s unblocked', target_activity.title, str(wi))
+                        else:
+                            return
+        else:
+            if not created:
+                # join_mode='and'
+                log.error('activity %s: join_mode must be and', target_activity.title)
+                self.fall_out()
+                wi.fall_out()
+                return
+        
         if target_activity.autostart:
             log.info('run auto activity %s workitem %s', target_activity.title, str(wi))
             try:
@@ -674,6 +706,11 @@ class WorkItem(models.Model):
                 return False
             return True
         return False
+    
+    def block(self):
+        self.status = 'blocked'
+        self.save()
+        Event.objects.create(name='blocked', workitem=self)
     
     def fall_out(self):
         self.status = 'fallout'

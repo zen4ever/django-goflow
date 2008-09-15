@@ -47,6 +47,11 @@ class Activity(models.Model):
     join_mode =  models.CharField(max_length=3, choices=COMP_CHOICES, verbose_name='join mode', default='xor')
     split_mode =  models.CharField(max_length=3, choices=COMP_CHOICES, verbose_name='split mode', default='and')
     
+    def nb_input_transitions(self):
+        ''' returns the number of inputing transitions.
+        '''
+        return Transition.objects.filter(output=self, process=self.process).count()
+    
     def __unicode__(self):
         return '%s (%s)' % (self.title, self.process.title)
     
