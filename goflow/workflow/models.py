@@ -162,8 +162,18 @@ class Process(models.Model):
                                              defaults={'input':activity_in})
         return t
     
+    def create_authorized_group_if_not_exists(self):
+        g, created = Group.objects.get_or_create(name=self.title)
+        if created:
+            ptype = ContentType.objects.get_for_model(Process)
+            cip = Permission.objects.get(content_type=ptype, codename='can_instantiate')
+            g.permissions.add(cip)
+        
     def save(self, no_end=False):
         models.Model.save(self)
+        # instantiation group
+        self.create_authorized_group_if_not_exists()
+        
         if not no_end and not self.end:
             self.end = Activity.objects.create(title='End', process=self, kind='dummy', autostart=True)
             models.Model.save(self)
