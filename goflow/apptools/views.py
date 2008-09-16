@@ -101,7 +101,7 @@ def start_application(request, app_label=None, model_name=None, process_name=Non
 
 
 @login_required
-def default_app(request, id, template='goflow/default_app.html', redirect='home', submit_name='action'):
+def default_app(request, id, template='goflow/default_app.html', redirect='../../', submit_name='action'):
     '''
     default application, used for prototyping workflows.
     '''

@@ -20,7 +20,9 @@ urlpatterns += patterns('goflow.apptools.views',
     (r'^default_app/(?P<id>.*)/$', 'default_app'),
     (r'^start/(?P<app_label>.*)/(?P<model_name>.*)/$', 'start_application'),
     (r'^start_proto/(?P<process_name>.*)/$', 'start_application',
-        {'form_class':DefaultAppStartForm, 'template':'goflow/start_proto.html'}),
+        {'form_class':DefaultAppStartForm,
+         'redirect':'../../',
+         'template':'goflow/start_proto.html'}),
 )
 
 urlpatterns += patterns('goflow.runtime.views',

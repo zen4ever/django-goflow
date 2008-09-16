@@ -62,6 +62,13 @@ class ProcessInstanceManager(models.Manager):
         log.event('created by ' + user.username, workitem)
         log('process:', process_name, 'user:', user.username, 'item:', item)
     
+        if process.begin.kind == 'dummy':
+            log('routing activity', process.begin.title, 'workitem:', workitem)
+            auto_user = User.objects.get(username=settings.WF_USER_AUTO)
+            workitem.activate(actor=auto_user)
+            workitem.complete(actor=auto_user)
+            return workitem
+        
         if process.begin.autostart:
             log('run auto activity', process.begin.title, 'workitem:', workitem)
             auto_user = User.objects.get(username=settings.WF_USER_AUTO)
@@ -300,6 +307,25 @@ class WorkItemManager(models.Manager):
             log.debug('pullables workitems role %s: %s', role, str(pullables))
             query.extend(list(pullables))
         
+        # search workitems pullable by anybody
+        pullables = queryset.filter(pull_roles__isnull=True, activity__process__enabled=True).order_by('-priority')
+        if status:
+            pullables = pullables.filter(status=status)
+        if notstatus:
+            for s in notstatus:
+                pullables = pullables.exclude(status=s)
+        if noauto:
+            pullables = pullables.exclude(activity__autostart=True)
+        if activity:
+            pullables = pullables.filter(activity=activity)
+        if user:
+            pullables = pullables.exclude(user=user)
+            query.extend(list(pp))
+        if username:
+            pullables = pullables.exclude(user__username=username)
+        log.debug('anybody\'s workitems: %s', str(pullables))
+        query.extend(list(pullables))
+        
         return query
     
     def notify_if_needed(self, user=None, roles=None):
@@ -405,7 +431,7 @@ class WorkItem(models.Model):
             if nb_input_transitions > 1:
                 if created:
                     # first worktem: block it
-                    self.block()
+                    wi.block()
                     return    
                 else:
                     wi.others_workitems_from.add(self)
@@ -452,6 +478,10 @@ class WorkItem(models.Model):
             wi.save()
             WorkItem.objects.notify_if_needed(roles=wi.pull_roles)
         return wi
+    
+    def check_join(self):
+        log.warning('workitem check_join NYI- useful ?')
+        return True
     
     def _check(self, user, status=('inactive','active')):
         '''
@@ -662,8 +692,13 @@ class WorkItem(models.Model):
         return b
     
     def check_user(self, user):
-        """return True if authorized, False if not.
+        """returns True if authorized, False if not.
+        
+        For dummy activities, returns always True
         """
+        if self.activity.kind == 'dummy':
+            return True
+        
         if user and self.user and self.user != user:
             return False
         ugroups = user.groups.all()
@@ -782,3 +817,7 @@ class Event(models.Model):
     date = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=50)
     workitem = models.ForeignKey(WorkItem, related_name='events')
+    
+    def __unicode__(self):
+        return self.name
+

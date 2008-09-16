@@ -401,9 +401,9 @@ class UserProfile(models.Model):
     notif_delay = models.IntegerField(default=1, verbose_name='Notification delay', help_text='in days')
     urgent_priority = models.IntegerField(default=5, verbose_name='Urgent priority threshold', help_text='a mail notification is sent when an item has at least this priority level')
     
-    def save(self):
+    def save(self, **kwargs):
         if not self.last_notif: self.last_notif = datetime.now()
-        models.Model.save(self)
+        models.Model.save(self,  **kwargs)
     
     def check_notif_to_send(self):
         now = datetime.now()
