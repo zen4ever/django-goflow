@@ -308,7 +308,9 @@ class WorkItemManager(models.Manager):
             query.extend(list(pullables))
         
         # search workitems pullable by anybody
-        pullables = queryset.filter(pull_roles__isnull=True, activity__process__enabled=True).order_by('-priority')
+        pullables = queryset.filter(pull_roles__isnull=True,
+                                    activity__process__enabled=True,
+                                    user__isnull=True).order_by('-priority')
         if status:
             pullables = pullables.filter(status=status)
         if notstatus:
@@ -318,13 +320,9 @@ class WorkItemManager(models.Manager):
             pullables = pullables.exclude(activity__autostart=True)
         if activity:
             pullables = pullables.filter(activity=activity)
-        if user:
-            pullables = pullables.exclude(user=user)
-            query.extend(list(pp))
-        if username:
-            pullables = pullables.exclude(user__username=username)
-        log.debug('anybody\'s workitems: %s', str(pullables))
-        query.extend(list(pullables))
+        if pullables.count() > 0:
+            log.debug('anybody\'s workitems: %s', str(pullables))
+            query.extend(list(pullables))
         
         return query
     
@@ -418,14 +416,20 @@ class WorkItem(models.Model):
                  activity (and next user)
         '''
         instance = self.instance
-        wi, created = WorkItem.objects.get_or_create(instance=instance, activity=target_activity,
-                                                     defaults={'user':None, 'priority':self.priority})
-        if created:
+        # search a blocked workitem first
+        qwi = WorkItem.objects.filter(instance=instance, activity=target_activity, status='blocked')
+        if qwi.count() == 0:
+            wi = WorkItem.objects.create(instance=instance, activity=target_activity,
+                                         user=None, priority=self.priority)
+            created = True
             log.info('forwarded to %s', target_activity.title)
             Event.objects.create(name='creation by %s' % self.user.username, workitem=wi)
             Event.objects.create(name='forwarded to %s' % target_activity.title, workitem=self)
             wi.workitem_from = self
-            
+        else:
+            created = False
+            wi = qwi[0]
+        
         if target_activity.join_mode == 'and':
             nb_input_transitions = target_activity.nb_input_transitions()
             if nb_input_transitions > 1:
@@ -546,8 +550,10 @@ class WorkItem(models.Model):
             
             # boolean expr
             if type(result) == type(True):
+                log.debug('eval_transition_condition boolean %s', str(result))
                 return result
             if type(result) == type(''):
+                log.debug('eval_transition_condition cmp instance.condition %s', str(instance.condition==result))
                 return (instance.condition==result)
         except Exception, v:
             log.debug('eval_transition_condition [%s]: %s', transition.condition, v)

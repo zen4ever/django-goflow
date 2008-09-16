@@ -316,6 +316,126 @@
     }
   }, 
   {
+    "pk": 7, 
+    "model": "workflow.activity", 
+    "fields": {
+      "kind": "dummy", 
+      "push_application": null, 
+      "description": null, 
+      "roles": [], 
+      "title": "End", 
+      "process": 2, 
+      "autofinish": true, 
+      "join_mode": "xor", 
+      "subflow": null, 
+      "application": null, 
+      "split_mode": "and", 
+      "app_param": null, 
+      "autostart": true, 
+      "pushapp_param": null
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "workflow.activity", 
+    "fields": {
+      "kind": "standard", 
+      "push_application": null, 
+      "description": "", 
+      "roles": [], 
+      "title": "dispatch activities", 
+      "process": 2, 
+      "autofinish": true, 
+      "join_mode": "xor", 
+      "subflow": null, 
+      "application": null, 
+      "split_mode": "and", 
+      "app_param": "", 
+      "autostart": false, 
+      "pushapp_param": ""
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "workflow.activity", 
+    "fields": {
+      "kind": "standard", 
+      "push_application": null, 
+      "description": "", 
+      "roles": [], 
+      "title": "parallel 1", 
+      "process": 2, 
+      "autofinish": true, 
+      "join_mode": "xor", 
+      "subflow": null, 
+      "application": null, 
+      "split_mode": "and", 
+      "app_param": "", 
+      "autostart": false, 
+      "pushapp_param": ""
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "workflow.activity", 
+    "fields": {
+      "kind": "standard", 
+      "push_application": null, 
+      "description": "", 
+      "roles": [], 
+      "title": "parallel 2", 
+      "process": 2, 
+      "autofinish": true, 
+      "join_mode": "xor", 
+      "subflow": null, 
+      "application": null, 
+      "split_mode": "and", 
+      "app_param": "", 
+      "autostart": false, 
+      "pushapp_param": ""
+    }
+  }, 
+  {
+    "pk": 11, 
+    "model": "workflow.activity", 
+    "fields": {
+      "kind": "standard", 
+      "push_application": null, 
+      "description": "", 
+      "roles": [], 
+      "title": "parallel 3", 
+      "process": 2, 
+      "autofinish": true, 
+      "join_mode": "xor", 
+      "subflow": null, 
+      "application": null, 
+      "split_mode": "and", 
+      "app_param": "", 
+      "autostart": false, 
+      "pushapp_param": ""
+    }
+  }, 
+  {
+    "pk": 12, 
+    "model": "workflow.activity", 
+    "fields": {
+      "kind": "standard", 
+      "push_application": 1, 
+      "description": "", 
+      "roles": [], 
+      "title": "join activity", 
+      "process": 2, 
+      "autofinish": true, 
+      "join_mode": "and", 
+      "subflow": null, 
+      "application": null, 
+      "split_mode": "and", 
+      "app_param": "", 
+      "autostart": false, 
+      "pushapp_param": ""
+    }
+  }, 
+  {
     "pk": 1, 
     "model": "workflow.process", 
     "fields": {
@@ -326,6 +446,19 @@
       "enabled": true, 
       "priority": 0, 
       "date": "2008-09-09 21:35:12"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "workflow.process", 
+    "fields": {
+      "begin": 8, 
+      "end": 7, 
+      "description": "parallel or concurrent workflow", 
+      "title": "test parallel workflow", 
+      "enabled": true, 
+      "priority": 0, 
+      "date": "2008-09-16 11:31:30"
     }
   }, 
   {
@@ -496,6 +629,97 @@
       "input": 6, 
       "condition": "ok", 
       "name": ""
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "workflow.transition", 
+    "fields": {
+      "precondition": "", 
+      "description": "", 
+      "process": 2, 
+      "output": 12, 
+      "input": 9, 
+      "condition": "", 
+      "name": ""
+    }
+  }, 
+  {
+    "pk": 11, 
+    "model": "workflow.transition", 
+    "fields": {
+      "precondition": "", 
+      "description": null, 
+      "process": 2, 
+      "output": 9, 
+      "input": 8, 
+      "condition": "", 
+      "name": null
+    }
+  }, 
+  {
+    "pk": 12, 
+    "model": "workflow.transition", 
+    "fields": {
+      "precondition": "", 
+      "description": null, 
+      "process": 2, 
+      "output": 10, 
+      "input": 8, 
+      "condition": "", 
+      "name": null
+    }
+  }, 
+  {
+    "pk": 13, 
+    "model": "workflow.transition", 
+    "fields": {
+      "precondition": "", 
+      "description": null, 
+      "process": 2, 
+      "output": 11, 
+      "input": 8, 
+      "condition": "", 
+      "name": null
+    }
+  }, 
+  {
+    "pk": 14, 
+    "model": "workflow.transition", 
+    "fields": {
+      "precondition": "", 
+      "description": null, 
+      "process": 2, 
+      "output": 12, 
+      "input": 10, 
+      "condition": "", 
+      "name": null
+    }
+  }, 
+  {
+    "pk": 15, 
+    "model": "workflow.transition", 
+    "fields": {
+      "precondition": "", 
+      "description": null, 
+      "process": 2, 
+      "output": 12, 
+      "input": 11, 
+      "condition": "", 
+      "name": null
+    }
+  }, 
+  {
+    "pk": 16, 
+    "model": "workflow.transition", 
+    "fields": {
+      "precondition": "", 
+      "description": null, 
+      "process": 2, 
+      "output": 7, 
+      "input": 12, 
+      "condition": "", 
+      "name": null
     }
   }, 
   {
