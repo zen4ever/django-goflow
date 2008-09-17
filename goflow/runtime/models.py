@@ -297,9 +297,9 @@ class WorkItemManager(models.Manager):
                 pullables = pullables.filter(activity=activity)
             
             if user:
-                pp = pullables.filter(user__isnull=True) # tricky
+                pullables = pullables.filter(user__isnull=True) # tricky
                 pullables = pullables.exclude(user=user)
-                query.extend(list(pp))
+                query.extend(list(pullables))
             
             if username:
                 pullables = pullables.exclude(user__username=username)

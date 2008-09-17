@@ -166,7 +166,7 @@ def _cond_to_button_value(cond):
 
 @login_required
 def edit_model(request, id, form_class, cmp_attr=None,template=None, template_def='goflow/edit_model.html', title="",
-               redirect='home', submit_name='action', ok_values=('OK',), save_value='Save', cancel_value='Cancel',
+               redirect='home', submit_name='action', ok_values=('OK',), save_value=None, cancel_value='Cancel',
                extra_context={}):
     '''
     generic handler for editing a model.
