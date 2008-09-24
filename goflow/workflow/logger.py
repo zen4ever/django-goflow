@@ -49,8 +49,8 @@ class Log(object):
         elif len(args) == 1:
             self.log.info(args[0] )
         else:
-            self.log.info(" ".join([str(i) for i in args]))
+            self.log.info(u" ".join([unicode(i) for i in args]))
 
     def event(self, msg, workitem):
         # self._event.create(name=msg, workitem=workitem)
-        self.log.info('EVENT: [%s] %s' % (workitem, msg))
+        self.log.info(u'EVENT: [%s] %s' % (workitem.__unicode__(), msg))

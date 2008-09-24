@@ -691,7 +691,7 @@ class WorkItem(models.Model):
         return str(self.pk)
     
     def __unicode__(self):
-        return '%s-%s-%s' % (unicode(self.instance), self.activity, str(self.id))
+        return u'%s-%s-%s' % (self.instance.__unicode__(), self.activity.__unicode__(), str(self.pk))
     
     def has_workitems_to(self):
         b = ( self.workitems_to.count() > 0 )
