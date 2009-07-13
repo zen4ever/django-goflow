@@ -28,7 +28,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "base", 
-      "file": "images/32px-Crystal_Clear_action_button_cancel_.png"
+      "file": "images/32px-crystal_clear_action_button_cancel_.png"
     }
   }, 
   {
@@ -36,7 +36,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "large", 
-      "file": "images/Crystal_Clear_action_button_cancel_.png"
+      "file": "images/crystal_clear_action_button_cancel_.png"
     }
   }, 
   {
@@ -44,7 +44,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "base", 
-      "file": "images/32px-Crystal_Clear_app_clean__.png"
+      "file": "images/32px-crystal_clear_app_clean__.png"
     }
   }, 
   {
@@ -52,7 +52,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "large", 
-      "file": "images/Crystal_Clear_app_clean_.png"
+      "file": "images/crystal_clear_app_clean_.png"
     }
   }, 
   {
@@ -60,7 +60,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "base", 
-      "file": "images/32px-Crystal_Clear_device_floppy_unmount.png"
+      "file": "images/32px-crystal_clear_device_floppy_unmount.png"
     }
   }, 
   {
@@ -68,7 +68,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "large", 
-      "file": "images/Crystal_Clear_device_floppy_unmount.png"
+      "file": "images/crystal_clear_device_floppy_unmount.png"
     }
   }, 
   {
@@ -76,7 +76,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "base", 
-      "file": "images/32px-Crystal_Clear_action_edit.png"
+      "file": "images/32px-crystal_clear_action_edit.png"
     }
   }, 
   {
@@ -84,7 +84,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "large", 
-      "file": "images/Crystal_Clear_action_edit.png"
+      "file": "images/crystal_clear_action_edit.png"
     }
   }, 
   {
@@ -92,7 +92,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "base", 
-      "file": "images/32px-Crystal_Clear_action_build.png"
+      "file": "images/32px-crystal_clear_action_build.png"
     }
   }, 
   {
@@ -100,7 +100,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "large", 
-      "file": "images/Crystal_Clear_action_build.png"
+      "file": "images/crystal_clear_action_build.png"
     }
   }, 
   {
@@ -108,7 +108,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "base", 
-      "file": "images/32px-Crystal_Clear_action_stop.png"
+      "file": "images/32px-crystal_clear_action_stop.png"
     }
   }, 
   {
@@ -116,7 +116,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "large", 
-      "file": "images/Crystal_Clear_action_stop.png"
+      "file": "images/crystal_clear_action_stop.png"
     }
   }, 
   {
@@ -124,7 +124,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "base", 
-      "file": "images/32px-Crystal_Clear_action_exit.png"
+      "file": "images/32px-crystal_clear_action_exit.png"
     }
   }, 
   {
@@ -132,7 +132,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "large", 
-      "file": "images/Crystal_Clear_action_exit.png"
+      "file": "images/crystal_clear_action_exit.png"
     }
   }, 
   {
@@ -140,7 +140,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "base", 
-      "file": "images/32px-Crystal_Clear_action_edit_add.png"
+      "file": "images/32px-crystal_clear_action_edit_add.png"
     }
   }, 
   {
@@ -148,7 +148,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "large", 
-      "file": "images/Crystal_Clear_action_edit_add.png"
+      "file": "images/crystal_clear_action_edit_add.png"
     }
   }, 
   {
@@ -156,7 +156,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "base", 
-      "file": "images/32px-Crystal_Clear_action_edit_remove.png"
+      "file": "images/32px-crystal_clear_action_edit_remove.png"
     }
   }, 
   {
@@ -164,7 +164,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "large", 
-      "file": "images/Crystal_Clear_action_edit_remove.png"
+      "file": "images/crystal_clear_action_edit_remove.png"
     }
   }, 
   {
@@ -172,7 +172,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "base", 
-      "file": "images/32px-Crystal_Clear_action_filenew.png"
+      "file": "images/32px-crystal_clear_action_filenew.png"
     }
   }, 
   {
@@ -180,7 +180,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "large", 
-      "file": "images/Crystal_Clear_action_filenew.png"
+      "file": "images/crystal_clear_action_filenew.png"
     }
   }, 
   {
@@ -188,7 +188,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "base", 
-      "file": "images/32px-Crystal_Clear_app_email.png"
+      "file": "images/32px-crystal_clear_app_email.png"
     }
   }, 
   {
@@ -196,7 +196,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "large", 
-      "file": "images/Crystal_Clear_app_email.png"
+      "file": "images/crystal_clear_app_email.png"
     }
   }, 
   {
@@ -204,7 +204,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "base", 
-      "file": "images/32px-Crystal_Clear_action_reload.png"
+      "file": "images/32px-crystal_clear_action_reload.png"
     }
   }, 
   {
@@ -212,7 +212,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "large", 
-      "file": "images/Crystal_Clear_action_reload.png"
+      "file": "images/crystal_clear_action_reload.png"
     }
   }, 
   {
@@ -220,7 +220,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "base", 
-      "file": "images/32px-Crystal_Clear_app_error.png"
+      "file": "images/32px-crystal_clear_app_error.png"
     }
   }, 
   {
@@ -228,7 +228,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "large", 
-      "file": "images/Crystal_Clear_app_error.png"
+      "file": "images/crystal_clear_app_error.png"
     }
   }, 
   {
@@ -236,7 +236,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "base", 
-      "file": "images/32px-Crystal_Clear_action_info.png"
+      "file": "images/32px-crystal_clear_action_info.png"
     }
   }, 
   {
@@ -244,7 +244,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "base", 
-      "file": "images/32px-Crystal_Clear_app_xmag.png"
+      "file": "images/32px-crystal_clear_app_xmag.png"
     }
   }, 
   {
@@ -252,7 +252,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "large", 
-      "file": "images/Crystal_Clear_action_info.png"
+      "file": "images/crystal_clear_action_info.png"
     }
   }, 
   {
@@ -260,7 +260,7 @@
     "model": "apptools.image", 
     "fields": {
       "category": "large", 
-      "file": "images/Crystal_Clear_app_xmag.png"
+      "file": "images/crystal_clear_app_xmag.png"
     }
   }, 
   {
@@ -268,7 +268,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local", 
-      "url": "http://localhost:8000/static/images/32px-Crystal_Clear_action_button_cancel.png"
+      "url": "http://localhost:8000/static/images/32px-crystal_clear_action_button_cancel.png"
     }
   }, 
   {
@@ -276,7 +276,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-base", 
-      "url": "/static/images/32px-Crystal_Clear_action_button_cancel_.png"
+      "url": "/static/images/32px-crystal_clear_action_button_cancel_.png"
     }
   }, 
   {
@@ -284,7 +284,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-large", 
-      "url": "/static/images/Crystal_Clear_action_button_cancel_.png"
+      "url": "/static/images/crystal_clear_action_button_cancel_.png"
     }
   }, 
   {
@@ -292,7 +292,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-base", 
-      "url": "/static/images/32px-Crystal_Clear_app_clean__.png"
+      "url": "/static/images/32px-crystal_clear_app_clean__.png"
     }
   }, 
   {
@@ -300,7 +300,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-large", 
-      "url": "/static/images/Crystal_Clear_app_clean_.png"
+      "url": "/static/images/crystal_clear_app_clean_.png"
     }
   }, 
   {
@@ -308,7 +308,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-base", 
-      "url": "/static/images/32px-Crystal_Clear_device_floppy_unmount.png"
+      "url": "/static/images/32px-crystal_clear_device_floppy_unmount.png"
     }
   }, 
   {
@@ -316,7 +316,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-large", 
-      "url": "/static/images/Crystal_Clear_device_floppy_unmount.png"
+      "url": "/static/images/crystal_clear_device_floppy_unmount.png"
     }
   }, 
   {
@@ -324,7 +324,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-base", 
-      "url": "/static/images/32px-Crystal_Clear_action_edit.png"
+      "url": "/static/images/32px-crystal_clear_action_edit.png"
     }
   }, 
   {
@@ -332,7 +332,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-large", 
-      "url": "/static/images/Crystal_Clear_action_edit.png"
+      "url": "/static/images/crystal_clear_action_edit.png"
     }
   }, 
   {
@@ -340,7 +340,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-base", 
-      "url": "/static/images/32px-Crystal_Clear_action_build.png"
+      "url": "/static/images/32px-crystal_clear_action_build.png"
     }
   }, 
   {
@@ -348,7 +348,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-large", 
-      "url": "/static/images/Crystal_Clear_action_build.png"
+      "url": "/static/images/crystal_clear_action_build.png"
     }
   }, 
   {
@@ -356,7 +356,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-base", 
-      "url": "/static/images/32px-Crystal_Clear_action_stop.png"
+      "url": "/static/images/32px-crystal_clear_action_stop.png"
     }
   }, 
   {
@@ -364,7 +364,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-large", 
-      "url": "/static/images/Crystal_Clear_action_stop.png"
+      "url": "/static/images/crystal_clear_action_stop.png"
     }
   }, 
   {
@@ -372,7 +372,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-base", 
-      "url": "/static/images/32px-Crystal_Clear_action_exit.png"
+      "url": "/static/images/32px-crystal_clear_action_exit.png"
     }
   }, 
   {
@@ -380,7 +380,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-large", 
-      "url": "/static/images/Crystal_Clear_action_exit.png"
+      "url": "/static/images/crystal_clear_action_exit.png"
     }
   }, 
   {
@@ -388,7 +388,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-base", 
-      "url": "/static/images/32px-Crystal_Clear_action_edit_add.png"
+      "url": "/static/images/32px-crystal_clear_action_edit_add.png"
     }
   }, 
   {
@@ -396,7 +396,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-large", 
-      "url": "/static/images/Crystal_Clear_action_edit_add.png"
+      "url": "/static/images/crystal_clear_action_edit_add.png"
     }
   }, 
   {
@@ -404,7 +404,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-base", 
-      "url": "/static/images/32px-Crystal_Clear_action_edit_remove.png"
+      "url": "/static/images/32px-crystal_clear_action_edit_remove.png"
     }
   }, 
   {
@@ -412,7 +412,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-large", 
-      "url": "/static/images/Crystal_Clear_action_edit_remove.png"
+      "url": "/static/images/crystal_clear_action_edit_remove.png"
     }
   }, 
   {
@@ -420,7 +420,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-base", 
-      "url": "/static/images/32px-Crystal_Clear_action_filenew.png"
+      "url": "/static/images/32px-crystal_clear_action_filenew.png"
     }
   }, 
   {
@@ -428,7 +428,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-large", 
-      "url": "/static/images/Crystal_Clear_action_filenew.png"
+      "url": "/static/images/crystal_clear_action_filenew.png"
     }
   }, 
   {
@@ -436,7 +436,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-base", 
-      "url": "/static/images/32px-Crystal_Clear_app_email.png"
+      "url": "/static/images/32px-crystal_clear_app_email.png"
     }
   }, 
   {
@@ -444,7 +444,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-large", 
-      "url": "/static/images/Crystal_Clear_app_email.png"
+      "url": "/static/images/crystal_clear_app_email.png"
     }
   }, 
   {
@@ -452,7 +452,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-base", 
-      "url": "/static/images/32px-Crystal_Clear_action_reload.png"
+      "url": "/static/images/32px-crystal_clear_action_reload.png"
     }
   }, 
   {
@@ -460,7 +460,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-large", 
-      "url": "/static/images/Crystal_Clear_action_reload.png"
+      "url": "/static/images/crystal_clear_action_reload.png"
     }
   }, 
   {
@@ -468,7 +468,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-base", 
-      "url": "/static/images/32px-Crystal_Clear_app_error.png"
+      "url": "/static/images/32px-crystal_clear_app_error.png"
     }
   }, 
   {
@@ -476,7 +476,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-large", 
-      "url": "/static/images/Crystal_Clear_app_error.png"
+      "url": "/static/images/crystal_clear_app_error.png"
     }
   }, 
   {
@@ -484,7 +484,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-base", 
-      "url": "/static/images/32px-Crystal_Clear_action_info.png"
+      "url": "/static/images/32px-crystal_clear_action_info.png"
     }
   }, 
   {
@@ -492,7 +492,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-base", 
-      "url": "/static/images/32px-Crystal_Clear_app_xmag.png"
+      "url": "/static/images/32px-crystal_clear_app_xmag.png"
     }
   }, 
   {
@@ -500,7 +500,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-large", 
-      "url": "/static/images/Crystal_Clear_action_info.png"
+      "url": "/static/images/crystal_clear_action_info.png"
     }
   }, 
   {
@@ -508,7 +508,7 @@
     "model": "apptools.icon", 
     "fields": {
       "category": "local-large", 
-      "url": "/static/images/Crystal_Clear_app_xmag.png"
+      "url": "/static/images/crystal_clear_app_xmag.png"
     }
   }, 
   {

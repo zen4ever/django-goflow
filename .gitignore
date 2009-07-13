@@ -1,0 +1,4 @@
+*.pyc
+sampleproject/workflow.log
+sampleproject/data.sqlite
+sampleproject/flags
