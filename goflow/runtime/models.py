@@ -331,8 +331,7 @@ class WorkItemManager(models.Manager):
         '''
         if user:
             workitems = self.list_safe(user=user, notstatus='complete', noauto=True)
-            UserProfile.objects.get_or_create(user=user)
-            profile = user.get_profile()
+            profile, created = UserProfile.objects.get_or_create(user=user)
             if len(workitems) >= profile.nb_wi_notif:
                 try:
                     if profile.check_notif_to_send():
