@@ -15,8 +15,8 @@ class BaseForm(ModelForm):
     '''
     
     workitem_id = forms.IntegerField(widget=forms.HiddenInput, required=False)
-    priority = forms.ChoiceField(label=u'Priorité', widget=forms.RadioSelect, initial='0',
-                                 choices=(('0','normal'), ('1','urgent'), ('5','prioritaire')),
+    priority = forms.ChoiceField(label=u'Priority', widget=forms.RadioSelect, initial='0',
+                                 choices=(('0','normal'), ('1','urgent'), ('5','emergency')),
                                  )
     def save(self, workitem=None, submit_value=None, commit=True):
         ob = super(BaseForm, self).save(commit=commit)
@@ -40,8 +40,8 @@ class StartForm(ModelForm):
     '''
     base class for starting a workflow
     '''
-    priority = forms.ChoiceField(label=u'Priorité', widget=forms.RadioSelect, initial='0',
-                                 choices=(('0','normal'), ('1','urgent'), ('5','prioritaire')),
+    priority = forms.ChoiceField(label=u'Priority', widget=forms.RadioSelect, initial='0',
+                                 choices=(('0','normal'), ('1','urgent'), ('5','emergency')),
                                  )
     
     def save(self, user=None, data=None, commit=True):
@@ -117,4 +117,3 @@ class ContentTypeForm(forms.Form):
                 help_text=('clone all instances of the selected content type and push '
                            'them in the test process of the application')
             )
-    
